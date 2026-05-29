@@ -70,8 +70,6 @@ namespace TowerDefense.Towers.Projectiles
                 return;
             }
 
-            ReturnToPool();
-
             // effects
             /* 이펙트는 나중에
             ParticleSystem pfxPrefab = m_Damager.collisionParticles;
@@ -81,6 +79,8 @@ namespace TowerDefense.Towers.Projectiles
             */
             _Enemy.TakeDamage(_Damager.damage, _Enemy.Position, _Damager.AlignmentProvider);
             _PauseTimer = true;
+
+            ReturnToPool();
         }
 
         /// <summary>

@@ -255,6 +255,7 @@ namespace TowerDefense.Affectors
             return firstSqrMagnitude.CompareTo(secondSqrMagnitude);
         }
 
+        /*
 #if UNITY_EDITOR
         /// <summary>
         /// Draws the search area
@@ -264,6 +265,7 @@ namespace TowerDefense.Affectors
             Gizmos.DrawWireSphere(epicenter.position, towerTargetter.effectRadius);
         }
 #endif
+        */
     }
 
     /// <summary>
