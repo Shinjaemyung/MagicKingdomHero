@@ -10,6 +10,7 @@ public class GameUIManager : MonoBehaviour
     UI_TowerInfo towerInfoPanel;
     UI_ModeChangeButton modeChangeButton;
     UI_GameOverPanel gameOverPanel;
+    UI_HeroInfo heroInfoPanel;
 
     private void Awake()
     {
@@ -20,12 +21,14 @@ public class GameUIManager : MonoBehaviour
         towerInfoPanel = GetComponentInChildren<UI_TowerInfo>(true);
         modeChangeButton = GetComponentInChildren<UI_ModeChangeButton>(true);
         gameOverPanel = GetComponentInChildren<UI_GameOverPanel>(true);
+        heroInfoPanel = GetComponentInChildren<UI_HeroInfo>(true);
 
         ShowTowerList();
     }
 
     public void SetTowerPlacementModeUI()
     {
+        heroInfoPanel.Hide();
         towerList.Show();
         modeChangeButton.ChangeButtonText(PlayerMode.TowerPlacementMode);
     }
@@ -34,6 +37,7 @@ public class GameUIManager : MonoBehaviour
     {
         towerList.Hide();
         towerInfoPanel.Hide();
+        heroInfoPanel.Show();
         modeChangeButton.ChangeButtonText(PlayerMode.HeroControlMode);
     }
 
