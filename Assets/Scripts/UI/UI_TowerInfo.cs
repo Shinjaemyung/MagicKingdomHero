@@ -98,7 +98,10 @@ public class UI_TowerInfo : MonoBehaviour
         if (_currentTower == null) return;
         var data = _currentTower.towerData;
         if (data.upgradeTowers != null && data.upgradeTowers.Length > 0)
-            _currentTower.UpgradeTower(data.upgradeTowers[0]);
-        Hide();
+        {
+            var upgradeTower = data.upgradeTowers[0];
+            _currentTower.UpgradeTower(upgradeTower);
+            Show(upgradeTower);
+        }
     }
 }
