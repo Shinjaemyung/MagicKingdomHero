@@ -20,29 +20,29 @@ public class GameUIManager : MonoBehaviour
         towerInfoPanel = GetComponentInChildren<UI_TowerInfo>(true);
         modeChangeButton = GetComponentInChildren<UI_ModeChangeButton>(true);
         gameOverPanel = GetComponentInChildren<UI_GameOverPanel>(true);
+
+        ShowTowerList();
     }
 
     public void SetTowerPlacementModeUI()
     {
-        towerList.gameObject.SetActive(true);
+        towerList.Show();
         modeChangeButton.ChangeButtonText(PlayerMode.TowerPlacementMode);
     }
 
     public void SetHeroControlModeUI()
     {
-        towerList.gameObject.SetActive(false);
-        towerInfoPanel.gameObject.SetActive(false);
+        towerList.Hide();
+        towerInfoPanel.Hide();
         modeChangeButton.ChangeButtonText(PlayerMode.HeroControlMode);
     }
 
     /// <summary>타워 정보 패널 표시. TowerList를 숨기고 타워 정보 패널을 표시.</summary>
     public void ShowTowerInfo(Tower tower)
     {
-        Debug.Log("D");
         if (towerInfoPanel == null) return;
-        towerList.gameObject.SetActive(false);
+        towerList.Hide();
         towerInfoPanel.Show(tower);
-        Debug.Log("a");
     }
 
     /// <summary>타워 정보 패널 숨김.</summary>
@@ -50,7 +50,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (towerInfoPanel == null) return;
         towerInfoPanel.Hide();
-        towerList.gameObject.SetActive(true);
+        towerList.Show();
     }
 
     /// <summary>게임 오버 패널 표시</summary>
@@ -58,6 +58,6 @@ public class GameUIManager : MonoBehaviour
     {
         if (gameOverPanel == null) return;
         gameOverPanel.transform.SetAsLastSibling();
-        gameOverPanel.gameObject.SetActive(true);
+        gameOverPanel.Show();
     }
 }
