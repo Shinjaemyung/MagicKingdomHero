@@ -3590,6 +3590,7 @@ GameObject:
   - component: {fileID: 862899284}
   - component: {fileID: 862899283}
   - component: {fileID: 862899282}
+  - component: {fileID: 862899285}
   m_Layer: 0
   m_Name: Button_BackToLobby
   m_TagString: Untagged
@@ -3699,6 +3700,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 862899280}
   m_CullTransparentMesh: 1
+--- !u!114 &862899285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862899280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ce7b611885f6b42bc3c07b3a8ba687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_BackToLobbyButton
 --- !u!1 &872058294
 GameObject:
   m_ObjectHideFlags: 0
