@@ -98,9 +98,8 @@ public class UI_TowerInfoPanel : UI_Panel
         var data = _currentTower.towerData;
         if (data.upgradeTowers != null && data.upgradeTowers.Length > 0)
         {
-            var upgradeTower = data.upgradeTowers[0];
-            _currentTower.UpgradeTower(upgradeTower);
-            ShowTowerInfo(upgradeTower);
+            var upgradedTower = _currentTower.UpgradeTower(data.upgradeTowers[0]);
+            ShowTowerInfo(upgradedTower);
         }
     }
 }
