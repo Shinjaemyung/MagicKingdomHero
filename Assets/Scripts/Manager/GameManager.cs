@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         GameUIManager.Instance.ShowGameOver();
+        MouseManager.Instance.SetCursorLockState(false);
     }
 
     private void OnHeroDied()
