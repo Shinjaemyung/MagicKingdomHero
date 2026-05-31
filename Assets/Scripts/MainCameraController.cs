@@ -1,4 +1,4 @@
-using Cinemachine;
+﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +23,11 @@ public class MainCameraController : MonoBehaviour
     [SerializeField] float zoomSpeed = 4000f;
 
     CinemachineBrain cinemachineBrain;
-    public CinemachineVirtualCamera virtualCamera;
+    [SerializeField, Tooltip("Hero 모드 가상 카메라")]
+    CinemachineVirtualCamera heroFollowCamera;
+
+    [SerializeField, Tooltip("타워 배치 모드 가상 카메라")]
+    CinemachineVirtualCamera towerPlacementCamera;
 
     private void Awake()
     {
@@ -38,7 +42,8 @@ public class MainCameraController : MonoBehaviour
 
     private void Start()
     {
-        SetTowerPlacementModeView();
+        mainCamera.transform.position = startPosition;
+        mainCamera.transform.eulerAngles = startRotation;
     }
 
     public void Move(Vector3 direction)
@@ -51,12 +56,11 @@ public class MainCameraController : MonoBehaviour
 
     void MoveCamera(Vector3 direction)
     {
-        Vector3 newPosition = transform.position + direction * moveSpeed * Time.deltaTime;
-
+        Vector3 newPosition = towerPlacementCamera.transform.position + direction * moveSpeed * Time.deltaTime;
         newPosition.x = Mathf.Clamp(newPosition.x, cameraRangeX.x, cameraRangeX.y);
         newPosition.z = Mathf.Clamp(newPosition.z, cameraRangeZ.x, cameraRangeZ.y);
 
-        transform.position = newPosition;
+        towerPlacementCamera.transform.position = newPosition;
     }
 
     public void Zoom(float scroollWheel)
@@ -65,21 +69,18 @@ public class MainCameraController : MonoBehaviour
         currentZoom -= zoomAmount;
         currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
 
-        mainCamera.fieldOfView = currentZoom;
+        towerPlacementCamera.m_Lens.FieldOfView = currentZoom;
     }
 
     public void SetTowerPlacementModeView()
     {
-        cinemachineBrain.enabled = false;
-        virtualCamera.gameObject.SetActive(false);
-
-        mainCamera.transform.position = startPosition;
-        mainCamera.transform.eulerAngles = startRotation;
+        towerPlacementCamera.Priority = 20;
+        heroFollowCamera.Priority = 10;
     }
 
     public void SetHeroControlModeView()
     {
-        cinemachineBrain.enabled = true;
-        virtualCamera.gameObject.SetActive(true);
+        heroFollowCamera.Priority = 20;
+        towerPlacementCamera.Priority = 10;
     }
 }

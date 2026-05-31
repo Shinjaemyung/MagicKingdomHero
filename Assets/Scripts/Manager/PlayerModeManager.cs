@@ -64,7 +64,7 @@ public class PlayerModeManager : MonoBehaviour
         Hero.Instance.gameObject.SetActive(false);
         MouseManager.Instance.SetCursorLockState(false);
         MainCameraController.Instance.SetTowerPlacementModeView();
-        GameUIManager.Instance.SetTowerPlacementModeUI();
+        GameUIManager.Instance.SetTowerPlacementMode();
         playerMode = PlayerMode.TowerPlacementMode;
     }
 
@@ -73,7 +73,7 @@ public class PlayerModeManager : MonoBehaviour
         Hero.Instance.gameObject.SetActive(true);
         MouseManager.Instance.SetCursorLockState(true);
         MainCameraController.Instance.SetHeroControlModeView();
-        GameUIManager.Instance.SetHeroControlModeUI();
+        GameUIManager.Instance.SetHeroControlMode();
         playerMode = PlayerMode.HeroControlMode;
     }
 
