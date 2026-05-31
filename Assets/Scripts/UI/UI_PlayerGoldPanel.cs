@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_PlayerGold : MonoBehaviour
+public class UI_PlayerGoldPanel : UI_Panel
 {
     TextMeshProUGUI goldText;
 

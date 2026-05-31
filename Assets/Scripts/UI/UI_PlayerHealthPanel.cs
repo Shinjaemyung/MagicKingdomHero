@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_PlayerHealth : MonoBehaviour
+public class UI_PlayerHealthPanel : UI_Panel
 {
     TextMeshProUGUI healthText;
 

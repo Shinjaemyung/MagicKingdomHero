@@ -6,22 +6,22 @@ public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager Instance { get; private set; }
 
-    UI_TowerList towerList;
-    UI_TowerInfo towerInfoPanel;
+    UI_TowerListPanel towerList;
+    UI_TowerInfoPanel towerInfoPanel;
     UI_ModeChangeButton modeChangeButton;
     UI_GameOverPanel gameOverPanel;
-    UI_HeroInfo heroInfoPanel;
+    UI_HeroInfoPanel heroInfoPanel;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        towerList = GetComponentInChildren<UI_TowerList>(true);
-        towerInfoPanel = GetComponentInChildren<UI_TowerInfo>(true);
+        towerList = GetComponentInChildren<UI_TowerListPanel>(true);
+        towerInfoPanel = GetComponentInChildren<UI_TowerInfoPanel>(true);
         modeChangeButton = GetComponentInChildren<UI_ModeChangeButton>(true);
         gameOverPanel = GetComponentInChildren<UI_GameOverPanel>(true);
-        heroInfoPanel = GetComponentInChildren<UI_HeroInfo>(true);
+        heroInfoPanel = GetComponentInChildren<UI_HeroInfoPanel>(true);
 
         ShowTowerList();
     }
@@ -65,7 +65,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (towerInfoPanel == null) return;
         towerList.Hide();
-        towerInfoPanel.Show(tower);
+        towerInfoPanel.ShowTowerInfo(tower);
     }
 
     /// <summary>타워 정보 패널 숨김.</summary>

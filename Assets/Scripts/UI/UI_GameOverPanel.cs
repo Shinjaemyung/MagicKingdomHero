@@ -1,14 +1,6 @@
 using UnityEngine;
 
-public class UI_GameOverPanel : MonoBehaviour
+public class UI_GameOverPanel : UI_Panel
 {
-    public void Show()
-    {
-        gameObject.SetActive(true);
-    }
 
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
 }

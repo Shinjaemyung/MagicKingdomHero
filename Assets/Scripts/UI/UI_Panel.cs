@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class UI_TowerList : MonoBehaviour
+public class UI_Panel : MonoBehaviour
 {
-    public void Show()
+    public virtual void Show()
     {
         gameObject.SetActive(true);
     }
 
-    public void Hide()
+    public virtual void Hide()
     {
         gameObject.SetActive(false);
     }

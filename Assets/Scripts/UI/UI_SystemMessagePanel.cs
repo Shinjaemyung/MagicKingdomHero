@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class UI_SystemMessage : MonoBehaviour
+public class UI_SystemMessagePanel : UI_Panel
 {
     public enum SystemMessageType
     {

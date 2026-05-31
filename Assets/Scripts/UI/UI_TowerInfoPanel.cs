@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// 타워 클릭 시 표시되는 정보 패널.
 /// 타워 이름, 설명, 썸네일, 판매/업그레이드 버튼을 관리.
 /// </summary>
-public class UI_TowerInfo : MonoBehaviour
+public class UI_TowerInfoPanel : UI_Panel
 {
     [SerializeField, Tooltip("타워 썸네일 이미지")]
     private Image thumbnailImage;
@@ -31,7 +31,7 @@ public class UI_TowerInfo : MonoBehaviour
 
 
     /// <summary>타워 정보를 받아 패널을 업데이트하고 표시</summary>
-    public void Show(Tower tower)
+    public void ShowTowerInfo(Tower tower)
     {
         _currentTower = tower;
 
@@ -61,7 +61,7 @@ public class UI_TowerInfo : MonoBehaviour
         upgradeButton.onClick.AddListener(OnUpgradeClicked);
 
         //SetPositionToTower(tower);
-        gameObject.SetActive(true);
+        Show();
     }
     /*
     private void SetPositionToTower(Tower tower)
@@ -79,11 +79,10 @@ public class UI_TowerInfo : MonoBehaviour
     }
     */
 
-    /// <summary>패널 숨김</summary>
-    public void Hide()
+    public override void Hide()
     {
         _currentTower = null;
-        gameObject.SetActive(false);
+        base.Hide();
     }
 
     private void OnSellClicked()
@@ -101,7 +100,7 @@ public class UI_TowerInfo : MonoBehaviour
         {
             var upgradeTower = data.upgradeTowers[0];
             _currentTower.UpgradeTower(upgradeTower);
-            Show(upgradeTower);
+            ShowTowerInfo(upgradeTower);
         }
     }
 }

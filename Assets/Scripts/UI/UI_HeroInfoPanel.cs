@@ -5,23 +5,13 @@ using UnityEngine.UI;
 /// HeroControlMode에서 표시되는 Hero 정보 패널.
 /// Hero.OnHealthChanged 이벤트를 구독해 체력바를 자동 갱신.
 /// </summary>
-public class UI_HeroInfo : MonoBehaviour
+public class UI_HeroInfoPanel : UI_Panel
 {
     [SerializeField, Tooltip("체력바 Fill 이미지")]
     private Image healthBarFill;
 
     [SerializeField, Tooltip("체력 수치 텍스트")]
     private Text healthText;
-
-    public void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
 
     private void OnEnable()
     {
