@@ -47,8 +47,7 @@ public class PlacementManager : MonoBehaviour
 
         UserInputManager.Instance.OnLeftMouseReleased += TryTowerBuild;
         UserInputManager.Instance.OnLeftMouseReleased += DeactivateAllGrids;
-        UserInputManager.Instance.OnRightMouseReleased += RemoveVirtualTower;
-        UserInputManager.Instance.OnRightMouseReleased += DeactivateAllGrids;
+        UserInputManager.Instance.OnRightMouseReleased += CancelPlacementState;
     }
 
     private void Update()
@@ -143,6 +142,12 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
+    public void CancelPlacementState()
+    {
+        RemoveVirtualTower();
+        DeactivateAllGrids();
+    }
+
     private void OnDestroy()
     {
         foreach (UI_TowerSpawnButton button in towerSpawnButtons)
@@ -150,5 +155,9 @@ public class PlacementManager : MonoBehaviour
             button.OnButtonClicked -= ActivateAllGrids;
             button.OnButtonClicked -= SpawnVirtualTower;
         }
+
+        UserInputManager.Instance.OnLeftMouseReleased -= TryTowerBuild;
+        UserInputManager.Instance.OnLeftMouseReleased -= DeactivateAllGrids;
+        UserInputManager.Instance.OnRightMouseReleased -= CancelPlacementState;
     }
 }

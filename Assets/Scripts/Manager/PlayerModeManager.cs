@@ -17,8 +17,6 @@ public class PlayerModeManager : MonoBehaviour
     StarterAssetsInputs heroInputs;
     public UI_ModeChangeButton modeChangeButton;
 
-    public bool isModeChanging;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -34,7 +32,7 @@ public class PlayerModeManager : MonoBehaviour
 
     public void RequestPlayerModeChange()
     {
-        if (isModeChanging)
+        if (CameraController.Instance.IsBlending)
             return;
 
         StartCoroutine(ChangePlayerMode(playerMode));
@@ -42,7 +40,6 @@ public class PlayerModeManager : MonoBehaviour
 
     IEnumerator ChangePlayerMode(PlayerMode currentMode)
     {
-        isModeChanging = true;
         heroInputs.Initialize();
 
         // 모드 전환 시작
@@ -73,8 +70,6 @@ public class PlayerModeManager : MonoBehaviour
                 CompleteTowerPlacementMode();
                 break;
         }
-
-        isModeChanging = false;
     }
 
     void BeginTowerPlacementMode()
@@ -95,6 +90,7 @@ public class PlayerModeManager : MonoBehaviour
 
     void BeginHeroControlMode()
     {
+        PlacementManager.Instance.CancelPlacementState();
         CameraController.Instance.SetHeroControlModeView();
         GameUIManager.Instance.BeginHeroControlMode();
     }
