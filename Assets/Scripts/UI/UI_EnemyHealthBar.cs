@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 /// <summary>
 /// 적이 데미지를 받았을 때 체력바를 표시하는 컴포넌트.
@@ -11,8 +10,6 @@ public class UI_EnemyHealthBar : MonoBehaviour
     private const string PrefabResourcePath = "EnemyHealthBarUI";
 
     [Header("Settings")]
-    [Tooltip("데미지를 받은 후 체력바가 유지되는 시간(초)")]
-    [SerializeField] private float displayDuration = 2.5f;
     [Tooltip("체력바 색상 - 체력이 많을 때")]
     [SerializeField] private Color healthyColor = Color.green;
     [Tooltip("체력바 색상 - 체력이 적을 때")]
@@ -23,7 +20,6 @@ public class UI_EnemyHealthBar : MonoBehaviour
     private Canvas _canvas;
     private Image _fillImage;
     private RectTransform _fillRect;
-    private Coroutine _hideCoroutine;
     private Camera _mainCamera;
 
     void Awake()
@@ -63,7 +59,7 @@ public class UI_EnemyHealthBar : MonoBehaviour
             _canvas.transform.LookAt(_canvas.transform.position + _mainCamera.transform.forward);
     }
 
-    /// <summary>체력 비율(0~1)을 받아 체력바를 업데이트하고 표시합니다.</summary>
+    /// <summary>체력 비율(0~1)을 받아 체력바를 업데이트하고 표시</summary>
     public void ShowAndUpdate(float ratio)
     {
         if (_canvas == null) return;
@@ -85,23 +81,11 @@ public class UI_EnemyHealthBar : MonoBehaviour
         }
 
         _canvas.gameObject.SetActive(true);
-
-        // 기존 숨김 코루틴 취소 후 재시작
-        if (_hideCoroutine != null) StopCoroutine(_hideCoroutine);
-        _hideCoroutine = StartCoroutine(HideAfterDelay());
     }
 
-    /// <summary>즉시 체력바를 숨깁니다.</summary>
+    /// <summary>즉시 체력바를 숨김.</summary>
     public void Hide()
     {
-        if (_hideCoroutine != null) { StopCoroutine(_hideCoroutine); _hideCoroutine = null; }
         if (_canvas != null) _canvas.gameObject.SetActive(false);
-    }
-
-    private IEnumerator HideAfterDelay()
-    {
-        yield return new WaitForSeconds(displayDuration);
-        if (_canvas != null) _canvas.gameObject.SetActive(false);
-        _hideCoroutine = null;
     }
 }

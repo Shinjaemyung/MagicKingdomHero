@@ -23,11 +23,6 @@ public class Enemy : Targetable
         Hit += OnHit;
     }
 
-    void OnDestroy()
-    {
-        Hit -= OnHit;
-    }
-
     private void OnHit(HitInfo hitInfo)
     {
         if (healthBar == null) return;
@@ -38,5 +33,10 @@ public class Enemy : Targetable
     {
         base.Remove();
         _poolable.ReturnToPool();
+    }
+
+    void OnDestroy()
+    {
+        Hit -= OnHit;
     }
 }
