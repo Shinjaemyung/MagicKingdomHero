@@ -81,27 +81,29 @@ public class PlayerModeManager : MonoBehaviour
     {
         CameraController.Instance.SetTowerPlacementModeView();
 
-        // 이펙트 연출, Hero 모션 등 추가, UI 로직 변경
+        // 이펙트 연출, Hero 모션 등 추가
+        GameUIManager.Instance.BeginTowerPlacementMode();
     }
 
     void CompleteTowerPlacementMode()
     {
+        GameUIManager.Instance.CompleteTowerPlacementMode();
         Hero.Instance.gameObject.SetActive(false);
         MouseManager.Instance.SetCursorLockState(false);
-        GameUIManager.Instance.SetTowerPlacementMode();
         playerMode = PlayerMode.TowerPlacementMode;
     }
 
     void BeginHeroControlMode()
     {
         CameraController.Instance.SetHeroControlModeView();
+        GameUIManager.Instance.BeginHeroControlMode();
     }
 
     void CompleteHeroControlMode()
     {
+        GameUIManager.Instance.CompleteHeroControlMode();
         Hero.Instance.gameObject.SetActive(true);
         MouseManager.Instance.SetCursorLockState(true);
-        GameUIManager.Instance.SetHeroControlMode();
         playerMode = PlayerMode.HeroControlMode;
     }
 

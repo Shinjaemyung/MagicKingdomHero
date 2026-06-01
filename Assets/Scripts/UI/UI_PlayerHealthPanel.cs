@@ -22,4 +22,9 @@ public class UI_PlayerHealthPanel : UI_Panel
     {
         healthText.text = playerHealth.ToString();
     }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnPlayerHealthChanged -= SetHealthDisplay;
+    }
 }

@@ -45,19 +45,31 @@ public class GameUIManager : MonoBehaviour
         modeChangeButton.SetButtonInteractable(true);
     }
 
-    public void SetTowerPlacementMode()
+    public void BeginTowerPlacementMode()
     {
+        modeChangeButton.SetButtonInteractable(false);
         heroInfoPanel.Hide();
-        towerList.Show();
-        modeChangeButton.ChangeButtonText(PlayerMode.TowerPlacementMode);
     }
 
-    public void SetHeroControlMode()
+    public void CompleteTowerPlacementMode()
     {
+        towerList.Show();
+        modeChangeButton.ChangeButtonText(PlayerMode.TowerPlacementMode);
+        modeChangeButton.SetButtonInteractable(true);
+    }
+
+    public void BeginHeroControlMode()
+    {
+        modeChangeButton.SetButtonInteractable(false);
         towerList.Hide();
-        towerInfoPanel.Hide();
+        towerInfoPanel.Hide(); 
+    }
+
+    public void CompleteHeroControlMode()
+    {
         heroInfoPanel.Show();
         modeChangeButton.ChangeButtonText(PlayerMode.HeroControlMode);
+        modeChangeButton.SetButtonInteractable(true);
     }
 
     /// <summary>타워 정보 패널 표시. TowerList를 숨기고 타워 정보 패널을 표시.</summary>

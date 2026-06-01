@@ -22,4 +22,9 @@ public class UI_PlayerGoldPanel : UI_Panel
     {
         goldText.text = playerGold.ToString();
     }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnPlayerGoldChanged -= SetGoldDisplay;
+    }
 }
