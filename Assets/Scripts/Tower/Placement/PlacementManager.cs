@@ -1,4 +1,4 @@
-using Core.Utilities;
+﻿using Core.Utilities;
 using TowerDefense.Towers.Placement;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -48,6 +48,7 @@ public class PlacementManager : MonoBehaviour
         UserInputManager.Instance.OnLeftMouseReleased += TryTowerBuild;
         UserInputManager.Instance.OnLeftMouseReleased += DeactivateAllGrids;
         UserInputManager.Instance.OnRightMouseReleased += RemoveVirtualTower;
+        UserInputManager.Instance.OnRightMouseReleased += DeactivateAllGrids;
     }
 
     private void Update()
@@ -98,9 +99,6 @@ public class PlacementManager : MonoBehaviour
         if (grabedVirtualTower == null)
             return;
 
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
         if (grabedVirtualTower.isPlacementValid)
         {
             Tower spawnedTower = Instantiate(grabedVirtualTower.MyTower);
@@ -113,6 +111,9 @@ public class PlacementManager : MonoBehaviour
 
     void SpawnVirtualTower(Tower tower)
     {
+        // 기존 VirtualTower가 있으면 먼저 제거
+        RemoveVirtualTower();
+
         grabedVirtualTower = Instantiate(tower.virtualTower);
         grabedVirtualTower.Initialize(tower, invalidPlacementMaterial);
     }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static PlayerModeManager;
@@ -41,16 +41,26 @@ public class UserInputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            OnLeftButtonDown();
+            OnLeftMouseButtonDown();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            OnLeftMouseUp();
+            OnLeftMouseButtonUp();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            OnRightMouseButtonDown();
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            OnRightMouseButtonUp();
         }
     }
 
-    void OnLeftButtonDown()
+    void OnLeftMouseButtonDown()
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
@@ -66,13 +76,25 @@ public class UserInputManager : MonoBehaviour
         }
         else
         {
-            // 타워 info 비활성화
             GameUIManager.Instance.ShowTowerList();
         }
     }
 
-    void OnLeftMouseUp()
+    void OnLeftMouseButtonUp()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         OnLeftMouseReleased?.Invoke();
+    }
+
+    void OnRightMouseButtonDown()
+    {
+
+    }
+
+    void OnRightMouseButtonUp()
+    {
+        OnRightMouseReleased?.Invoke();
     }
 }
