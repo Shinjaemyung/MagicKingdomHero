@@ -4186,7 +4186,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   m_Layer: 0
@@ -4270,28 +4269,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 813f6b926c703494683d71a84a48565b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPosition: {x: 0, y: 15, z: -8}
-  startRotation: {x: 70, y: 0, z: 0}
-  moveSpeed: 20
-  cameraRangeX: {x: -50, y: 50}
-  cameraRangeZ: {x: -50, y: 50}
-  minZoom: 20
-  maxZoom: 90
-  zoomSpeed: 4000
-  heroFollowCamera: {fileID: 1702737795}
-  towerPlacementCamera: {fileID: 1095098899}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7278,6 +7255,60 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519990134}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1552133915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1552133916}
+  - component: {fileID: 1552133917}
+  m_Layer: 0
+  m_Name: CameraManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1552133916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552133915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1780956041}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1552133917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552133915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813f6b926c703494683d71a84a48565b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPosition: {x: 0, y: 15, z: -8}
+  startRotation: {x: 70, y: 0, z: 0}
+  moveSpeed: 20
+  cameraRangeX: {x: -50, y: 50}
+  cameraRangeZ: {x: -50, y: 50}
+  minZoom: 20
+  maxZoom: 90
+  zoomSpeed: 4000
+  heroFollowCamera: {fileID: 1702737795}
+  towerPlacementCamera: {fileID: 1095098899}
 --- !u!1 &1556390443
 GameObject:
   m_ObjectHideFlags: 0
@@ -7619,7 +7650,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMode: 0
   modeChangeButton: {fileID: 86455192}
-  isModeChanging: 0
 --- !u!1 &1630799308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7838,6 +7868,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1275425045}
+  - {fileID: 1552133916}
   - {fileID: 1614477358}
   - {fileID: 629739425}
   - {fileID: 298495168}

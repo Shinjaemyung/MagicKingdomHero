@@ -13,18 +13,12 @@ public class UI_HeroInfoPanel : UI_Panel
     [SerializeField, Tooltip("체력 수치 텍스트")]
     private Text healthText;
 
-    private void OnEnable()
+    private void Start()
     {
         if (Hero.Instance == null) return;
         Hero.Instance.OnHealthChanged += UpdateHealth;
         // 활성화 시 현재 체력으로 즉시 갱신
         UpdateHealth(Hero.Instance.Health, Hero.Instance.MaxHealth);
-    }
-
-    private void OnDisable()
-    {
-        if (Hero.Instance == null) return;
-        Hero.Instance.OnHealthChanged -= UpdateHealth;
     }
 
     /// <summary>체력 비율과 수치로 체력바 업데이트</summary>
@@ -44,5 +38,11 @@ public class UI_HeroInfoPanel : UI_Panel
 
         if (healthText != null)
             healthText.text = (int)current + " / " + (int)max;
+    }
+
+    private void OnDestroy()
+    {
+        if (Hero.Instance == null) return;
+        Hero.Instance.OnHealthChanged -= UpdateHealth;
     }
 }

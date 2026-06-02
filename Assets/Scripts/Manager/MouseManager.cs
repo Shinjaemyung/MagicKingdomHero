@@ -15,70 +15,12 @@ public class MouseManager : MonoBehaviour
     [SerializeField, Tooltip("커서 핫스팟 (클릭 기준점)")]
     private Vector2 hotspot = Vector2.zero;
 
-    float mousePosX;
-    float mousePosY;
-
-    float moveScreenEdgeThickness = 10f;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
         ApplyCursor(defaultCursor);
-    }
-
-    private void Update()
-    {
-        mousePosX = Input.mousePosition.x;
-        mousePosY = Input.mousePosition.y;
-
-        PlayerMode currentPlayerMode = PlayerModeManager.Instance.playerMode;
-        if (currentPlayerMode == PlayerMode.TowerPlacementMode)
-        {
-            CameraMove();
-            CameraZoom();
-        }
-    }
-
-    void CameraMove()
-    {
-        Vector3 direction = Vector3.zero;
-
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
-
-        if (mousePosX <= moveScreenEdgeThickness)
-        {
-            direction += Vector3.left;
-        }
-
-        if (mousePosX >= screenWidth - moveScreenEdgeThickness)
-        {
-            direction += Vector3.right;
-        }
-
-        if (mousePosY <= moveScreenEdgeThickness)
-        {
-            direction += Vector3.back;
-        }
-
-        if (mousePosY >= screenHeight - moveScreenEdgeThickness)
-        {
-            direction += Vector3.forward;
-        }
-
-        CameraController.Instance.Move(direction);
-    }
-
-    void CameraZoom()
-    {
-        float scroollWheel = Input.GetAxis("Mouse ScrollWheel");
-
-        if (scroollWheel == 0)
-            return;
-
-        CameraController.Instance.Zoom(scroollWheel);
     }
 
     /// <summary>커서 락 상태 변경</summary>

@@ -32,7 +32,10 @@ public class PlayerModeManager : MonoBehaviour
 
     public void RequestPlayerModeChange()
     {
-        if (CameraController.Instance.IsBlending)
+        if (CameraManager.Instance.IsBlending)
+            return;
+
+        if (playerMode == PlayerMode.TowerPlacementMode && Hero.Instance.isDead)
             return;
 
         StartCoroutine(ChangePlayerMode(playerMode));
@@ -57,7 +60,7 @@ public class PlayerModeManager : MonoBehaviour
         yield return null;
 
         // 블렌드가 끝날 때까지 대기
-        while (CameraController.Instance.IsBlending)
+        while (CameraManager.Instance.IsBlending)
             yield return null;
 
         // 모드 전환 완료
@@ -74,7 +77,7 @@ public class PlayerModeManager : MonoBehaviour
 
     void BeginTowerPlacementMode()
     {
-        CameraController.Instance.SetTowerPlacementModeView();
+        CameraManager.Instance.SetTowerPlacementModeView();
 
         // 이펙트 연출, Hero 모션 등 추가
         GameUIManager.Instance.BeginTowerPlacementMode();
@@ -91,7 +94,7 @@ public class PlayerModeManager : MonoBehaviour
     void BeginHeroControlMode()
     {
         PlacementManager.Instance.CancelPlacementState();
-        CameraController.Instance.SetHeroControlModeView();
+        CameraManager.Instance.SetHeroControlModeView();
         GameUIManager.Instance.BeginHeroControlMode();
     }
 

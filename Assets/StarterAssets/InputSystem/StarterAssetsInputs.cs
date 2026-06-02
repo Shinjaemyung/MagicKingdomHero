@@ -55,7 +55,7 @@ namespace StarterAssets
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
-			if (CameraController.Instance.IsBlending)
+			if (CameraManager.Instance.IsBlending)
 				return;
 
 			move = newMoveDirection;
@@ -63,7 +63,7 @@ namespace StarterAssets
 
 		public void LookInput(Vector2 newLookDirection)
 		{
-            if (CameraController.Instance.IsBlending)
+            if (CameraManager.Instance.IsBlending)
                 return;
 
             look = newLookDirection;
@@ -71,7 +71,7 @@ namespace StarterAssets
 
 		public void JumpInput(bool newJumpState)
 		{
-            if (CameraController.Instance.IsBlending)
+            if (CameraManager.Instance.IsBlending)
                 return;
 
             jump = newJumpState;
@@ -79,7 +79,7 @@ namespace StarterAssets
 
 		public void SprintInput(bool newSprintState)
 		{
-            if (CameraController.Instance.IsBlending)
+            if (CameraManager.Instance.IsBlending)
                 return;
 
             sprint = newSprintState;

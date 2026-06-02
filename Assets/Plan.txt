@@ -42,7 +42,7 @@ Hero 공격 기능
 메인 메뉴/로비/게임 씬 전체 관리하는 DontDestroyOnLoad 매니저 필요*
 타워에 모델 적용*
 옵션 버튼 누르면 옵션 패널*
-
+모드 변경 버튼 없애고 heroinfo 항상 표시 heroinfo 밑에 'c누르면 모드 전환' 표시*
 
 
 UI
@@ -55,6 +55,7 @@ GridSize 1이 아닐때 material 사이즈 안맞음
 Enemy 충돌 쿨타임 지나기 전에 pool됐다가 재생성된 같은 인스턴스에 맞을 경우 데미지 쿨타임 이전 걸로 적용 - 버그 발생 상황 매우 적음
 BallisticProjectile 미완성 - targetPoint가 항상 0이 됨
 grid 연결 부위는 서로 다른 grid라 배치 못하는 버그 있음 -> Grid끼리 붙이지 말고 분리 필요
+모드 전환 도중 마우스 클릭하면 ui 바뀌는 버그 -> 모드 전환 begin, comlete 잘 정리 필요
 
 
 참고 자료
