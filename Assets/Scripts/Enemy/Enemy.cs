@@ -12,6 +12,9 @@ public class Enemy : Targetable
     [SerializeField, Tooltip("Hero와 충돌 시 주는 데미지 (임시)")]
     public float attackDamage = 10f;
 
+    [SerializeField, Tooltip("사망 시 지급하는 골드 (임시)")]
+    public int goldReward = 10;
+
     private EnemyPoolable _poolable;
 
     protected override void Awake()

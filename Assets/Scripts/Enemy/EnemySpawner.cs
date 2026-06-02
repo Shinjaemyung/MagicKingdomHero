@@ -1,4 +1,5 @@
 ﻿using Core.Utilities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -40,13 +41,16 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        var enemy = PoolManager.Instance.GetObject(enemyPrefab);
+        var enemyObject = PoolManager.Instance.GetObject(enemyPrefab);
 
-        var poolable = enemy.GetComponent<EnemyPoolable>();
+        var poolable = enemyObject.GetComponent<EnemyPoolable>();
         if (poolable != null)
             poolable.Init(enemyPrefab);
-        
-        var mover = enemy.GetComponent<EnemyMover>();
+
+        var enemy = enemyObject.GetComponent<Enemy>();
+        enemy.Died += GameManager.Instance.OnEnemyDied;
+
+        var mover = enemyObject.GetComponent<EnemyMover>();
         if (mover != null)
         {
             mover.ActivateAt(spawnPoint.position);

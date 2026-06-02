@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Health;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -49,6 +50,17 @@ public class GameManager : MonoBehaviour
         PlayerGold += amount;
         PlayerGold = Mathf.Max(PlayerGold, 0);
         OnPlayerGoldChanged?.Invoke(PlayerGold);
+    }
+
+    public void OnEnemyDied(DamageableBehaviour damageable)
+    {
+        // Enemy 말고 scriptable 참조하는 걸로 변경 필요
+        Enemy enemy = damageable.GetComponent<Enemy>();
+
+        if (enemy == null)
+            return;
+
+        UpdatePlayerGold(enemy.goldReward);
     }
 
     void SetGameOverState()

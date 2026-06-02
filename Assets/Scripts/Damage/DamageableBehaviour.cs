@@ -79,7 +79,7 @@ namespace Core.Health
 
 
         /// <summary>
-        /// Removes this damageable without killing it
+        /// 이 Damageable을 제거
         /// </summary>
         public virtual void Remove()
         {
@@ -89,7 +89,7 @@ namespace Core.Health
         }
 
         /// <summary>
-        /// Fires kill events
+        /// 사망 이벤트 발생
         /// </summary>
         void OnDeath()
         {
@@ -97,7 +97,7 @@ namespace Core.Health
         }
 
         /// <summary>
-        /// Fires the removed event
+        /// 제거 이벤트 발생
         /// </summary>
         void OnRemoved()
         {
@@ -105,7 +105,7 @@ namespace Core.Health
         }
 
         /// <summary>
-        /// Event fired when Damageable takes critical damage
+        /// 공격을 받아 죽었을 때 발생
         /// </summary>
         void OnConfigurationDied(HealthChangeInfo changeInfo)
         {
