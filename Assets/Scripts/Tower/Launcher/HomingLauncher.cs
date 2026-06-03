@@ -1,4 +1,4 @@
-using ActionGameFramework.Health;
+﻿using ActionGameFramework.Health;
 using ActionGameFramework.Helpers;
 using ActionGameFramework.Projectiles;
 using UnityEngine;
@@ -11,6 +11,9 @@ namespace TowerDefense.Towers.TowerLaunchers
     public class HomingLauncher : Launcher
     {
         public ParticleSystem fireParticleSystem;
+
+        [Tooltip("공격 애니메이션을 재생할 Animator")]
+        public Animator attackAnimator;
 
         /// <summary>
         /// Launches homing missile at a target from a starting position
@@ -41,6 +44,9 @@ namespace TowerDefense.Towers.TowerLaunchers
             homingMissile.Initialize(enemy);
             homingMissile.FireAtPoint(startingPoint, targetPoint);
             PlayParticles(fireParticleSystem, startingPoint, targetPoint);
+
+            if (attackAnimator != null)
+                attackAnimator.SetTrigger("Attack");
         }
     }
 }
