@@ -4,20 +4,19 @@ using UnityEngine;
 namespace TowerDefense.Affectors
 {
     /// <summary>
-    /// A class for providing information on to whether
-    /// the children classes effects are valid
+    /// 모든 Affector의 공통 기능과 데이터를 제공하는 기본 클래스
     /// </summary>
     public abstract class Affector : MonoBehaviour
     {
         /// <summary>
-        /// Short description for affector for displaying in the UI
+        /// UI에 표시할 간단한 설명
         /// </summary>
         public string description;
 
         /// <summary>
-        /// The physics mask to check against
+        /// 적 체크에 사용할 물리 레이어 마스크
         /// </summary>
-        public LayerMask enemyMask { get; protected set; }
+        public LayerMask EnemyMask { get; protected set; }
 
         /// <summary>
         /// Initializes the effect with search data
@@ -30,7 +29,7 @@ namespace TowerDefense.Affectors
         /// </param>
         public virtual void Initialize(LayerMask mask)
         {
-            enemyMask = mask;
+            EnemyMask = mask;
         }
 
         /// <summary>

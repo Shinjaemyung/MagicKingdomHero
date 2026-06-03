@@ -12,9 +12,6 @@ namespace TowerDefense.Towers.TowerLaunchers
     {
         public ParticleSystem fireParticleSystem;
 
-        [Tooltip("공격 애니메이션을 재생할 Animator")]
-        public Animator attackAnimator;
-
         /// <summary>
         /// Launches homing missile at a target from a starting position
         /// </summary>
@@ -44,9 +41,6 @@ namespace TowerDefense.Towers.TowerLaunchers
             homingMissile.Initialize(enemy);
             homingMissile.FireAtPoint(startingPoint, targetPoint);
             PlayParticles(fireParticleSystem, startingPoint, targetPoint);
-
-            if (attackAnimator != null)
-                attackAnimator.SetTrigger("Attack");
         }
     }
 }

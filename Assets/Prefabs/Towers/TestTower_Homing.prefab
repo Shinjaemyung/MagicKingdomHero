@@ -197,7 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireParticleSystem: {fileID: 0}
-  attackAnimator: {fileID: 4095092858259932131}
 --- !u!114 &9139183771824752989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +218,7 @@ MonoBehaviour:
   fireRate: 1
   towerTargetter: {fileID: 4781304514445816318}
   radiusEffectColor: {r: 0, g: 0, b: 0, a: 0}
+  attackAnimator: {fileID: 4095092858259932131}
 --- !u!1001 &4296792414548237809
 PrefabInstance:
   m_ObjectHideFlags: 0

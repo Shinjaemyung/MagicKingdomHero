@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 //using ActionGameFramework.Audio;
 using ActionGameFramework.Health;
 using Core.Health;
@@ -10,111 +10,109 @@ using UnityEngine;
 namespace TowerDefense.Affectors
 {
     /// <summary>
-    /// The common effect for handling firing projectiles to attack
+    /// 투사체 발사 공격을 처리하는 공통 클래스
     /// 
-    /// Requires an ILauncher but it is not automatically added
-    /// Add an ILauncher implementation to this GameObject before you add this script
+    /// 이 스크립트를 추가하기 전에 같은 GameObject에 ILauncher 구현체 추가 필수
     /// </summary>
     [RequireComponent(typeof(ILauncher))]
     public class AttackAffector : Affector//, ITowerRadiusProvider
     {
         /// <summary>
-        /// The projectile used to attack
+        /// 공격에 사용할 투사체
         /// </summary>
         public GameObject projectile;
 
         /// <summary>
-        /// The list of points to launch the projectiles from
+        /// 투사체를 발사할 위치 리스트
         /// </summary>
         public Transform[] projectilePoints;
 
         /// <summary>
-        /// The reference to the center point where the tower will search from
+        /// 타워가 적을 탐색할 기준 중심점
         /// </summary>
         public Transform epicenter;
 
         /// <summary>
-        /// Configuration for when the tower does splash damage
+        /// 다중 공격(범위 공격) 여부 설정
         /// </summary>
         public bool isMultiAttack;
 
-
         /// <summary>
-        /// The fire rate in fires-per-second
+        /// 초당 공격 횟수(Fires Per Second)
         /// </summary>
         public float fireRate;
 
         /// <summary>
-        /// The audio source to play when firing
+        /// 공격 시 재생할 오디오 소스
         /// </summary>
         //public RandomAudioSource randomAudioSource;
 
-        /// <summary>
-        /// Gets the targetter
-        /// </summary>
         public Targetter towerTargetter;
 
         /// <summary>
-        /// Color of effect radius visualization
+        /// 공격 범위 시각화 색상
         /// </summary>
         public Color radiusEffectColor;
 
         /// <summary>
-        /// Search condition
+        /// bool 값을 반환하는 조건식 델리게이트
         /// </summary>
-        public Filter searchCondition;
+        public delegate bool Filter();
 
-        /// <summary>
-        /// Fire condition
-        /// </summary>
+        public Filter searchCondition;
         public Filter fireCondition;
 
-        /// <summary>
-        /// The reference to the attached launcher
-        /// </summary>
-        protected ILauncher m_Launcher;
+        protected ILauncher _launcher;
 
         /// <summary>
-        /// The time before firing is possible
+        /// 다음 공격 가능까지 남은 시간
         /// </summary>
-        protected float m_FireTimer;
+        protected float _fireTimer;
 
         /// <summary>
-        /// Reference to the current tracked enemy
+        /// 현재 추적 중인 적
         /// </summary>
-        protected Targetable m_TrackingEnemy;
+        protected Targetable _trackingEnemy;
+
+        [Tooltip("공격 애니메이션을 재생할 Animator")]
+        public Animator attackAnimator;
 
         /// <summary>
-        /// Gets the search rate from the targetter
+        /// Attack 애니메이션
         /// </summary>
-        public float searchRate
+        private static readonly int AttackHash = Animator.StringToHash("Attack");
+
+        /// <summary>
+        /// Targetter의 탐색 주기
+        /// </summary>
+        public float SearchRate
         {
             get { return towerTargetter.searchRate; }
             set { towerTargetter.searchRate = value; }
         }
 
         /// <summary>
-        /// Gets the targetable
+        /// 현재 추적중인 대상
         /// </summary>
-        public Targetable trackingEnemy
+        public Targetable TrackingEnemy
         {
-            get { return m_TrackingEnemy; }
+            get { return _trackingEnemy; }
         }
 
         /// <summary>
-        /// Gets or sets the attack radius
+        /// 공격 범위
         /// </summary>
-        public float effectRadius
+        public float EffectRadius
         {
             get { return towerTargetter.EffectRadius; }
         }
 
-        public Color effectColor
+        public Color EffectColor
         {
             get { return radiusEffectColor; }
         }
 
-        public Targetter targetter
+        public Targetter Targetter
         {
             get { return towerTargetter; }
         }
@@ -126,7 +124,7 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// Initializes the attack affector
+        /// AttackAffector 초기화
         /// </summary>
         public override void Initialize()
         {
@@ -134,7 +132,7 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// Initialises the  attack affector with a layer mask
+        /// 레이어 마스크로 AttackAffector 초기화
         /// </summary>
         public override void Initialize(LayerMask mask)
         {
@@ -147,20 +145,14 @@ namespace TowerDefense.Affectors
             towerTargetter.LostTarget += OnLostTarget;
         }
 
-        void OnDestroy()
-        {
-            towerTargetter.AcquiredTarget -= OnAcquiredTarget;
-            towerTargetter.LostTarget -= OnLostTarget;
-        }
-
         void OnLostTarget()
         {
-            m_TrackingEnemy = null;
+            _trackingEnemy = null;
         }
 
         void OnAcquiredTarget(Targetable acquiredTarget)
         {
-            m_TrackingEnemy = acquiredTarget;
+            _trackingEnemy = acquiredTarget;
         }
 
         public Damager damagerProjectile
@@ -169,7 +161,7 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// Returns the total projectile damage 
+        /// 투사체의 총 데미지
         /// </summary>
         public float GetProjectileDamage()
         {
@@ -179,29 +171,29 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// Initialise the RepeatingTimer
+        /// 공격 타이머 초기화
         /// </summary>
         protected virtual void SetUpTimers()
         {
-            m_FireTimer = 1 / fireRate;
-            m_Launcher = GetComponent<ILauncher>();
+            _fireTimer = 1 / fireRate;
+            _launcher = GetComponent<ILauncher>();
         }
 
         /// <summary>
-        /// Update the timers
+        /// 공격 타이머 갱신
         /// </summary>
         protected virtual void Update()
         {
-            m_FireTimer -= Time.deltaTime;
-            if (trackingEnemy != null && m_FireTimer <= 0.0f)
+            _fireTimer -= Time.deltaTime;
+            if (TrackingEnemy != null && _fireTimer <= 0.0f)
             {
                 OnFireTimer();
-                m_FireTimer = 1 / fireRate;
+                _fireTimer = 1 / fireRate;
             }
         }
 
         /// <summary>
-        /// Fired at every poll of the fire rate timer
+        /// 공격 주기마다 호출
         /// </summary>
         protected virtual void OnFireTimer()
         {
@@ -216,11 +208,11 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// Common logic when attacking
+        /// 공격 시 공통으로 수행되는 로직
         /// </summary>
         protected virtual void FireProjectile()
         {
-            if (m_TrackingEnemy == null)
+            if (_trackingEnemy == null)
             {
                 return;
             }
@@ -228,13 +220,16 @@ namespace TowerDefense.Affectors
             if (isMultiAttack)
             {
                 List<Targetable> enemies = towerTargetter.GetAllTargets();
-                m_Launcher.Launch(enemies, projectile, projectilePoints);
+                _launcher.Launch(enemies, projectile, projectilePoints);
             }
             else
             {
-                m_Launcher.Launch(m_TrackingEnemy, damagerProjectile.gameObject, projectilePoints);
+                _launcher.Launch(_trackingEnemy, damagerProjectile.gameObject, projectilePoints);
             }
-            // ����� ����� ���߿�
+            if (attackAnimator != null)
+                attackAnimator.SetTrigger(AttackHash);
+
+            // 오디오 나중에
             /*
             if (randomAudioSource != null)
             {
@@ -244,7 +239,7 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// A delegate to compare distances of components
+        ///대상 간 거리를 비교하기 위한 함수
         /// </summary>
         /// <param name="first"></param>
         /// <param name="second"></param>
@@ -255,10 +250,16 @@ namespace TowerDefense.Affectors
             return firstSqrMagnitude.CompareTo(secondSqrMagnitude);
         }
 
+        void OnDestroy()
+        {
+            towerTargetter.AcquiredTarget -= OnAcquiredTarget;
+            towerTargetter.LostTarget -= OnLostTarget;
+        }
+
         /*
 #if UNITY_EDITOR
         /// <summary>
-        /// Draws the search area
+        /// 탐색 범위 시각화
         /// </summary>
         void OnDrawGizmosSelected()
         {
@@ -267,9 +268,4 @@ namespace TowerDefense.Affectors
 #endif
         */
     }
-
-    /// <summary>
-    /// A delegate for boolean calculation logic
-    /// </summary>
-    public delegate bool Filter();
 }
