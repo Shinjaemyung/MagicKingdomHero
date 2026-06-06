@@ -77,9 +77,7 @@ namespace TowerDefense.Affectors
         [Tooltip("공격 애니메이션을 재생할 Animator")]
         public Animator attackAnimator;
 
-        /// <summary>
-        /// Attack 애니메이션
-        /// </summary>
+        /// <summary>Attack 파라미터 해시</summary>
         private static readonly int AttackHash = Animator.StringToHash("Attack");
 
         /// <summary>
@@ -193,17 +191,35 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// 공격 주기마다 호출
+        /// 공격 주기마다 호출. 애니메이터가 있으면 애니메이션만 재생하고
+        /// 실제 발사는 Animation Event(OnAttackAnimationEvent)에서 처리.
+        /// 애니메이터가 없으면 즉시 발사.
         /// </summary>
         protected virtual void OnFireTimer()
         {
-            if (fireCondition != null)
+            if (fireCondition != null && !fireCondition())
+                return;
+
+            if (attackAnimator != null)
             {
-                if (!fireCondition())
-                {
-                    return;
-                }
+                // fireRate에 맞게 애니메이션 속도 조절 (클립 길이 직접 계산)
+                var clips = attackAnimator.runtimeAnimatorController.animationClips;
+                float clipLength = clips.Length > 0 ? clips[0].length : 1f;
+                attackAnimator.speed = clipLength * fireRate;
+                attackAnimator.ResetTrigger(AttackHash);
+                attackAnimator.SetTrigger(AttackHash);
             }
+            else
+            {
+                FireProjectile();
+            }
+        }
+
+        /// <summary>
+        /// Animation Event에서 호출. 실제 투사체 발사.
+        /// </summary>
+        public void OnAttackAnimationEvent()
+        {
             FireProjectile();
         }
 
@@ -226,9 +242,6 @@ namespace TowerDefense.Affectors
             {
                 _launcher.Launch(_trackingEnemy, damagerProjectile.gameObject, projectilePoints);
             }
-            if (attackAnimator != null)
-                attackAnimator.SetTrigger(AttackHash);
-
             // 오디오 나중에
             /*
             if (randomAudioSource != null)
