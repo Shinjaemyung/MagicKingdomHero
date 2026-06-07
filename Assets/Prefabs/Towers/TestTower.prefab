@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f173a9fc987aee43aea9e95e1cd9cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
+  mesh: {fileID: 9209052990779083117}
   turretXRotationRange: {x: 0, y: 359}
   onlyYTurretRotation: 0
   searchRate: 0
