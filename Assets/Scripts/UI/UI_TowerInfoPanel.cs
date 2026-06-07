@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.UI;
+using static UI_SystemMessagePanel;
 
 /// <summary>
 /// 타워 클릭 시 표시되는 정보 패널.
@@ -29,6 +31,12 @@ public class UI_TowerInfoPanel : UI_Panel
     private RectTransform _rectTransform;
     private Canvas _parentCanvas;
 
+    UI_SystemMessagePanel systemMessage;
+
+    private void Awake()
+    {
+        systemMessage = FindAnyObjectByType<UI_SystemMessagePanel>();
+    }
 
     /// <summary>타워 정보를 받아 패널을 업데이트하고 표시</summary>
     public void ShowTowerInfo(Tower tower)
@@ -95,11 +103,19 @@ public class UI_TowerInfoPanel : UI_Panel
     private void OnUpgradeClicked()
     {
         if (_currentTower == null) return;
-        var data = _currentTower.towerData;
-        if (data.upgradeTowers != null && data.upgradeTowers.Length > 0)
+
+        var currentTowerData = _currentTower.towerData;
+        if (GameManager.Instance.PlayerGold >= currentTowerData.cost)
         {
-            var upgradedTower = _currentTower.UpgradeTower(data.upgradeTowers[0]);
-            ShowTowerInfo(upgradedTower);
+            if (currentTowerData.upgradeTowers != null && currentTowerData.upgradeTowers.Length > 0)
+            {
+                var upgradedTower = _currentTower.UpgradeTower(currentTowerData.upgradeTowers[0]);
+                ShowTowerInfo(upgradedTower);
+            }
+        }
+        else
+        {
+            systemMessage.ActivateMessage(SystemMessageType.NotEnoughGold);
         }
     }
 }
