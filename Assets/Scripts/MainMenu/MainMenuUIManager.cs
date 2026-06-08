@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 로비 씬 버튼 이벤트 처리.
+/// 메인 메뉴 UI 담당 스크립트
 /// </summary>
-public class LobbyUIManager : MonoBehaviour
+public class MainMenuUIManager : MonoBehaviour
 {
     UI_GameStartButton gameStartButton;
 
