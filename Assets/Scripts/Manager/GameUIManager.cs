@@ -48,7 +48,6 @@ public class GameUIManager : MonoBehaviour
     public void BeginTowerPlacementMode()
     {
         modeChangeButton.SetButtonInteractable(false);
-        heroInfoPanel.Hide();
     }
 
     public void CompleteTowerPlacementMode()
