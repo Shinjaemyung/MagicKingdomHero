@@ -241,7 +241,11 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: b94e732cd097a354096bf9a4e99c529b, type: 2}
+      objectReference: {fileID: 9100000, guid: 2401b22cf1fc0b842b48394cc7f8f8eb, type: 2}
+    - target: {fileID: 5866666021909216657, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -299,7 +303,7 @@ MonoBehaviour:
   - {fileID: 6667239942483833320}
   epicenter: {fileID: 8523071728073231706}
   isMultiAttack: 0
-  fireRate: 1.5
+  fireRate: 1
   towerTargetter: {fileID: 2173301278757424628}
   radiusEffectColor: {r: 0, g: 0, b: 0, a: 0}
   attackAnimator: {fileID: 2967041146118673175}
