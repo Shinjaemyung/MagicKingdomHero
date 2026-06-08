@@ -14,27 +14,28 @@ namespace ActionGameFramework.Projectiles
 
         public float startSpeed;
 
-        protected bool m_Fired;
+        protected bool _fired;
 
-        protected Rigidbody m_Rigidbody;
+        protected Rigidbody _rigidbody;
 
         public event Action fired;
 
         protected virtual void Awake()
         {
-            m_Rigidbody = GetComponent<Rigidbody>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         protected virtual void Update()
         {
-            if (!m_Fired)
+            if (!_fired)
             {
                 return;
             }
 
             if (Math.Abs(acceleration) >= float.Epsilon)
             {
-                m_Rigidbody.linearVelocity += transform.forward * acceleration * Time.deltaTime;
+                // 투사체 시간이 지날수록 가속
+                _rigidbody.linearVelocity += transform.forward * acceleration * Time.deltaTime;
             }
         }
 
@@ -84,11 +85,11 @@ namespace ActionGameFramework.Projectiles
 
         protected virtual void Fire(Vector3 firingVector)
         {
-            m_Fired = true;
+            _fired = true;
 
             transform.rotation = Quaternion.LookRotation(firingVector);
 
-            m_Rigidbody.linearVelocity = firingVector;
+            _rigidbody.linearVelocity = firingVector;
 
             fired?.Invoke();
         }

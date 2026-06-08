@@ -14,69 +14,70 @@ namespace ActionGameFramework.Projectiles
 
         public bool leadTarget;
 
-        public Targetable m_HomingTarget;
+        public Targetable _homingTarget;
         protected Vector3 targetPos;
 
-        protected Vector3 m_TargetVelocity;
+        protected Vector3 _targetVelocity;
 
         float destroyTimerProgress = 0;
         float destroyTimer = 5;
 
         /// <summary>
-        /// 발사 후 추적할 대상 Transform 설정
+        /// 발사 후 추적할 대상 설정
         /// </summary>
         /// <param name="target">추적할 대상</param>
         public void Initialize(Targetable target)
         {
-            m_HomingTarget = target;
+            _homingTarget = target;
             destroyTimerProgress = 0;
         }
 
         protected virtual void FixedUpdate()
         {
-            if (m_HomingTarget == null)
+            if (_homingTarget == null)
             {
                 return;
             }
 
-            m_TargetVelocity = m_HomingTarget.Velocity;
+            _targetVelocity = _homingTarget.Velocity;
         }
 
         protected override void Update()
         {
             TryDestroySelf();
 
-            if (!m_Fired)
+            if (!_fired)
             {
                 return;
             }
 
-            if (m_HomingTarget == null)
+            if (_homingTarget != null)
             {
-                m_Rigidbody.rotation = Quaternion.LookRotation(m_Rigidbody.linearVelocity);
-                return;
+                Quaternion aimDirection = Quaternion.LookRotation(GetHeading());
+
+                _rigidbody.rotation = aimDirection;
+                _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
             }
-
-            Quaternion aimDirection = Quaternion.LookRotation(GetHeading());
-
-            m_Rigidbody.rotation = aimDirection;
-            m_Rigidbody.linearVelocity = transform.forward * m_Rigidbody.linearVelocity.magnitude;
+            else
+            {
+                _rigidbody.rotation = Quaternion.LookRotation(_rigidbody.linearVelocity);
+            }
 
             base.Update();
         }
 
         protected Vector3 GetHeading()
         {
-            if (m_HomingTarget != null)
+            if (_homingTarget != null)
             {
-                targetPos = m_HomingTarget.Position;
+                targetPos = _homingTarget.Position;
             }
 
             Vector3 heading;
             if (leadTarget)
             {
                 heading = Ballistics.CalculateLinearLeadingTargetPoint(transform.position, targetPos,
-                                                                       m_TargetVelocity, m_Rigidbody.linearVelocity.magnitude,
+                                                                       _targetVelocity, _rigidbody.linearVelocity.magnitude,
                                                                        acceleration,
                                                                        leadingPrecision) - transform.position;
             }
@@ -90,12 +91,12 @@ namespace ActionGameFramework.Projectiles
 
         protected override void Fire(Vector3 firingVector)
         {
-            if (m_HomingTarget == null)
+            if (_homingTarget == null)
             {
                 Debug.LogError("목표물이 지정되지 않았습니다. 사격을 중단합니다.");
                 return;
             }
-            m_HomingTarget.Removed += OnTargetDied;
+            _homingTarget.Removed += OnTargetDied;
 
             base.Fire(firingVector);
         }
@@ -103,12 +104,12 @@ namespace ActionGameFramework.Projectiles
         void OnTargetDied(DamageableBehaviour targetable)
         {
             targetable.Removed -= OnTargetDied;
-            m_HomingTarget = null;
+            _homingTarget = null;
         }
 
         protected void TryDestroySelf()
         {
-            if (m_HomingTarget != null)
+            if (_homingTarget != null)
                 return;
 
             destroyTimerProgress += Time.deltaTime;

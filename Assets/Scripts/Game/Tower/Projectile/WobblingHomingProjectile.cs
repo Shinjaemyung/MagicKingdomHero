@@ -65,7 +65,7 @@ namespace ActionGameFramework.Projectiles
         protected override void Update()
         {
             // regular HomingLinearProjectile behaviour, handles a null homing target
-            if (m_HomingTarget == null || m_State == State.Targeting)
+            if (_homingTarget == null || m_State == State.Targeting)
             {
                 base.Update();
                 return;
@@ -90,17 +90,17 @@ namespace ActionGameFramework.Projectiles
                         m_WobbleVector = Vector3.zero;
                     }
                     m_WobbleVector = Vector3.Lerp(m_WobbleVector, m_TargetWobbleVector, m_WobbleChangeTime);
-                    m_Rigidbody.linearVelocity = Quaternion.Euler(m_WobbleVector) * m_Rigidbody.linearVelocity;
+                    _rigidbody.linearVelocity = Quaternion.Euler(m_WobbleVector) * _rigidbody.linearVelocity;
 
-                    m_Rigidbody.rotation = Quaternion.LookRotation(m_Rigidbody.linearVelocity);
+                    _rigidbody.rotation = Quaternion.LookRotation(_rigidbody.linearVelocity);
                     break;
                 // turn the projectile to face the homing target
                 case State.Turning:
                     m_CurrentTurnTime += Time.deltaTime;
                     Quaternion aimDirection = Quaternion.LookRotation(GetHeading());
 
-                    m_Rigidbody.rotation = Quaternion.Lerp(m_Rigidbody.rotation, aimDirection, m_CurrentTurnTime / turningTime);
-                    m_Rigidbody.linearVelocity = transform.forward * m_Rigidbody.linearVelocity.magnitude;
+                    _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, aimDirection, m_CurrentTurnTime / turningTime);
+                    _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
 
                     if (m_CurrentTurnTime >= turningTime)
                     {
