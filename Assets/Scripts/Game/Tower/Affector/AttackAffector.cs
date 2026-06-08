@@ -73,6 +73,7 @@ namespace TowerDefense.Affectors
         /// 현재 추적 중인 적
         /// </summary>
         protected Targetable _trackingEnemy;
+        protected Targetable _attackTarget;
 
         [Tooltip("공격 애니메이션을 재생할 Animator")]
         public Animator attackAnimator;
@@ -183,9 +184,9 @@ namespace TowerDefense.Affectors
         protected virtual void Update()
         {
             _fireTimer -= Time.deltaTime;
-            if (TrackingEnemy != null && _fireTimer <= 0.0f)
+            if (_trackingEnemy != null && _fireTimer <= 0.0f)
             {
-                OnFireTimer();
+                OnFireAnimation();
                 _fireTimer = 1 / fireRate;
             }
         }
@@ -195,10 +196,12 @@ namespace TowerDefense.Affectors
         /// 실제 발사는 Animation Event(OnAttackAnimationEvent)에서 처리.
         /// 애니메이터가 없으면 즉시 발사.
         /// </summary>
-        protected virtual void OnFireTimer()
+        protected virtual void OnFireAnimation()
         {
             if (fireCondition != null && !fireCondition())
                 return;
+
+            _attackTarget = _trackingEnemy;
 
             if (attackAnimator != null)
             {
@@ -228,19 +231,19 @@ namespace TowerDefense.Affectors
         /// </summary>
         protected virtual void FireProjectile()
         {
-            if (_trackingEnemy == null)
+            if (_attackTarget == null)
             {
                 return;
             }
 
             if (isMultiAttack)
             {
-                List<Targetable> enemies = towerTargetter.GetAllTargets();
-                _launcher.Launch(enemies, projectile, projectilePoints);
+                //List<Targetable> enemies = towerTargetter.GetAllTargets();
+                //_launcher.Launch(enemies, projectile, projectilePoints);
             }
             else
             {
-                _launcher.Launch(_trackingEnemy, damagerProjectile.gameObject, projectilePoints);
+                _launcher.Launch(_attackTarget, damagerProjectile.gameObject, projectilePoints);
             }
             // 오디오 나중에
             /*
