@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mesh: {fileID: 5269578125214122771}
   turretXRotationRange: {x: 0, y: 359}
-  onlyYTurretRotation: 0
+  onlyYTurretRotation: 1
   searchRate: 0
   idleRotationSpeed: 39
   idleCorrectionTime: 2

@@ -926,7 +926,7 @@ MonoBehaviour:
   - {fileID: 1145753017}
   - {fileID: 1953082904}
   - {fileID: 999784041}
-  spawnInterval: 4
+  spawnInterval: 5
 --- !u!1 &355600756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2964,7 +2964,7 @@ MonoBehaviour:
   - {fileID: 484806349}
   - {fileID: 2059845356}
   - {fileID: 1309400109}
-  spawnInterval: 4
+  spawnInterval: 5
 --- !u!1 &769142004
 GameObject:
   m_ObjectHideFlags: 3
@@ -6443,7 +6443,7 @@ MonoBehaviour:
   - {fileID: 1841191449}
   - {fileID: 2052521537}
   - {fileID: 745288139}
-  spawnInterval: 4
+  spawnInterval: 5
 --- !u!1 &1492147241
 GameObject:
   m_ObjectHideFlags: 0
@@ -6637,7 +6637,7 @@ MonoBehaviour:
   - {fileID: 771271079}
   - {fileID: 1070437611}
   - {fileID: 107846439}
-  spawnInterval: 4
+  spawnInterval: 5
 --- !u!1 &1495888848
 GameObject:
   m_ObjectHideFlags: 0

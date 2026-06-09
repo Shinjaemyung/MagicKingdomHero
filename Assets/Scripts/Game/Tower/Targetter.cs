@@ -13,12 +13,12 @@ namespace TowerDefense.Targetting
     public class Targetter : MonoBehaviour
     {
         /// <summary>
-        /// Targetable이 Target 콜라이더에 들어올 때 발동
+        /// Targetable이 범위에 들어올 때 발동
         /// </summary>
         public event Action<Targetable> TargetEntersRange;
 
         /// <summary>
-        /// Targetable이 Target 콜라이더를 나갈 때 발동
+        /// Targetable이 범위를 나갈 때 발동
         /// </summary>
         public event Action<Targetable> TargetExitsRange;
 
@@ -28,93 +28,93 @@ namespace TowerDefense.Targetting
         public event Action<Targetable> AcquiredTarget;
 
         /// <summary>
-        /// Fires when the current target was lost
+        /// 현재 타깃을 잃었을 때 발생하는 이벤트
         /// </summary>
         public event Action LostTarget;
 
         /// <summary>
-        /// The transform to point at the target
+        /// 타깃을 향해 회전할 mesh
         /// </summary>
         public Transform mesh;
 
         /// <summary>
-        /// 터렛의 x축 회전 범위
+        /// 터렛의 X축 회전 허용 범위
         /// </summary>
         public Vector2 turretXRotationRange = new Vector2(0, 359);
 
         /// <summary>
-        /// If m_Turret rotates freely or only on y;
+        /// 터렛이 Y축으로만 회전할지 여부
         /// </summary>
-        public bool onlyYTurretRotation;
+        public bool onlyYTurretRotation = true;
 
         /// <summary>
-        /// The search rate in searches per second
+        /// 초당 타깃 탐색 횟수
         /// </summary>
         public float searchRate;
 
         /// <summary>
-        /// Y rotation speed while the turret is idle in degrees per second
+        /// 대기 상태에서의 Y축 회전 속도
         /// </summary>
         public float idleRotationSpeed = 39f;
 
         /// <summary>
-        /// The time it takes for the tower to correct its x rotation on idle in seconds
+        /// 대기 상태일 때 X축 회전을 원래 방향으로 복구하는 데 걸리는 시간
         /// </summary>
         public float idleCorrectionTime = 2.0f;
 
         /// <summary>
-        /// The collider attached to the targetter
+        /// Targetter에 연결된 콜라이더
         /// </summary>
         public Collider attachedCollider;
 
         /// <summary>
-        /// How long the turret waits in its idle form before spinning in seconds
+        /// 대기 상태에서 회전을 시작하기 전까지 기다리는 시간
         /// </summary>
         public float idleWaitTime = 2.0f;
 
         /// <summary>
-        /// The current targetables in the collider
+        /// 현재 사거리(콜라이더) 안에 있는 타깃 목록
         /// </summary>
-        protected List<Targetable> _TargetsInRange = new List<Targetable>();
+        protected List<Targetable> _targetsInRange = new List<Targetable>();
 
         /// <summary>
-        /// The seconds until a search is allowed
+        /// 다음 탐색 가능 시점까지 남은 시간 타이머
         /// </summary>
-        protected float _SearchTimer = 0.0f;
+        protected float _searchTimer = 0.0f;
 
         /// <summary>
-        /// The seconds until the tower starts spinning
+        /// 대기 회전을 시작하기까지 남은 시간 타이머
         /// </summary>
-        protected float _WaitTimer = 0.0f;
+        protected float _waitTimer = 0.0f;
 
         /// <summary>
-        /// The current targetable
+        /// 현재 타깃(Targetable)
         /// </summary>
-        protected Targetable _CurrrentTargetable;
+        protected Targetable _currentTargetable;
 
         /// <summary>
-        /// Counter used for x rotation correction
+        /// X축 회전 보정에 사용되는 카운터
         /// </summary>
-        protected float _XRotationCorrectionTime;
+        protected float _xRotationCorrectionTime;
 
         /// <summary>
-        /// If there was a targetable in the last frame
+        /// 이전 프레임에 타깃이 있었는지 여부
         /// </summary>
-        protected bool _HadTarget;
+        protected bool _hadTarget;
 
         /// <summary>
-        /// How fast this turret is spinning
+        /// 현재 터렛의 회전 속도
         /// </summary>
-        protected float _CurrentRotationSpeed;
+        protected float _currentRotationSpeed;
 
         /// <summary>
-        /// The alignment of the affector
+        /// affector의 alignment
         /// </summary>
         public IAlignmentProvider alignment;
 
         /// <summary>
-        /// returns the radius of the collider whether
-        /// its a sphere or capsule
+        /// 연결된 콜라이더가 SphereCollider 또는 CapsuleCollider일 경우
+        /// 그 반지름을 반환
         /// </summary>
         public float EffectRadius
         {
@@ -135,20 +135,20 @@ namespace TowerDefense.Targetting
         }
 
         /// <summary>
-        /// Returns the current target
+        /// 현재 선택된 타깃을 반환
         /// </summary>
         public Targetable GetTarget()
         {
-            return _CurrrentTargetable;
+            return _currentTargetable;
         }
 
         /// <summary>
-        /// Clears the list of current targets and clears all events
+        /// 현재 타깃 목록을 비우고 모든 이벤트를 초기화
         /// </summary>
         public void ResetTargetter()
         {
-            _TargetsInRange.Clear();
-            _CurrrentTargetable = null;
+            _targetsInRange.Clear();
+            _currentTargetable = null;
 
             TargetEntersRange = null;
             TargetExitsRange = null;
@@ -163,19 +163,20 @@ namespace TowerDefense.Targetting
         }
 
         /// <summary>
-        /// Returns all the targets within the collider. This list must not be changed as it is the working
-        /// list of the targetter. Changing it could break the targetter
+        /// 범위 안에 있는 모든 타깃을 반환
         /// </summary>
         public List<Targetable> GetAllTargets()
         {
-            return _TargetsInRange;
+            return _targetsInRange;
         }
 
         /// <summary>
-        /// Checks if the targetable is a valid target
+        /// 적 타깃의 Targetable이 유효한지 확인
         /// </summary>
-        /// <param name="targetable"></param>
-        /// <returns>true if targetable is vaild, false if not</returns>
+        /// <param name="targetable">
+        /// 검사할 타깃
+        /// </param>
+        /// <returns>Targetable이 있으면 true, 없으면 false</returns>
         protected virtual bool IsTargetableValid(Targetable targetable)
         {
             if (targetable == null)
@@ -191,9 +192,9 @@ namespace TowerDefense.Targetting
         }
 
         /// <summary>
-        /// On exiting the trigger, a valid targetable is removed from the tracking list.
+        /// Targetable이 사거리 밖으로 나가면 타깃 리스트에서 제거
         /// </summary>
-        /// <param name="other">The other collider in the collision</param>
+        /// <param name="other">충돌한 상대 콜라이더</param>
         protected virtual void OnTriggerExit(Collider other)
         {
             var targetable = other.GetComponent<Targetable>();
@@ -202,23 +203,24 @@ namespace TowerDefense.Targetting
                 return;
             }
 
-            _TargetsInRange.Remove(targetable);
+            _targetsInRange.Remove(targetable);
             TargetExitsRange?.Invoke(targetable);
-            if (targetable == _CurrrentTargetable)
+            if (targetable == _currentTargetable)
             {
                 OnTargetRemoved(targetable);
             }
             else
             {
-                // Only need to remove if we're not our actual target, otherwise OnTargetRemoved will do the work above
+                // 현재 타깃이 아닌 경우에만 여기서 제거
+                // 현재 타겟이라면 OnTargetRemoved가 알아서 처리해 준다
                 targetable.Removed -= OnTargetRemoved;
             }
         }
 
         /// <summary>
-        /// On entering the trigger, a valid targetable is added to the tracking list.
+        /// Targetable이 사거리 안으로 들어오면 타깃 리스트에 추가
         /// </summary>
-        /// <param name="other">The other collider in the collision</param>
+        /// <param name="other">충돌한 상대 콜라이더</param>
         protected virtual void OnTriggerEnter(Collider other)
         {
             var targetable = other.GetComponent<Targetable>();
@@ -227,17 +229,17 @@ namespace TowerDefense.Targetting
                 return;
             }
             targetable.Removed += OnTargetRemoved;
-            _TargetsInRange.Add(targetable);
+            _targetsInRange.Add(targetable);
             TargetEntersRange?.Invoke(targetable);
         }
 
         /// <summary>
-        /// Returns the nearest targetable within the currently tracked targetables 
+        /// 현재 추적 중인 Targetable 중 가장 가까운 대상 반환
         /// </summary>
-        /// <returns>The nearest targetable if there is one, null otherwise</returns>
+        /// <returns>가장 가까운 Targetable. 없으면 null.</returns>
         protected virtual Targetable GetNearestTargetable()
         {
-            int length = _TargetsInRange.Count;
+            int length = _targetsInRange.Count;
 
             if (length == 0)
             {
@@ -248,10 +250,10 @@ namespace TowerDefense.Targetting
             float distance = float.MaxValue;
             for (int i = length - 1; i >= 0; i--)
             {
-                Targetable targetable = _TargetsInRange[i];
+                Targetable targetable = _targetsInRange[i];
                 if (targetable == null || targetable.IsDead)
                 {
-                    _TargetsInRange.RemoveAt(i);
+                    _targetsInRange.RemoveAt(i);
                     continue;
                 }
                 float currentDistance = Vector3.Distance(transform.position, targetable.Position);
@@ -266,60 +268,60 @@ namespace TowerDefense.Targetting
         }
 
         /// <summary>
-        /// Starts the search timer
+        /// 타이머 초기화
         /// </summary>
         protected virtual void Start()
         {
-            _SearchTimer = searchRate;
-            _WaitTimer = idleWaitTime;
+            _searchTimer = searchRate;
+            _waitTimer = idleWaitTime;
         }
 
         /// <summary>
-        /// Checks if any targets are destroyed and aquires a new targetable if appropriate
+        /// 파괴된 타깃을 정리하고, 필요 시 새 타깃을 획득
         /// </summary>
         protected virtual void Update()
         {
-            _SearchTimer -= Time.deltaTime;
+            _searchTimer -= Time.deltaTime;
 
-            if (_SearchTimer <= 0.0f && _CurrrentTargetable == null && _TargetsInRange.Count > 0)
+            if (_searchTimer <= 0.0f && _currentTargetable == null && _targetsInRange.Count > 0)
             {
-                _CurrrentTargetable = GetNearestTargetable();
-                if (_CurrrentTargetable != null)
+                _currentTargetable = GetNearestTargetable();
+                if (_currentTargetable != null)
                 {
-                    AcquiredTarget?.Invoke(_CurrrentTargetable);
-                    _SearchTimer = searchRate;
+                    AcquiredTarget?.Invoke(_currentTargetable);
+                    _searchTimer = searchRate;
                 }
             }
 
             AimTurret();
-            _HadTarget = _CurrrentTargetable != null;
+            _hadTarget = _currentTargetable != null;
         }
 
         /// <summary>
-        /// Fired by the agents died event or when the current target moves out of range,
-        /// Fires the lostTarget event.
+        /// 현재 타깃이 죽거나 사거리 밖으로 나갔을 때 호출
+        /// LostTarget 이벤트를 발생
         /// </summary>
         void OnTargetRemoved(DamageableBehaviour target)
         {
             target.Removed -= OnTargetRemoved;
-            if (_CurrrentTargetable != null && target.configuration == _CurrrentTargetable.configuration)
+            if (_currentTargetable != null && target.configuration == _currentTargetable.configuration)
             {
                 if (LostTarget != null)
                 {
                     LostTarget();
                 }
-                _HadTarget = false;
-                _TargetsInRange.Remove(_CurrrentTargetable);
-                _CurrrentTargetable = null;
-                _XRotationCorrectionTime = 0.0f;
+                _hadTarget = false;
+                _targetsInRange.Remove(_currentTargetable);
+                _currentTargetable = null;
+                _xRotationCorrectionTime = 0.0f;
             }
             else //wasnt the current target, find and remove from targets list
             {
-                for (int i = 0; i < _TargetsInRange.Count; i++)
+                for (int i = 0; i < _targetsInRange.Count; i++)
                 {
-                    if (_TargetsInRange[i].configuration == target.configuration)
+                    if (_targetsInRange[i].configuration == target.configuration)
                     {
-                        _TargetsInRange.RemoveAt(i);
+                        _targetsInRange.RemoveAt(i);
                         break;
                     }
                 }
@@ -327,7 +329,7 @@ namespace TowerDefense.Targetting
         }
 
         /// <summary>
-        /// 현재 목표물을 향해 조준
+        /// 현재 타깃을 향해 조준
         /// </summary>
         protected virtual void AimTurret()
         {
@@ -336,31 +338,31 @@ namespace TowerDefense.Targetting
                 return;
             }
 
-            if (_CurrrentTargetable == null) // 대기 상태 회전
+            if (_currentTargetable == null) // 대기 상태 회전
             {
-                if (_WaitTimer > 0)
+                if (_waitTimer > 0)
                 {
-                    _WaitTimer -= Time.deltaTime;
-                    if (_WaitTimer <= 0)
+                    _waitTimer -= Time.deltaTime;
+                    if (_waitTimer <= 0)
                     {
-                        _CurrentRotationSpeed = (Random.value * 2 - 1) * idleRotationSpeed;
+                        _currentRotationSpeed = (Random.value * 2 - 1) * idleRotationSpeed;
                     }
                 }
                 else
                 {
                     Vector3 euler = mesh.rotation.eulerAngles;
-                    euler.x = Mathf.Lerp(Wrap180(euler.x), 0, _XRotationCorrectionTime);
-                    _XRotationCorrectionTime = Mathf.Clamp01((_XRotationCorrectionTime + Time.deltaTime) / idleCorrectionTime);
-                    euler.y += _CurrentRotationSpeed * Time.deltaTime;
+                    euler.x = Mathf.Lerp(Wrap180(euler.x), 0, _xRotationCorrectionTime);
+                    _xRotationCorrectionTime = Mathf.Clamp01((_xRotationCorrectionTime + Time.deltaTime) / idleCorrectionTime);
+                    euler.y += _currentRotationSpeed * Time.deltaTime;
 
                     mesh.eulerAngles = euler;
                 }
             }
             else
             {
-                _WaitTimer = idleWaitTime;
+                _waitTimer = idleWaitTime;
 
-                Vector3 targetPosition = _CurrrentTargetable.Position;
+                Vector3 targetPosition = _currentTargetable.Position;
                 if (onlyYTurretRotation)
                 {
                     targetPosition.y = mesh.position.y;

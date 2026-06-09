@@ -154,7 +154,7 @@ namespace TowerDefense.Affectors
             _trackingEnemy = acquiredTarget;
         }
 
-        public Damager damagerProjectile
+        public Damager DamagerProjectile
         {
             get { return projectile == null ? null : projectile.GetComponent<Damager>(); }
         }
@@ -166,7 +166,7 @@ namespace TowerDefense.Affectors
         {
             var splash = projectile.GetComponent<SplashDamager>();
             float splashDamage = splash != null ? splash.damage : 0;
-            return damagerProjectile.damage + splashDamage;
+            return DamagerProjectile.damage + splashDamage;
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace TowerDefense.Affectors
             }
             else
             {
-                _launcher.Launch(_attackTarget, damagerProjectile.gameObject, projectilePoints);
+                _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints);
             }
             // 오디오 나중에
             /*
