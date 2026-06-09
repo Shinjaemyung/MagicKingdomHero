@@ -1,4 +1,4 @@
-using ActionGameFramework.Health;
+﻿using ActionGameFramework.Health;
 using ActionGameFramework.Helpers;
 using Core.Health;
 using UnityEngine;
@@ -58,9 +58,15 @@ namespace ActionGameFramework.Projectiles
                 _rigidbody.rotation = aimDirection;
                 _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
             }
-            else
+            else if (targetPos != Vector3.zero)
             {
-                _rigidbody.rotation = Quaternion.LookRotation(_rigidbody.linearVelocity);
+                // 타겟이 죽었어도 마지막 위치를 향해 계속 조준
+                Vector3 heading = (targetPos - transform.position).normalized;
+                if (heading != Vector3.zero)
+                {
+                    _rigidbody.rotation = Quaternion.LookRotation(heading);
+                    _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
+                }
             }
 
             base.Update();
