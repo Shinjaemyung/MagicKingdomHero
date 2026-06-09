@@ -11,51 +11,68 @@ namespace TowerDefense.Towers.Projectiles
     public class HitscanAttack : Poolable
     {
         /// <summary>
-        /// The amount of time to delay
+        /// 공격 실행 전 대기 시간
         /// </summary>
         public float delay;
 
         /// <summary>
-        /// The delay timer
+        /// 공격 대기 타이머
         /// </summary>
-        protected Timer _Timer;
+        protected Timer _timer;
 
         /// <summary>
-        /// The enemy this projectile will attack
+        /// 이 Hitscan이 공격할 적
         /// </summary>
-        protected Targetable _Enemy;
+        protected Targetable _enemy;
+
+
+        protected Damager _damager;
 
         /// <summary>
-        /// The Damager attached to the object
+        /// 공격이 발사되는 위치
         /// </summary>
-        protected Damager _Damager;
+        protected Vector3 _origin;
 
         /// <summary>
-        /// The towers projectile position
+        /// Time.timeScale을 0으로 설정하지 않고도
+        /// 타이머를 일시 정지할 수 있도록 하는 설정
         /// </summary>
-        protected Vector3 _Origin;
+        protected bool _pauseTimer;
+
+
+        protected virtual void Awake()
+        {
+            _damager = GetComponent<Damager>();
+            _timer = new Timer(delay, DealDamage);
+        }
 
         /// <summary>
-        /// Configuration for pausing the timer delay timer
-        /// without setting Time.timeScale to 0
+        /// Timer 정지 상태가 아니라면 업데이트
         /// </summary>
-        protected bool _PauseTimer;
+        protected virtual void Update()
+        {
+            if (!_pauseTimer)
+            {
+                _timer.Tick(Time.deltaTime);
+            }
+        }
+
 
         /// <summary>
-        /// The delay configuration for the attacking
+        /// 공격 실행을 위한 초기 설정
         /// </summary>
         /// <param name="origin">
-        /// The point the attack will be fired from
+        /// 공격이 발사되는 위치
         /// </param>
         /// <param name="enemy">
-        /// The enemy to attack
+        /// 공격할 적
         /// </param>
         public void AttackEnemy(Vector3 origin, Targetable enemy)
         {
-            _Enemy = enemy;
-            _Origin = origin;
-            _Timer.Reset();
-            _PauseTimer = false;
+            _enemy = enemy;
+            _origin = origin;
+            _timer.Reset();
+            _pauseTimer = false;
         }
 
         /// <summary>
@@ -64,7 +81,7 @@ namespace TowerDefense.Towers.Projectiles
         /// </summary>
         protected void DealDamage()
         {
-            if (_Enemy == null)
+            if (_enemy == null)
             {
                 ReturnToPool();
                 return;
@@ -77,30 +94,10 @@ namespace TowerDefense.Towers.Projectiles
             attackEffect.transform.position = m_Enemy.position;
             attackEffect.Play();
             */
-            _Enemy.TakeDamage(_Damager.damage, _Enemy.Position, _Damager.AlignmentProvider);
-            _PauseTimer = true;
+            _enemy.TakeDamage(_damager.damage, _enemy.Position, _damager.AlignmentProvider);
+            _pauseTimer = true;
 
             ReturnToPool();
-        }
-
-        /// <summary>
-        /// 이 오브젝트에 Damager 컴포넌트 캐싱
-        /// </summary>
-        protected virtual void Awake()
-        {
-            _Damager = GetComponent<Damager>();
-            _Timer = new Timer(delay, DealDamage);
-        }
-
-        /// <summary>
-        /// _Timer가 사용 가능하다면 업데이트
-        /// </summary>
-        protected virtual void Update()
-        {
-            if (!_PauseTimer)
-            {
-                _Timer.Tick(Time.deltaTime);
-            }
         }
     }
 }

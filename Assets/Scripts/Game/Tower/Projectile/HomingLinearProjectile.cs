@@ -12,6 +12,9 @@ namespace ActionGameFramework.Projectiles
     {
         public int leadingPrecision = 2;
 
+        /// <summary>
+        /// 적의 경로 예측 여부
+        /// </summary>
         public bool leadTarget;
 
         public Targetable _homingTarget;
@@ -58,10 +61,10 @@ namespace ActionGameFramework.Projectiles
                 _rigidbody.rotation = aimDirection;
                 _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
             }
-            else if (targetPos != Vector3.zero)
+            else
             {
                 // 타겟이 죽었어도 마지막 위치를 향해 계속 조준
-                Vector3 heading = (targetPos - transform.position).normalized;
+                Vector3 heading = GetHeading();
                 if (heading != Vector3.zero)
                 {
                     _rigidbody.rotation = Quaternion.LookRotation(heading);
