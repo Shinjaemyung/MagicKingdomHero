@@ -87,13 +87,12 @@ namespace TowerDefense.Towers.Projectiles
                 return;
             }
 
-            // effects
-            /* 이펙트는 나중에
-            ParticleSystem pfxPrefab = m_Damager.collisionParticles;
+            // 이펙트
+            ParticleSystem pfxPrefab = _damager.collisionParticles;
             var attackEffect = PoolManager.Instance.GetObject(pfxPrefab.gameObject).GetComponent<ParticleSystem>();
-            attackEffect.transform.position = m_Enemy.position;
+            attackEffect.transform.position = _enemy.Position;
             attackEffect.Play();
-            */
+            
             _enemy.TakeDamage(_damager.damage, _enemy.Position, _damager.AlignmentProvider);
             _pauseTimer = true;
 

@@ -11,19 +11,19 @@ namespace Core.Utilities
         /// <summary>
         /// Event fired on elapsing
         /// </summary>
-        readonly Action m_Callback;
+        readonly Action _callback;
 
         /// <summary>
         /// The time
         /// </summary>
-        float m_Time, m_CurrentTime;
+        float _time, _currentTime;
 
         /// <summary>
         /// Normalized progress of the timer
         /// </summary>
-        public float normalizedProgress
+        public float NormalizedProgress
         {
-            get { return Mathf.Clamp(m_CurrentTime / m_Time, 0f, 1f); }
+            get { return Mathf.Clamp(_currentTime / _time, 0f, 1f); }
         }
 
         /// <summary>
@@ -35,8 +35,8 @@ namespace Core.Utilities
         {
             SetTime(newTime);
 
-            m_CurrentTime = 0f;
-            m_Callback += onElapsed;
+            _currentTime = 0f;
+            _callback += onElapsed;
         }
 
         /// <summary>
@@ -56,8 +56,8 @@ namespace Core.Utilities
         /// <returns>true if the timer has elapsed, false otherwise</returns>
         protected bool AssessTime(float deltaTime)
         {
-            m_CurrentTime += deltaTime;
-            if (m_CurrentTime >= m_Time)
+            _currentTime += deltaTime;
+            if (_currentTime >= _time)
             {
                 FireEvent();
                 return true;
@@ -71,7 +71,7 @@ namespace Core.Utilities
         /// </summary>
         public void Reset()
         {
-            m_CurrentTime = 0;
+            _currentTime = 0;
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Core.Utilities
         /// </summary>
         public void FireEvent()
         {
-            m_Callback.Invoke();
+            _callback.Invoke();
         }
 
         /// <summary>
@@ -88,11 +88,11 @@ namespace Core.Utilities
         /// <param name="newTime">sets the time to a new value</param>
         public void SetTime(float newTime)
         {
-            m_Time = newTime;
+            _time = newTime;
 
             if (newTime <= 0)
             {
-                m_Time = 0.1f;
+                _time = 0.1f;
             }
         }
     }
