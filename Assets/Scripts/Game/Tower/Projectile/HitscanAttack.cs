@@ -81,7 +81,7 @@ namespace TowerDefense.Towers.Projectiles
         /// </summary>
         protected void DealDamage()
         {
-            if (_enemy == null)
+            if (_enemy == null || _enemy.IsDead)
             {
                 ReturnToPool();
                 return;
