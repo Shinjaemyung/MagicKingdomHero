@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class Poolable : MonoBehaviour
 {
+    /// <summary>
+    /// 스폰될 때마다 증가하는 ID. pool 반환 후 재스폰된 오브젝트를 구별하는 데 사용.
+    /// </summary>
+    public int SpawnId { get; private set; } = 0;
+
     protected GameObject prefabReference;
 
     bool isPoolReturned = false;
@@ -14,6 +19,7 @@ public class Poolable : MonoBehaviour
 
     public virtual void OnSpawn()
     {
+        SpawnId++;
         isPoolReturned = false;
         gameObject.SetActive(true);
     }

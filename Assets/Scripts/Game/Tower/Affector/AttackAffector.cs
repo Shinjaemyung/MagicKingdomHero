@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 //using ActionGameFramework.Audio;
 using ActionGameFramework.Health;
 using Core.Health;
@@ -73,7 +73,17 @@ namespace TowerDefense.Affectors
         /// 현재 추적 중인 적
         /// </summary>
         protected Targetable _trackingEnemy;
+
+        /// <summary>
+        /// 공격할 적
+        /// </summary>
         protected Targetable _attackTarget;
+
+        /// <summary>
+        /// 애니메이션 시작 시점에 저장한 _attackTarget의 SpawnId.
+        /// FireProjectile() 시점에 비교해서 그 사이에 pool 반환→재스폰됐는지 검증.
+        /// </summary>
+        private int _attackTargetSpawnId = -1;
 
         [Tooltip("공격 애니메이션을 재생할 Animator")]
         public Animator attackAnimator;
@@ -203,6 +213,12 @@ namespace TowerDefense.Affectors
 
             _attackTarget = _trackingEnemy;
 
+            // 애니메이션 시작 시점의 SpawnId를 저장.
+            // 애니메이션 재생 도중 _attackTarget이 pool 반환→재스폰되면
+            // SpawnId가 바뀌므로 FireProjectile()에서 발사를 취소할 수 있다.
+            var poolable = _attackTarget.GetComponent<Poolable>();
+            _attackTargetSpawnId = poolable.SpawnId;
+
             if (attackAnimator != null)
             {
                 // fireRate에 맞게 애니메이션 속도 조절 (클립 길이 직접 계산)
@@ -232,7 +248,15 @@ namespace TowerDefense.Affectors
         protected virtual void FireProjectile()
         {
             if (_attackTarget == null)
+                return;
+
+            // 애니메이션 시작 이후 _attackTarget이 pool 반환→재스폰됐는지 검증
+            // pool 오브젝트는 동일 인스턴스를 재사용하므로 SpawnId로 구분
+            var poolable = _attackTarget.GetComponent<Poolable>();
+            if (poolable != null && poolable.SpawnId != _attackTargetSpawnId)
             {
+                _attackTarget = null;
+                _attackTargetSpawnId = -1;
                 return;
             }
 
