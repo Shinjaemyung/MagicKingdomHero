@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.tvOS;
 
 namespace Core.Health
 {
@@ -22,12 +23,14 @@ namespace Core.Health
         /// </summary>
         public float CurrentHealth { get; protected set; }
 
-
-
         /// <summary>
         /// The alignment of the damager
         /// </summary>
         public SerializableIAlignmentProvider alignment;
+
+        public event Action ReachedMaxHealth;
+
+        public event Action<HealthChangeInfo> Damaged, Healed, Died, HealthChanged;
 
 
         /// <summary>
@@ -72,10 +75,6 @@ namespace Core.Health
         {
             get { return Mathf.Approximately(CurrentHealth, maxHealth); }
         }
-
-        public event Action ReachedMaxHealth;
-
-        public event Action<HealthChangeInfo> Damaged, Healed, Died, HealthChanged;
 
         /// <summary>
         /// 현재 체력을 시작 체력 값으로 초기화
@@ -209,6 +208,18 @@ namespace Core.Health
             {
                 HealthChanged(info);
             }
+        }
+
+        /// <summary>
+        /// 풀링될 때 기존 구독자 전부 제거
+        /// </summary>
+        public void ClearAllEvents()
+        {
+            ReachedMaxHealth = null;
+            Damaged = null;
+            Healed = null;
+            Died = null;
+            HealthChanged = null;
         }
     }
 }

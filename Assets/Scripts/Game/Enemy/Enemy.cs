@@ -23,6 +23,11 @@ public class Enemy : Targetable
         if (healthBar == null)
             healthBar = GetComponent<UI_EnemyHealthBar>();
         _poolable = GetComponent<EnemyPoolable>();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
         Hit += OnHit;
     }
 
@@ -35,11 +40,13 @@ public class Enemy : Targetable
     public override void Remove()
     {
         base.Remove();
+
+        ClearAllEvents();
         _poolable.ReturnToPool();
     }
 
     void OnDestroy()
     {
-        Hit -= OnHit;
+        ClearAllEvents();
     }
 }

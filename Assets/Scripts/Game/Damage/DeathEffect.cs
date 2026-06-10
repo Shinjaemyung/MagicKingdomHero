@@ -27,7 +27,7 @@ namespace Core.Health
         /// <summary>
         /// The damageable
         /// </summary>
-        protected Damageable m_Damageable;
+        protected Damageable _damageable;
 
         /// <summary>
         /// If damageableBehaviour is populated, assigns the damageable
@@ -46,12 +46,12 @@ namespace Core.Health
         /// <param name="damageable"></param>
         public void AssignDamageable(Damageable damageable)
         {
-            if (m_Damageable != null)
+            if (_damageable != null)
             {
-                m_Damageable.Died -= OnDied;
+                _damageable.Died -= OnDied;
             }
-            m_Damageable = damageable;
-            m_Damageable.Died += OnDied;
+            _damageable = damageable;
+            _damageable.Died += OnDied;
         }
 
         /// <summary>

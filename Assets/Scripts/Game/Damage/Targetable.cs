@@ -16,7 +16,7 @@ namespace ActionGameFramework.Health
         /// <summary>
         /// The position of the object
         /// </summary>
-        protected Vector3 m_CurrentPosition, m_PreviousPosition;
+        protected Vector3 _currentPosition, _previousPosition;
 
         /// <summary>
         /// The velocity of the rigidbody
@@ -56,8 +56,8 @@ namespace ActionGameFramework.Health
         /// </summary>
         protected void ResetPositionData()
         {
-            m_CurrentPosition = Position;
-            m_PreviousPosition = Position;
+            _currentPosition = Position;
+            _previousPosition = Position;
         }
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace ActionGameFramework.Health
         /// </summary>
         void FixedUpdate()
         {
-            m_CurrentPosition = Position;
-            Velocity = (m_CurrentPosition - m_PreviousPosition) / Time.fixedDeltaTime;
-            m_PreviousPosition = m_CurrentPosition;
+            _currentPosition = Position;
+            Velocity = (_currentPosition - _previousPosition) / Time.fixedDeltaTime;
+            _previousPosition = _currentPosition;
         }
     }
 }

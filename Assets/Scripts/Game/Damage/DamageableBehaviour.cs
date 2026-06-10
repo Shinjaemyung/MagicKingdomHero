@@ -47,6 +47,11 @@ namespace Core.Health
 
         protected virtual void Awake()
         {
+
+        }
+
+        protected virtual void OnEnable()
+        {
             configuration.Init();
             configuration.Died += OnConfigurationDied;
         }
@@ -111,6 +116,17 @@ namespace Core.Health
         {
             OnDeath();
             Remove();
+        }
+
+        /// <summary>
+        /// 풀링될 때 기존 구독자 전부 제거
+        /// </summary>
+        protected void ClearAllEvents()
+        {
+            Hit = null;
+            Removed = null;
+            Died = null;
+            configuration.ClearAllEvents();
         }
     }
 }

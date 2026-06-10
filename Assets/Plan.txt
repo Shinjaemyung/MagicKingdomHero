@@ -51,7 +51,9 @@ Enemy 충돌 쿨타임 지나기 전에 pool됐다가 재생성된 같은 인스
 BallisticProjectile 미완성 - targetPoint가 항상 0이 됨
 grid 연결 부위는 서로 다른 grid라 배치 못하는 버그 있음 -> Grid끼리 붙이지 말고 분리 필요
 모드 전환 도중 마우스 클릭하면 ui 바뀌는 버그 -> 모드 전환 begin, complete 잘 정리 필요
-hitscan 적 죽었는데 계속 허공에 애니메이션 발생 (FireProjectile 도중 return되는 경우가 없기 때문) 
+호밍 투사체 적 죽어도 안 사라짐
+호밍 투사체 타깃이 pool 되어도 유지되서 이상한데로 날아감
+적 죽었는데 계속 허공에 애니메이션 발생 (FireProjectile 도중 return되는 경우가 없기 때문) 
 -> 애니메이션 도중 적이 죽었을 때 다른 타겟팅 적이 있으면 게속 진행하고 없으면 중단할까
 
 
