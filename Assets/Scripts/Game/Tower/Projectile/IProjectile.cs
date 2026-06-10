@@ -11,7 +11,7 @@ namespace ActionGameFramework.Projectiles
         /// <summary>
         /// Event fired when this projectile is launched
         /// </summary>
-        event Action fired;
+        event Action Fired;
 
         /// <summary>
         /// Fires this projectile from a designated start point to a designated world coordinate.

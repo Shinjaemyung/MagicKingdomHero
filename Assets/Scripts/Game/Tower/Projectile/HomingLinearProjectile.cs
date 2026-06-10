@@ -29,9 +29,19 @@ namespace ActionGameFramework.Projectiles
         /// 발사 후 추적할 대상 설정
         /// </summary>
         /// <param name="target">추적할 대상</param>
-        public void Initialize(Targetable target)
+        public override void Initialize(Targetable target)
         {
-            _homingTarget = target;
+            base.Initialize(target);
+
+            if (!target.IsDead)
+            {
+                _homingTarget = target;
+            }
+            else
+            {
+                targetPos = target.gameObject.transform.position;
+            }
+            
             destroyTimerProgress = 0;
         }
 
@@ -63,9 +73,9 @@ namespace ActionGameFramework.Projectiles
             }
             else
             {
-                // 타겟이 죽었어도 마지막 위치를 향해 계속 조준
+                // 타겟이 죽으면 마지막 위치를 향해 날아감
                 Vector3 heading = GetHeading();
-                if (heading != Vector3.zero)
+                if (heading.sqrMagnitude > 0.01f)
                 {
                     _rigidbody.rotation = Quaternion.LookRotation(heading);
                     _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
@@ -100,19 +110,25 @@ namespace ActionGameFramework.Projectiles
 
         protected override void Fire(Vector3 firingVector)
         {
+            /*
             if (_homingTarget == null)
             {
                 Debug.LogError("목표물이 지정되지 않았습니다. 사격을 중단합니다.");
                 return;
             }
-            _homingTarget.Removed += OnTargetDied;
+            */
+            if (_homingTarget != null)
+            {
+                _homingTarget.Removed += OnTargetDied;
+            }
 
-            base.Fire(firingVector);
+           base.Fire(firingVector);
         }
 
         void OnTargetDied(DamageableBehaviour targetable)
         {
             targetable.Removed -= OnTargetDied;
+            _target = null;
             _homingTarget = null;
         }
 
@@ -125,7 +141,7 @@ namespace ActionGameFramework.Projectiles
 
             if (Vector3.Distance(transform.position, targetPos) < 0.1f || destroyTimerProgress > destroyTimer)
             {
-                ReturnToPool();
+                Remove();
             }
         }
 

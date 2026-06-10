@@ -36,7 +36,7 @@ namespace ActionGameFramework.Projectiles
         /// </summary>
         protected Collider[] m_Colliders;
 
-        public event Action fired;
+        public event Action Fired;
 
         /// <summary>
         /// Fires this projectile from a designated start point to a designated world coordinate.
@@ -163,7 +163,7 @@ namespace ActionGameFramework.Projectiles
 
             m_CollidersIgnoring.Clear();
 
-            fired?.Invoke();
+            Fired?.Invoke();
         }
 
         void OnCollisionEnter(Collision other)
