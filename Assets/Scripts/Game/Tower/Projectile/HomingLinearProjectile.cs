@@ -72,21 +72,10 @@ namespace ActionGameFramework.Projectiles
                 return;
 
             Vector3 heading = GetHeading();
-
             if (heading.sqrMagnitude > 0.01f)
             {
-                Quaternion targetRotation =
-                    Quaternion.LookRotation(heading);
-
-                _rigidbody.rotation =
-                    Quaternion.RotateTowards(
-                        _rigidbody.rotation,
-                        targetRotation,
-                        turnSpeed * Time.fixedDeltaTime);
-
-                _rigidbody.linearVelocity =
-                    _rigidbody.rotation * Vector3.forward *
-                    _rigidbody.linearVelocity.magnitude;
+                _rigidbody.rotation = Quaternion.LookRotation(heading);
+                _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
             }
         }
 
@@ -151,7 +140,7 @@ namespace ActionGameFramework.Projectiles
 
             destroyTimerProgress += Time.deltaTime;
 
-            if (Vector3.Distance(transform.position, targetPos) < 0.1f || destroyTimerProgress > destroyTimer)
+            if (Vector3.Distance(transform.position, targetPos) < 1f || destroyTimerProgress > destroyTimer)
             {
                 Remove();
             }
