@@ -6,6 +6,7 @@ using System.Linq;
 using TowerDefense.Affectors;
 using TowerDefense.Towers;
 using TowerDefense.Towers.Placement;
+using TowerDefense.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,6 +74,8 @@ public class Tower : MonoBehaviour
     public void OnClicked()
     {
         GameUIManager.Instance.ShowTowerInfo(this);
+        var visual = FindAnyObjectByType<RadiusVisualizerController>();
+        visual.SetupRadiusVisualizers(this);
     }
 
     /// <summary>

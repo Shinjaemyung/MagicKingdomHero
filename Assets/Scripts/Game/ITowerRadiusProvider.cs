@@ -8,8 +8,8 @@ namespace TowerDefense.Towers
     /// </summary>
     public interface ITowerRadiusProvider
     {
-        float effectRadius { get; }
-        Color effectColor { get; }
-        Targetter targetter { get; }
+        float EffectRadius { get; }
+        Color EffectColor { get; }
+        Targetter Targetter { get; }
     }
 }

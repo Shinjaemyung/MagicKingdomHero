@@ -15,7 +15,7 @@ namespace TowerDefense.Affectors
     /// 이 스크립트를 추가하기 전에 같은 GameObject에 ILauncher 구현체 추가 필수
     /// </summary>
     [RequireComponent(typeof(ILauncher))]
-    public class AttackAffector : Affector//, ITowerRadiusProvider
+    public class AttackAffector : Affector, ITowerRadiusProvider
     {
         /// <summary>
         /// 공격에 사용할 투사체

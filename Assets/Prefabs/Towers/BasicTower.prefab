@@ -305,7 +305,7 @@ MonoBehaviour:
   isMultiAttack: 0
   fireRate: 1
   towerTargetter: {fileID: 2173301278757424628}
-  radiusEffectColor: {r: 0, g: 0, b: 0, a: 0}
+  radiusEffectColor: {r: 0, g: 1, b: 1, a: 0.09803922}
   attackAnimator: {fileID: 2967041146118673175}
 --- !u!4 &9209052990779083117 stripped
 Transform:
