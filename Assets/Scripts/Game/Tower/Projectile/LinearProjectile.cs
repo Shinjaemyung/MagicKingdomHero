@@ -53,7 +53,7 @@ namespace ActionGameFramework.Projectiles
         /// 투사체 상태 업데이트
         /// 발사된 상태라면 가속도 적용
         /// </summary>
-        protected virtual void Update()
+        protected virtual void FixedUpdate()
         {
             if (!_fired)
             {
@@ -65,6 +65,11 @@ namespace ActionGameFramework.Projectiles
                 // 투사체 시간이 지날수록 가속
                 _rigidbody.linearVelocity += transform.forward * acceleration * Time.deltaTime;
             }
+        }
+
+        protected virtual void Update()
+        {
+
         }
 
         /// <summary>

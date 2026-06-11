@@ -22,8 +22,15 @@ namespace ActionGameFramework.Projectiles
 
         protected Vector3 _targetVelocity;
 
-        float destroyTimerProgress = 0;
-        float destroyTimer = 5;
+        /// <summary>
+        /// 이 투사체가 자동 제거까지 걸리는 시간
+        /// </summary>
+        protected float destroyTimer = 5;
+
+        /// <summary>
+        /// 이 투사체가 자동 제거까지 진행된 시간
+        /// </summary>
+        protected float destroyTimerProgress = 0;
 
         /// <summary>
         /// 발사 후 추적할 대상 설정
@@ -49,46 +56,45 @@ namespace ActionGameFramework.Projectiles
         {
             _homingTarget = null;
             targetPos = position;
+            destroyTimerProgress = 0;
         }
 
-        protected virtual void FixedUpdate()
+        protected override void FixedUpdate()
         {
-            if (_homingTarget == null)
+            base.FixedUpdate();
+
+            if (_homingTarget != null)
             {
-                return;
+                _targetVelocity = _homingTarget.Velocity;
             }
 
-            _targetVelocity = _homingTarget.Velocity;
+            if (!_fired)
+                return;
+
+            Vector3 heading = GetHeading();
+
+            if (heading.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation =
+                    Quaternion.LookRotation(heading);
+
+                _rigidbody.rotation =
+                    Quaternion.RotateTowards(
+                        _rigidbody.rotation,
+                        targetRotation,
+                        turnSpeed * Time.fixedDeltaTime);
+
+                _rigidbody.linearVelocity =
+                    _rigidbody.rotation * Vector3.forward *
+                    _rigidbody.linearVelocity.magnitude;
+            }
         }
 
         protected override void Update()
         {
-            TryDestroySelf();
-
-            if (!_fired)
-            {
-                return;
-            }
-
-            if (_homingTarget != null)
-            {
-                Quaternion aimDirection = Quaternion.LookRotation(GetHeading());
-
-                _rigidbody.rotation = aimDirection;
-                _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
-            }
-            else
-            {
-                // 타겟이 죽으면 마지막 위치를 향해 날아감
-                Vector3 heading = GetHeading();
-                if (heading.sqrMagnitude > 0.01f)
-                {
-                    _rigidbody.rotation = Quaternion.LookRotation(heading);
-                    _rigidbody.linearVelocity = transform.forward * _rigidbody.linearVelocity.magnitude;
-                }
-            }
-
             base.Update();
+
+            TryDestroySelf();
         }
 
         protected Vector3 GetHeading()
@@ -150,6 +156,5 @@ namespace ActionGameFramework.Projectiles
                 Remove();
             }
         }
-
     }
 }
