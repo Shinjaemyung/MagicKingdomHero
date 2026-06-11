@@ -133,8 +133,8 @@ namespace TowerDefense.Affectors
 
         private void OnEnable()
         {
-            Tower m_Tower = GetComponentInParent<Tower>();
-            epicenter = m_Tower.GetComponent<Transform>();
+            Tower tower = GetComponentInParent<Tower>();
+            epicenter = tower.GetComponent<Transform>();
         }
 
         /// <summary>

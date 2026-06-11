@@ -1,11 +1,12 @@
-﻿using Core.Utilities;
+﻿using Core.Health;
+using Core.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TowerDefense.Affectors;
+using TowerDefense.Towers;
 using TowerDefense.Towers.Placement;
 using UnityEngine;
-using System.Linq;
-using Core.Health;
-using TowerDefense.Affectors;
 using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
@@ -25,17 +26,17 @@ public class Tower : MonoBehaviour
 
     public LayerMask Mask { get; protected set; }
 
-    Affector[] m_Affectors;
+    Affector[] _affectors;
 
     protected Affector[] Affectors
     {
         get
         {
-            if (m_Affectors == null)
+            if (_affectors == null)
             {
-                m_Affectors = GetComponentsInChildren<Affector>();
+                _affectors = GetComponentsInChildren<Affector>();
             }
-            return m_Affectors;
+            return _affectors;
         }
     }
 
@@ -74,7 +75,9 @@ public class Tower : MonoBehaviour
         GameUIManager.Instance.ShowTowerInfo(this);
     }
 
-    /// <summary>업그레이드 후 생성된 타워 인스턴스를 반환</summary>
+    /// <summary>
+    /// 업그레이드 후 생성된 타워 인스턴스를 반환
+    /// </summary>
     public Tower UpgradeTower(Tower upgradeTower)
     {
         if (!towerData.upgradeTowers.Contains(upgradeTower))
@@ -87,6 +90,24 @@ public class Tower : MonoBehaviour
 
         Destroy(gameObject);
         return spawnedTower;
+    }
+
+    /// <summary>
+    /// ITowerRadiusProvider를 구현한 모든 Affector들을 반환
+    /// </summary>
+    /// <returns>타워에 적용된 모든 ITowerRadiusProvider 리스트</returns>
+    public List<ITowerRadiusProvider> GetRadiusVisualizers()
+    {
+        List<ITowerRadiusProvider> visualizers = new List<ITowerRadiusProvider>();
+        foreach (Affector affector in Affectors)
+        {
+            var visualizer = affector as ITowerRadiusProvider;
+            if (visualizer != null)
+            {
+                visualizers.Add(visualizer);
+            }
+        }
+        return visualizers;
     }
 
     public void Sell()
