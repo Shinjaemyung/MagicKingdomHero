@@ -80,6 +80,11 @@ namespace TowerDefense.Affectors
         protected Targetable _attackTarget;
 
         /// <summary>
+        /// 공격할 적의 위치
+        /// </summary>
+        protected Vector3 _attackTargetPos;
+
+        /// <summary>
         /// 애니메이션 시작 시점에 저장한 _attackTarget의 SpawnId.
         /// FireProjectile() 시점에 비교해서 그 사이에 pool 반환→재스폰됐는지 검증.
         /// </summary>
@@ -218,6 +223,7 @@ namespace TowerDefense.Affectors
             // SpawnId가 바뀌므로 FireProjectile()에서 발사를 취소할 수 있다.
             var poolable = _attackTarget.GetComponent<Poolable>();
             _attackTargetSpawnId = poolable.SpawnId;
+            _attackTargetPos = _attackTarget.gameObject.transform.position;
 
             if (attackAnimator != null)
             {
@@ -255,18 +261,21 @@ namespace TowerDefense.Affectors
             var poolable = _attackTarget.GetComponent<Poolable>();
             if (poolable != null && poolable.SpawnId != _attackTargetSpawnId)
             {
-                _launcher.LaunchAtPosition(_attackTarget.gameObject.transform.position, DamagerProjectile.gameObject, projectilePoints);
-            }
-
-            if (isMultiAttack)
-            {
-                //List<Targetable> enemies = towerTargetter.GetAllTargets();
-                //_launcher.Launch(enemies, projectile, projectilePoints);
+                _launcher.LaunchAtPosition(_attackTargetPos, DamagerProjectile.gameObject, projectilePoints);
             }
             else
             {
-                _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints);
+                if (isMultiAttack)
+                {
+                    //List<Targetable> enemies = towerTargetter.GetAllTargets();
+                    //_launcher.Launch(enemies, projectile, projectilePoints);
+                }
+                else
+                {
+                    _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints);
+                }
             }
+
             // 오디오 나중에
             /*
             if (randomAudioSource != null)
