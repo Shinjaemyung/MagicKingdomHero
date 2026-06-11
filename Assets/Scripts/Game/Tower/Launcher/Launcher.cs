@@ -1,10 +1,12 @@
-using System.Collections.Generic;
 using ActionGameFramework.Health;
+using ActionGameFramework.Projectiles;
 using Core.Utilities;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.WSA;
 using UnityEngine.Pool;
+using UnityEngine.WSA;
 
 namespace TowerDefense.Towers.TowerLaunchers
 {
@@ -36,6 +38,17 @@ namespace TowerDefense.Towers.TowerLaunchers
             Launch(enemy, poolObject, GetRandomTransform(firingPoints));
         }
 
+        public virtual void LaunchAtPosition(Vector3 position, GameObject projectile, Transform firingPoint)
+        {
+
+        }
+
+        public virtual void LaunchAtPosition(Vector3 position, GameObject projectile, Transform[] firingPoints)
+        {
+            GameObject poolObject = PoolManager.Instance.GetObject(projectile);
+            poolObject.GetComponent<Poolable>().Init(projectile);
+            LaunchAtPosition(position, poolObject, GetRandomTransform(firingPoints));
+        }
 
         public void PlayParticles(ParticleSystem particleSystemToPlay, Vector3 origin, Vector3 lookPosition)
         {

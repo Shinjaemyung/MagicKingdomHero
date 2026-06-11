@@ -1,6 +1,7 @@
 ﻿using ActionGameFramework.Health;
 using ActionGameFramework.Helpers;
 using ActionGameFramework.Projectiles;
+using Core.Utilities;
 using UnityEngine;
 
 namespace TowerDefense.Towers.TowerLaunchers
@@ -39,6 +40,22 @@ namespace TowerDefense.Towers.TowerLaunchers
                 homingMissile.acceleration);
 
             homingMissile.Initialize(enemy);
+            homingMissile.FireAtPoint(startingPoint, targetPoint);
+            PlayParticles(fireParticleSystem, startingPoint, targetPoint);
+        }
+
+        public override void LaunchAtPosition(Vector3 position, GameObject attack, Transform firingPoint)
+        {
+            var homingMissile = attack.GetComponent<HomingLinearProjectile>();
+            if (homingMissile == null)
+            {
+                Debug.LogError("No HomingLinearProjectile attached to attack object");
+                return;
+            }
+            Vector3 startingPoint = firingPoint.position;
+            Vector3 targetPoint = position;
+
+            homingMissile.Initialize(position);
             homingMissile.FireAtPoint(startingPoint, targetPoint);
             PlayParticles(fireParticleSystem, startingPoint, targetPoint);
         }

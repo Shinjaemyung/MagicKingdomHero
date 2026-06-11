@@ -45,6 +45,12 @@ namespace ActionGameFramework.Projectiles
             destroyTimerProgress = 0;
         }
 
+        public void Initialize(Vector3 position)
+        {
+            _homingTarget = null;
+            targetPos = position;
+        }
+
         protected virtual void FixedUpdate()
         {
             if (_homingTarget == null)

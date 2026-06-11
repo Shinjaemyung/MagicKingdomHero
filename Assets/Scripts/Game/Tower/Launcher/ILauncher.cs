@@ -5,47 +5,62 @@ using UnityEngine;
 namespace TowerDefense.Towers
 {
     /// <summary>
-    /// A class that allows the TowerConfiguration to delegate
-    /// different firing logic this component
+    /// 타워의 다양한 발사 로직을 정의하는 인터페이스
     /// </summary>
     public interface ILauncher
     {
         /// <summary>
-        /// The method for crafting the firing logic for the tower
+        /// 타워의 발사 로직을 구현하는 메서드
         /// </summary>
         /// <param name="enemy">
-        /// The enemy that the tower is targeting
+        /// 타워가 공격 대상으로 삼고 있는 적
         /// </param>
         /// <param name="attack">
-        /// The projectile component used to attack the enemy
+        /// 적을 공격하는 데 사용되는 투사체 오브젝트
         /// </param>
+        /// 발사 위치
         /// <param name="firingPoint"></param>
         void Launch(Targetable enemy, GameObject attack, Transform firingPoint);
 
         /// <summary>
-        /// The method for crafting the firing logic for the tower
+        /// 타워의 발사 로직을 구현하는 메서드
         /// </summary>
         /// <param name="enemy">
-        /// The enemy that the tower is targeting
+        /// 타워가 공격 대상으로 삼고 있는 적
         /// </param>
         /// <param name="attack">
-        /// The projectile component used to attack the enemy
+        /// 적을 공격하는 데 사용되는 투사체 오브젝트
         /// </param>
         /// <param name="firingPoints">
-        /// A list of firing points to fire from
+        /// 발사 위치 리스트
         /// </param>
         void Launch(Targetable enemy, GameObject attack, Transform[] firingPoints);
 
         /// <summary>
-        /// The method for crafting firing logic at multiple enemies
+        /// 여러 적을 대상으로 하는 발사 로직을 구현하는 메서드
         /// </summary>
         /// <param name="enemies">
-        /// The collection of enemies to attack
+        /// 공격할 적들의 목록
         /// </param>
         /// <param name="attack">
-        /// The projectile component used to attack the enemy
+        /// 적을 공격하는 데 사용되는 투사체 오브젝트
         /// </param>
+        /// 발사 위치 리스트
         /// <param name="firingPoints"></param>
         void Launch(List<Targetable> enemies, GameObject attack, Transform[] firingPoints);
+
+
+        /// <summary>
+        /// 적이 없는 상태에서 발사 로직을 구현하는 메서드(발사 전 대상이 Remove 되었을 때 필요)
+        /// </summary>
+        /// <param name="position">
+        /// 타워의 투사체가 날아갈 위치
+        /// </param>
+        /// <param name="attack">
+        /// 위치를 향해 발사할 투사체 오브젝트
+        /// </param>
+        /// 발사 위치 리스트
+        /// <param name="firingPoint"></param>
+        void LaunchAtPosition(Vector3 position, GameObject attack, Transform[] firingPoint);
     }
 }

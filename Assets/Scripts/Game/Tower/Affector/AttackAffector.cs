@@ -255,9 +255,7 @@ namespace TowerDefense.Affectors
             var poolable = _attackTarget.GetComponent<Poolable>();
             if (poolable != null && poolable.SpawnId != _attackTargetSpawnId)
             {
-                _attackTarget = null;
-                _attackTargetSpawnId = -1;
-                return;
+                _launcher.LaunchAtPosition(_attackTarget.gameObject.transform.position, DamagerProjectile.gameObject, projectilePoints);
             }
 
             if (isMultiAttack)
