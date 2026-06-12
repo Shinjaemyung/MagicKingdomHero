@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+using Cinemachine;
 using UnityEngine;
 using static PlayerModeManager;
 
@@ -120,6 +120,17 @@ public class CameraManager : MonoBehaviour
 
     public void SetTowerPlacementModeView()
     {
+        // 카메라가 Hero를 바라보도록 위치 변경
+        Transform heroTransform = heroFollowCamera.Follow;
+        if (heroTransform != null)
+        {
+            Vector3 heroPos = heroTransform.position;
+            float camY = towerPlacementCamera.transform.position.y;
+            Vector3 dir = -towerPlacementCamera.transform.forward;
+            float t = (camY - heroPos.y) / dir.y;
+            towerPlacementCamera.transform.position = heroPos + dir * t;
+        }
+
         towerPlacementCamera.Priority = 20;
         heroFollowCamera.Priority = 10;
     }
