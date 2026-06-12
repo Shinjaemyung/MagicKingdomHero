@@ -1,4 +1,4 @@
-﻿using Core.Health;
+using Core.Health;
 using Core.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,9 +35,9 @@ public class Tower : MonoBehaviour
     {
         get
         {
-            if (_affectors == null)
+            if (_affectors == null || _affectors.Length == 0)
             {
-                _affectors = GetComponentsInChildren<Affector>();
+                _affectors = GetComponentsInChildren<Affector>(true);
             }
             return _affectors;
         }

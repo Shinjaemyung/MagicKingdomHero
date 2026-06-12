@@ -37,7 +37,6 @@ Enemy 정보 ScriptableObject로 변경
 Enemy 생성 관리 기능 - 에셋 확인
 Hero 공격 기능
 배치 모드일때도 Hero 위치 표시
-타워 range 표시(클릭 시, 배치 시) - 버츄얼에 적용*
 옵션 버튼 누르면 옵션 패널
 
 
