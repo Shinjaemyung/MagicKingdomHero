@@ -40,6 +40,9 @@ public class UserInputManager : MonoBehaviour
 
     void CheckMouseInput()
     {
+        if (CameraManager.Instance.IsBlending)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             OnLeftMouseButtonDown();

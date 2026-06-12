@@ -98,13 +98,13 @@ public class PlayerModeManager : MonoBehaviour
         CameraManager.Instance.SetHeroControlModeView();
         GameUIManager.Instance.BeginHeroControlMode();
         RadiusVisualizerController.Instance.HideRadiusVisualizers();
+        MouseManager.Instance.SetCursorLockState(true);
     }
 
     void CompleteHeroControlMode()
     {
         GameUIManager.Instance.CompleteHeroControlMode();
         Hero.Instance.gameObject.SetActive(true);
-        MouseManager.Instance.SetCursorLockState(true);
         playerMode = PlayerMode.HeroControlMode;
     }
 

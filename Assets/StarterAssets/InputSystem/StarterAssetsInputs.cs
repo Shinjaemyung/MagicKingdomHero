@@ -84,10 +84,5 @@ namespace StarterAssets
 
             sprint = newSprintState;
 		}
-
-		private void OnApplicationFocus(bool hasFocus)
-		{
-            MouseManager.Instance.SetCursorLockState(true);
-		}
     }
 }
