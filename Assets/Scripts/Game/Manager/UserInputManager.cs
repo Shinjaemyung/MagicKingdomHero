@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TowerDefense.UI;
 using static PlayerModeManager;
 
 public class UserInputManager : MonoBehaviour
@@ -72,11 +73,13 @@ public class UserInputManager : MonoBehaviour
             if (clickedTower != null)
             {
                 clickedTower.OnClicked();
+                RadiusVisualizerController.Instance.SetupRadiusVisualizers(clickedTower);
             }
         }
         else
         {
             GameUIManager.Instance.ShowTowerList();
+            RadiusVisualizerController.Instance.HideRadiusVisualizers();
         }
     }
 

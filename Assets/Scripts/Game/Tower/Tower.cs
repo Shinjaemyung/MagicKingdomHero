@@ -20,6 +20,8 @@ public class Tower : MonoBehaviour
     int totalCost = 0;
     public int TotalCost => totalCost;
 
+    private float refundRatio = 0.75f;
+
     IntVector2 gridPosition;
     IPlacementArea placementArea;
 
@@ -74,8 +76,6 @@ public class Tower : MonoBehaviour
     public void OnClicked()
     {
         GameUIManager.Instance.ShowTowerInfo(this);
-        var visual = FindAnyObjectByType<RadiusVisualizerController>();
-        visual.SetupRadiusVisualizers(this);
     }
 
     /// <summary>
@@ -90,8 +90,8 @@ public class Tower : MonoBehaviour
         int upgradeCost = upgradeTower.towerData.cost;
         spawnedTower.Initialize(placementArea, gridPosition, totalCost + upgradeCost);
         GameManager.Instance.UpdatePlayerGold(-upgradeCost);
+        Remove();
 
-        Destroy(gameObject);
         return spawnedTower;
     }
 
@@ -115,15 +115,16 @@ public class Tower : MonoBehaviour
 
     public void Sell()
     {
-        int sellCost = Mathf.RoundToInt(totalCost * 0.75f);
+        int sellCost = Mathf.RoundToInt(totalCost * refundRatio);
         GameManager.Instance.UpdatePlayerGold(sellCost);
+        placementArea.Clear(gridPosition, dimensions);
 
         Remove();
     }
 
     public void Remove()
     {
-        placementArea.Clear(gridPosition, dimensions);
+        RadiusVisualizerController.Instance.HideRadiusVisualizers();
         Destroy(gameObject);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using StarterAssets;
 using System.Collections;
+using TowerDefense.UI;
 
 public class PlayerModeManager : MonoBehaviour
 {
@@ -96,6 +97,7 @@ public class PlayerModeManager : MonoBehaviour
         PlacementManager.Instance.CancelPlacementState();
         CameraManager.Instance.SetHeroControlModeView();
         GameUIManager.Instance.BeginHeroControlMode();
+        RadiusVisualizerController.Instance.HideRadiusVisualizers();
     }
 
     void CompleteHeroControlMode()

@@ -6,6 +6,8 @@ namespace TowerDefense.UI
 {
     public class RadiusVisualizerController : MonoBehaviour
     {
+        public static RadiusVisualizerController Instance { get; private set; }
+
         /// <summary>
         /// 타워의 범위를 시각화하는 데 사용하는 프리팹
         /// </summary>
@@ -16,6 +18,12 @@ namespace TowerDefense.UI
         public Vector3 localEuler;
 
         readonly List<GameObject> _radiusVisualizers = new();
+
+        private void Awake()
+        {
+            if (Instance == null) Instance = this;
+            else Destroy(gameObject);
+        }
 
         /// <summary>
         /// 타워 또는 virtual 타워의 범위 시각화를 설정

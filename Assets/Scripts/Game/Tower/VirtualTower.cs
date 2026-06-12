@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TowerDefense.UI;
 using UnityEngine;
 
 public class VirtualTower : MonoBehaviour
 {
+    /// <summary>
+    /// 실제로 배치할 타워
+    /// </summary>
     public Tower MyTower { get; private set; }
 
     Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
@@ -22,6 +26,8 @@ public class VirtualTower : MonoBehaviour
         {
             originalMaterials[renderer] = renderer.sharedMaterials;
         }
+
+        RadiusVisualizerController.Instance.SetupRadiusVisualizers(MyTower, transform);
 
         isPlacementValid = true;
         SetInvalidPlacementState();
