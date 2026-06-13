@@ -4901,7 +4901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 3
-  startSpeed: 10
+  startSpeed: 5
   leadingPrecision: 2
   leadTarget: 0
   _homingTarget: {fileID: 0}
