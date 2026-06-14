@@ -4940,14 +4940,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da8014753875514f8de6a5655aeb8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 5
+  startSpeed: 9
   acceleration: 3
   hitOffset: 0.1
   useFirePointRotation: 0
   rotationOffset: {x: 0, y: 0, z: 0}
-  flashPS: {fileID: 3345829102269916422}
-  hitPS: {fileID: 6749311185763065056}
   projectilePS: {fileID: 2477874716030982300}
+  hitPS: {fileID: 6749311185763065056}
+  flashPS: {fileID: 3345829102269916422}
   Detached: []
   leadingPrecision: 2
   leadTarget: 0
