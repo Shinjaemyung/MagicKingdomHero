@@ -2,7 +2,10 @@ using ActionGameFramework.Health;
 using ActionGameFramework.Helpers;
 using Core.Health;
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.tvOS;
 
 namespace ActionGameFramework.Projectiles
 {
@@ -12,22 +15,42 @@ namespace ActionGameFramework.Projectiles
     [RequireComponent(typeof(Rigidbody))]
     public class LinearProjectile : Poolable, IProjectile
     {
-        /// <summary>
-        /// 투사체가 가속하는 속도
-        /// </summary>
+        [SerializeField, Tooltip("투사체의 초기 발사 속도")]
+        public float startSpeed;
+
+        [SerializeField, Tooltip("투사체가 가속하는 속도")]
         public float acceleration;
 
-        /// <summary>
-        /// 투사체의 초기 발사 속도
-        /// </summary>
-        public float startSpeed;
+        [SerializeField, Tooltip("충돌 이펙트가 생성될 때 표면으로부터 떨어지는 거리")]
+        protected float hitOffset = 0.1f;
+
+        [SerializeField, Tooltip("충돌 이펙트에 발사체의 회전을 적용")]
+        protected bool useFirePointRotation;
+
+        [SerializeField, Tooltip("충돌 이펙트에 적용할 추가 회전값")]
+        protected Vector3 rotationOffset = new Vector3(0, 0, 0);
+
+        protected Rigidbody _rigidbody;
+        protected Light _lightSourse;
+        protected Collider _collider;
+
+        [SerializeField, Tooltip("Projectile 파티클 시스템")]
+        protected ParticleSystem projectilePS;
+
+        [SerializeField, Tooltip("충돌 시 재생할 파티클 시스템")]
+        protected ParticleSystem hitPS;
+        protected GameObject hit;
+
+        [SerializeField, Tooltip("")]
+        protected GameObject flashPS;
+
+        [SerializeField, Tooltip("충돌 이후 투사체와 분리되어 제거되는 오브젝트")]
+        protected GameObject[] Detached;
 
         /// <summary>
         /// 발사되었는지 여부
         /// </summary>
         protected bool _fired;
-
-        protected Rigidbody _rigidbody;
 
         /// <summary>
         /// 투사체가 발사될 때 호출되는 이벤트
@@ -42,11 +65,20 @@ namespace ActionGameFramework.Projectiles
         protected virtual void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _lightSourse = GetComponent<Light>();
+            _collider = GetComponent<Collider>();
+            hit = hitPS.gameObject;
         }
 
         public virtual void Initialize(Targetable target)
         {
             _target = target;
+            _rigidbody.constraints = RigidbodyConstraints.None;
+
+            projectilePS.Play();
+            if (_lightSourse != null)
+                _lightSourse.enabled = true;
+            _collider.enabled = true;
         }
 
         /// <summary>
@@ -141,8 +173,68 @@ namespace ActionGameFramework.Projectiles
 
             if (target == null || target != _target)
                 return;
+            
+            // 투사체 정지
+            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            
+            if (_lightSourse != null)
+                _lightSourse.enabled = false;
+            _collider.enabled = false;
 
-            Remove();
+            if (projectilePS)
+            {
+                projectilePS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+
+            ContactPoint contact = other.contacts[0];
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Vector3 pos = contact.point + contact.normal * hitOffset;
+
+            // 충돌 시 Hit 이펙트
+            if (hit != null)
+            {
+                hit.transform.rotation = rot;
+                hit.transform.position = pos;
+                if (useFirePointRotation) { hit.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
+                else if (rotationOffset != Vector3.zero) { hit.transform.rotation = Quaternion.Euler(rotationOffset); }
+                else { hit.transform.LookAt(contact.point + contact.normal); }
+                hitPS.Play();
+            }
+
+            /*
+            // 충돌 후 투사체의 이펙트가 자연스럽게 사라지도록 처리
+            // 분리된 Detached 오브젝트에는 자동 삭제를 위한 AutoDestroying 스크립트가 필요
+            foreach (var detachedPrefab in Detached)
+            {
+                if (detachedPrefab != null)
+                {
+                    ParticleSystem detachedPS = detachedPrefab.GetComponent<ParticleSystem>();
+                    detachedPS.Stop();
+                }
+            }
+            /*
+            if (notDestroy)
+                StartCoroutine(DisableTimer(hitPS.main.duration));
+
+            else
+            {
+                if (hitPS != null)
+                {
+                    Destroy(gameObject, hitPS.main.duration);
+                }
+                else
+                    Destroy(gameObject, 1);
+            }
+            */
+
+            if (hitPS != null)
+            {
+                Remove(hitPS.main.duration);
+            }
+            else
+            {
+                Remove();
+            }
         }
 
         /// <summary>
@@ -150,6 +242,23 @@ namespace ActionGameFramework.Projectiles
         /// </summary>
         protected void Remove()
         {
+            ReturnToPool();
+        }
+        private Coroutine returnCoroutine;
+        protected void Remove(float delay)
+        {
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+            }
+
+            returnCoroutine = StartCoroutine(ReturnToPoolCoroutine(delay));
+        }
+
+        private IEnumerator ReturnToPoolCoroutine(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
             ReturnToPool();
         }
     }
