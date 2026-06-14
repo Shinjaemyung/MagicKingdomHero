@@ -25,6 +25,11 @@ namespace TowerDefense.UI
             else Destroy(gameObject);
         }
 
+        private void Start()
+        {
+            UserInputManager.Instance.OnRightMouseReleased += HideRadiusVisualizers;
+        }
+
         /// <summary>
         /// 타워 또는 virtual 타워의 범위 시각화를 설정
         /// </summary>
@@ -74,6 +79,11 @@ namespace TowerDefense.UI
                 radiusVisualizer.transform.parent = transform;
                 radiusVisualizer.SetActive(false);
             }
+        }
+
+        private void OnDestroy()
+        {
+            UserInputManager.Instance.OnRightMouseReleased -= HideRadiusVisualizers;
         }
     }
 }

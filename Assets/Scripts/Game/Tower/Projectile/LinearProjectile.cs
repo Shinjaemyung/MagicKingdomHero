@@ -48,6 +48,11 @@ namespace ActionGameFramework.Projectiles
         protected GameObject[] Detached;
 
         /// <summary>
+        /// Remove 코루틴
+        /// </summary>
+        private Coroutine removeCoroutine;
+
+        /// <summary>
         /// 발사되었는지 여부
         /// </summary>
         protected bool _fired;
@@ -201,7 +206,6 @@ namespace ActionGameFramework.Projectiles
                 hitPS.Play();
             }
 
-            /*
             // 충돌 후 투사체의 이펙트가 자연스럽게 사라지도록 처리
             // 분리된 Detached 오브젝트에는 자동 삭제를 위한 AutoDestroying 스크립트가 필요
             foreach (var detachedPrefab in Detached)
@@ -212,20 +216,6 @@ namespace ActionGameFramework.Projectiles
                     detachedPS.Stop();
                 }
             }
-            /*
-            if (notDestroy)
-                StartCoroutine(DisableTimer(hitPS.main.duration));
-
-            else
-            {
-                if (hitPS != null)
-                {
-                    Destroy(gameObject, hitPS.main.duration);
-                }
-                else
-                    Destroy(gameObject, 1);
-            }
-            */
 
             if (hitPS != null)
             {
@@ -244,15 +234,15 @@ namespace ActionGameFramework.Projectiles
         {
             ReturnToPool();
         }
-        private Coroutine returnCoroutine;
+
         protected void Remove(float delay)
         {
-            if (returnCoroutine != null)
+            if (removeCoroutine != null)
             {
-                StopCoroutine(returnCoroutine);
+                StopCoroutine(removeCoroutine);
             }
 
-            returnCoroutine = StartCoroutine(ReturnToPoolCoroutine(delay));
+            removeCoroutine = StartCoroutine(ReturnToPoolCoroutine(delay));
         }
 
         private IEnumerator ReturnToPoolCoroutine(float delay)
