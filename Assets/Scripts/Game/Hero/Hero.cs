@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class Hero : MonoBehaviour
@@ -20,6 +20,11 @@ public class Hero : MonoBehaviour
     /// <summary>부활 시 발생</summary>
     public event Action OnRevived;
 
+    [SerializeField, Tooltip("이 Enemy의 이름")]
+    private AudioClip hitClip;
+
+    private AudioSource _audioSource;
+
     public bool isDead;
 
     private void Awake()
@@ -28,6 +33,8 @@ public class Hero : MonoBehaviour
         else Destroy(gameObject);
 
         Health = maxHealth;
+        _audioSource = gameObject.GetComponent<AudioSource>();
+        _audioSource.playOnAwake = false;
     }
 
     private void Start()
@@ -38,6 +45,9 @@ public class Hero : MonoBehaviour
     public void UpdateHealth(float amount)
     {
         Health = Mathf.Clamp(Health + amount, 0f, maxHealth);
+        if (amount < 0f)
+            _audioSource?.PlayOneShot(hitClip);
+
         OnHealthChanged?.Invoke(Health, maxHealth);
 
         if (Health <= 0f)
