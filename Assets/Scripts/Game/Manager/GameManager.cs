@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         if (enemy == null)
             return;
 
-        UpdatePlayerGold(enemy.goldReward);
+        UpdatePlayerGold(enemy.enemyData.goldReward);
     }
 
     void SetGameOverState()

@@ -118,6 +118,7 @@ MonoBehaviour:
       unityObjectReference: {fileID: 0}
   targetTransform: {fileID: 0}
   healthBar: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: 6a2c47974aced1f4399a7c296e5f2d0d, type: 2}
 --- !u!54 &8106249905074614151
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -207,7 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aed1c9b33482c45a95d143211c7e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthBar
-  displayDuration: 2.5
   healthyColor: {r: 0, g: 1, b: 0, a: 1}
   lowHealthColor: {r: 1, g: 0, b: 0, a: 1}
   lowHealthThreshold: 0.3
