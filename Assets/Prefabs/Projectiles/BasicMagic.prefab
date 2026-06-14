@@ -9804,8 +9804,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da8014753875514f8de6a5655aeb8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 3
   startSpeed: 1
+  acceleration: 3
+  hitOffset: 0.1
+  useFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  projectilePS: {fileID: 0}
+  hitPS: {fileID: 0}
+  flashPS: {fileID: 0}
+  Detached: []
   leadingPrecision: 2
   leadTarget: 0
   _homingTarget: {fileID: 0}
@@ -14805,7 +14812,7 @@ Transform:
   m_GameObject: {fileID: 8998944984091739665}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

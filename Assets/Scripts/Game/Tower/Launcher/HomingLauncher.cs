@@ -7,23 +7,23 @@ using UnityEngine;
 namespace TowerDefense.Towers.TowerLaunchers
 {
     /// <summary>
-    /// An implementation of ILauncher that firest homing missiles
+    /// 호밍 투사체 런처
     /// </summary>
     public class HomingLauncher : Launcher
     {
         public ParticleSystem fireParticleSystem;
 
         /// <summary>
-        /// Launches homing missile at a target from a starting position
+        /// 지정된 적에게 호밍 투사체 발사
         /// </summary>
         /// <param name="enemy">
-        /// The enemy to attack
+        /// 공격할 적
         /// </param>
         /// <param name="attack">
-        /// The projectile used to attack
+        /// 공격에 사용될 투사체
         /// </param>
         /// <param name="firingPoint">
-        /// The point the projectile is being fired from
+        /// 투사체가 발사되는 위치
         /// </param>
         public override void Launch(Targetable enemy, GameObject attack, Transform firingPoint)
         {
@@ -44,6 +44,18 @@ namespace TowerDefense.Towers.TowerLaunchers
             PlayParticles(fireParticleSystem, startingPoint, targetPoint);
         }
 
+        /// <summary>
+        /// 지정된 위치를 향해 호밍 투사체 발사
+        /// </summary>
+        /// <param name="enemy">
+        /// 공격할 적
+        /// </param>
+        /// <param name="attack">
+        /// 공격에 사용될 투사체
+        /// </param>
+        /// <param name="firingPoint">
+        /// 투사체가 발사되는 위치
+        /// </param>
         public override void LaunchAtPosition(Vector3 position, GameObject attack, Transform firingPoint)
         {
             var homingMissile = attack.GetComponent<HomingLinearProjectile>();
