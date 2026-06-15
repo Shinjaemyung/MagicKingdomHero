@@ -20,6 +20,12 @@ public class Hero : MonoBehaviour
     /// <summary>부활 시 발생</summary>
     public event Action OnRevived;
 
+    /// <summary>활성화 시 발생</summary>
+    public event Action OnActivated;
+
+    /// <summary>비활성화 시 발생</summary>
+    public event Action OnDeactivated;
+
     [SerializeField, Tooltip("이 Enemy의 이름")]
     private AudioClip hitClip;
 
@@ -66,5 +72,17 @@ public class Hero : MonoBehaviour
         if (!isDead) return;
         isDead = false;
         OnRevived?.Invoke();
+    }
+
+    public void OnHeroActivated()
+    {
+        gameObject.SetActive(true);
+        OnActivated?.Invoke();
+    }
+
+    public void OnHeroDeactivated()
+    {
+        gameObject.SetActive(false);
+        OnDeactivated?.Invoke();
     }
 }
