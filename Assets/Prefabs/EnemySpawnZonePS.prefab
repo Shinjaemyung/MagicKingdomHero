@@ -4918,7 +4918,6 @@ GameObject:
   - component: {fileID: 2708684810047868727}
   - component: {fileID: 4805081066658715749}
   - component: {fileID: 1431541102874665399}
-  - component: {fileID: 6646230649478527645}
   - component: {fileID: 1015422072006827}
   m_Layer: 0
   m_Name: Decal
@@ -5050,21 +5049,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &6646230649478527645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6957137932987927665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec137d9bcf6470a4e82e14b15ec558dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectorMaterialChanger
-  Timer: 2
-  opacity: 0
-  PlusAndMinus: 0
 --- !u!198 &1015422072006827
 ParticleSystem:
   m_ObjectHideFlags: 0
