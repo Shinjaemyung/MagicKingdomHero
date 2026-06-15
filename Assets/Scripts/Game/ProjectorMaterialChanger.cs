@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ProjectorMaterialChanger : MonoBehaviour
 {
@@ -14,18 +13,23 @@ public class ProjectorMaterialChanger : MonoBehaviour
     public bool opacity = false;
     public bool PlusAndMinus = false;
     private Material mat;
+    private DecalProjector _decalProjector;
 
     void Start()
     {
         TimerPlus = (Timer / 10f) * 1f;
         TimerMinus = (Timer / 10f) * 9f;
         Undo = false;
-        var proj = GetComponent<Projector>();
-        if (!proj.material.name.EndsWith("(Instance)"))
-            proj.material = new Material(proj.material) { name = proj.material.name + " (Instance)" };
-        mat = proj.material;
+
+        _decalProjector = GetComponent<DecalProjector>();
+
+        // 인스턴스 머티리얼 생성 (원본 머티리얼 보호)
+        if (!_decalProjector.material.name.EndsWith("(Instance)"))
+            _decalProjector.material = new Material(_decalProjector.material) { name = _decalProjector.material.name + " (Instance)" };
+        mat = _decalProjector.material;
     }
-    void Update ()
+
+    void Update()
     {
         if (opacity == true && TimeRate <= Timer && Undo == false)
         {
@@ -37,15 +41,12 @@ public class ProjectorMaterialChanger : MonoBehaviour
             else
             {
                 if (TimeRate < TimerPlus)
-                {
                     value = Mathf.Lerp(0f, 1f, TimeRate / TimerPlus);
-                }
                 if (TimeRate > TimerPlus)
-                {
                     value = Mathf.Lerp(1f, 0f, TimeRate / TimerMinus);
-                }
             }
-            mat.SetFloat("_Opacity", value);
+            // Projector의 _Opacity → DecalProjector의 fadeFactor
+            _decalProjector.fadeFactor = value;
         }
 
         if (opacity == false)
