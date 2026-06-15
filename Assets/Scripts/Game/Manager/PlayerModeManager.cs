@@ -18,6 +18,9 @@ public class PlayerModeManager : MonoBehaviour
     StarterAssetsInputs heroInputs;
     public UI_ModeChangeButton modeChangeButton;
 
+    [SerializeField, Tooltip("배치 모드일 때 Hero의 위치를 표시해 줄 이펙트")]
+    HeroPos heroPos;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -88,6 +91,7 @@ public class PlayerModeManager : MonoBehaviour
     {
         GameUIManager.Instance.CompleteTowerPlacementMode();
         Hero.Instance.gameObject.SetActive(false);
+        heroPos.Show();
         MouseManager.Instance.SetCursorLockState(false);
         playerMode = PlayerMode.TowerPlacementMode;
     }
@@ -105,6 +109,7 @@ public class PlayerModeManager : MonoBehaviour
     {
         GameUIManager.Instance.CompleteHeroControlMode();
         Hero.Instance.gameObject.SetActive(true);
+        heroPos.Hide();
         playerMode = PlayerMode.HeroControlMode;
     }
 
