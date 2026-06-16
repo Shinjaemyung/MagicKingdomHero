@@ -18,11 +18,6 @@ public class EnemySpawner : MonoBehaviour
 
     private float _timer;
 
-    private void Awake()
-    {
-        spawnPoint = transform;
-    }
-
     private void Update()
     {
         _timer += Time.deltaTime;

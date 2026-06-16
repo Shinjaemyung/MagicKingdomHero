@@ -10,12 +10,14 @@ public class EnemyMover : MonoBehaviour
     [SerializeField, Tooltip("이동 속도")]
     private float moveSpeed = 3.5f;
 
-    [SerializeField, Tooltip("다음 웨이포인트로 넘어가는 도달 판정 거리")]
-    private float waypointReachDistance = 1.5f;
+    [Tooltip("다음 웨이포인트로 넘어가는 도달 판정 거리")]
+    private float waypointReachDistance = 1f;
 
     private NavMeshAgent _agent;
     private Transform[] _waypoints;
-    public int _currentWaypointIndex;
+
+    [SerializeField]
+    int _currentWaypointIndex;
 
     void Awake()
     {

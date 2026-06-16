@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMover
   moveSpeed: 3.5
-  waypointReachDistance: 1.5
+  waypointReachDistance: 1
   _currentWaypointIndex: 0
 --- !u!114 &1386409579195639282
 MonoBehaviour:
