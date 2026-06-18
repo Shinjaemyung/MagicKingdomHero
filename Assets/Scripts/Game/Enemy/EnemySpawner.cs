@@ -48,8 +48,8 @@ public class EnemySpawner : MonoBehaviour
         var mover = enemyObject.GetComponent<EnemyMover>();
         if (mover != null)
         {
-            mover.ActivateAt(spawnPoint.position);
             mover.SetWaypoints(waypoints);
+            mover.ActivateAt(spawnPoint.position);
         }
     }
 }
