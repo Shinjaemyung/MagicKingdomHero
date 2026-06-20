@@ -11,7 +11,7 @@ public class EnemyMover : MonoBehaviour
     private float moveSpeed = 3.5f;
 
     [Tooltip("다음 웨이포인트로 넘어가는 도달 판정 거리")]
-    private float waypointReachDistance = 0.5f;
+    private float waypointReachDistance = 1f;
 
     private NavMeshAgent _agent;
     private Transform[] _waypoints;
