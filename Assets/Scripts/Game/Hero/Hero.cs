@@ -52,7 +52,10 @@ public class Hero : MonoBehaviour
     {
         Health = Mathf.Clamp(Health + amount, 0f, maxHealth);
         if (amount < 0f)
+        {
             _audioSource?.PlayOneShot(hitClip);
+            CameraManager.Instance?.ShakeCamera();
+        }
 
         OnHealthChanged?.Invoke(Health, maxHealth);
 
