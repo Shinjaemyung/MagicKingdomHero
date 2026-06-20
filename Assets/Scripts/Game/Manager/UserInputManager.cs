@@ -85,7 +85,7 @@ public class UserInputManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit enemyHit, float.MaxValue, enemyLayer))
         {
-            var clickedEnemy = enemyHit.collider.GetComponentInParent<Enemy>();
+            var clickedEnemy = enemyHit.collider.GetComponent<Enemy>();
             if (clickedEnemy != null)
             {
                 clickedEnemy.OnClicked();

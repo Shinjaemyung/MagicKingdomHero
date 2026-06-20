@@ -24,7 +24,10 @@ public class UI_EnemyInfoPanel : UI_Panel
     /// <summary>적 정보를 받아 패널을 업데이트하고 표시</summary>
     public void ShowEnemyInfo(Enemy enemy)
     {
+        Unsubscribe();
+
         _currentEnemy = enemy;
+        _currentEnemy.Died += OnCurrentEnemyDied;
 
         var data = enemy.enemyData;
 
@@ -52,9 +55,27 @@ public class UI_EnemyInfoPanel : UI_Panel
             healthText.text = Mathf.CeilToInt(_currentEnemy.configuration.CurrentHealth) + " / " + Mathf.CeilToInt(_currentEnemy.configuration.maxHealth);
     }
 
+    /// <summary>현재 표시 중인 적이 사망했을 때 패널을 닫음</summary>
+    private void OnCurrentEnemyDied(Core.Health.DamageableBehaviour deadEnemy)
+    {
+        Hide();
+    }
+
+    private void Unsubscribe()
+    {
+        if (_currentEnemy != null)
+            _currentEnemy.Died -= OnCurrentEnemyDied;
+    }
+
     public override void Hide()
     {
+        Unsubscribe();
         _currentEnemy = null;
         base.Hide();
+    }
+
+    private void OnDisable()
+    {
+        Unsubscribe();
     }
 }

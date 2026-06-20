@@ -63,7 +63,8 @@ public class GameUIManager : MonoBehaviour
     {
         modeChangeButton.SetButtonInteractable(false);
         towerList.Hide();
-        towerInfoPanel.Hide(); 
+        towerInfoPanel.Hide();
+        enemyInfoPanel.Hide();
     }
 
     public void CompleteHeroControlMode()
