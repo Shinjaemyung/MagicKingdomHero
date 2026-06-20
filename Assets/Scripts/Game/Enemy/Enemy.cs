@@ -1,4 +1,4 @@
-﻿using ActionGameFramework.Health;
+using ActionGameFramework.Health;
 using Core.Health;
 using UnityEngine;
 
@@ -31,6 +31,12 @@ public class Enemy : Targetable
     {
         if (healthBar == null) return;
         healthBar.ShowAndUpdate(configuration.NormalisedHealth);
+    }
+
+    /// <summary>적 클릭 시 호출되어 정보 패널을 표시</summary>
+    public void OnClicked()
+    {
+        GameUIManager.Instance.ShowEnemyInfo(this);
     }
 
     public override void Remove()

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using static PlayerModeManager;
 
@@ -8,6 +8,7 @@ public class GameUIManager : MonoBehaviour
 
     UI_TowerListPanel towerList;
     UI_TowerInfoPanel towerInfoPanel;
+    UI_EnemyInfoPanel enemyInfoPanel;
     UI_ModeChangeButton modeChangeButton;
     UI_GameOverPanel gameOverPanel;
     UI_HeroInfoPanel heroInfoPanel;
@@ -19,6 +20,7 @@ public class GameUIManager : MonoBehaviour
 
         towerList = GetComponentInChildren<UI_TowerListPanel>(true);
         towerInfoPanel = GetComponentInChildren<UI_TowerInfoPanel>(true);
+        enemyInfoPanel = GetComponentInChildren<UI_EnemyInfoPanel>(true);
         modeChangeButton = GetComponentInChildren<UI_ModeChangeButton>(true);
         gameOverPanel = GetComponentInChildren<UI_GameOverPanel>(true);
         heroInfoPanel = GetComponentInChildren<UI_HeroInfoPanel>(true);
@@ -84,7 +86,17 @@ public class GameUIManager : MonoBehaviour
     {
         if (towerInfoPanel == null) return;
         towerInfoPanel.Hide();
+        if (enemyInfoPanel != null) enemyInfoPanel.Hide();
         towerList.Show();
+    }
+
+    /// <summary>적 정보 패널 표시. 타워 정보 패널과 타워 리스트를 숨기고 적 정보 패널을 표시.</summary>
+    public void ShowEnemyInfo(Enemy enemy)
+    {
+        if (enemyInfoPanel == null) return;
+        towerList.Hide();
+        if (towerInfoPanel != null) towerInfoPanel.Hide();
+        enemyInfoPanel.ShowEnemyInfo(enemy);
     }
 
     /// <summary>게임 오버 패널 표시</summary>

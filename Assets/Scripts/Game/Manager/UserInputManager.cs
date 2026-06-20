@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TowerDefense.UI;
@@ -9,6 +9,7 @@ public class UserInputManager : MonoBehaviour
     public static UserInputManager Instance { get; private set; }
 
     public LayerMask towerLayer;
+    public LayerMask enemyLayer;
 
     public event Action OnLeftMouseReleased;
     public event Action OnRightMouseReleased;
@@ -70,20 +71,31 @@ public class UserInputManager : MonoBehaviour
             return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, towerLayer))
+
+        if (Physics.Raycast(ray, out RaycastHit towerHit, float.MaxValue, towerLayer))
         {
-            var clickedTower = hit.collider.GetComponent<Tower>();
+            var clickedTower = towerHit.collider.GetComponent<Tower>();
             if (clickedTower != null)
             {
                 clickedTower.OnClicked();
                 RadiusVisualizerController.Instance.SetupRadiusVisualizers(clickedTower);
             }
+            return;
         }
-        else
+
+        if (Physics.Raycast(ray, out RaycastHit enemyHit, float.MaxValue, enemyLayer))
         {
-            GameUIManager.Instance.ShowTowerList();
-            RadiusVisualizerController.Instance.HideRadiusVisualizers();
+            var clickedEnemy = enemyHit.collider.GetComponentInParent<Enemy>();
+            if (clickedEnemy != null)
+            {
+                clickedEnemy.OnClicked();
+                RadiusVisualizerController.Instance.HideRadiusVisualizers();
+            }
+            return;
         }
+
+        GameUIManager.Instance.ShowTowerList();
+        RadiusVisualizerController.Instance.HideRadiusVisualizers();
     }
 
     void OnLeftMouseButtonUp()
