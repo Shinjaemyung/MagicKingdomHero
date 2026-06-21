@@ -32,14 +32,30 @@ public class UserInputManager : MonoBehaviour
             PlayerModeManager.Instance.RequestPlayerModeChange();
         }
 
-        PlayerMode currentPlayerMode = PlayerModeManager.Instance.playerMode;
-        if (currentPlayerMode == PlayerMode.TowerPlacementMode)
+        switch (PlayerModeManager.Instance.playerMode)
         {
-            CheckMouseInput();
+            case PlayerMode.TowerPlacementMode:
+                HandleTowerPlacementInput();
+                break;
+
+            case PlayerMode.HeroControlMode:
+                HandleHeroControlInput();
+                break;
         }
     }
 
-    void CheckMouseInput()
+    void HandleHeroControlInput()
+    {
+        if (CameraManager.Instance.IsBlending)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Hero.Instance.GetComponent<HeroAttack>()?.TryAttack();
+        }
+    }
+
+    void HandleTowerPlacementInput()
     {
         if (CameraManager.Instance.IsBlending)
             return;
