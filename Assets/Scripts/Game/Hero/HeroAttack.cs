@@ -49,10 +49,6 @@ private void Awake()
     {
         if (_cooldownTimer > 0f)
             _cooldownTimer -= Time.deltaTime;
-
-        // 공격 중에는 이동 입력을 막아 그 자리에서 슬래시를 수행하게 한다.
-        if (_isAttacking && _input != null)
-            _input.move = Vector2.zero;
     }
 
     /// <summary>공격 처리</summary>
