@@ -3,9 +3,7 @@ using ActionGameFramework.Helpers;
 using Core.Health;
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.tvOS;
 
 namespace ActionGameFramework.Projectiles
 {
