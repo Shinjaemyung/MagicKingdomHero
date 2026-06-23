@@ -2880,7 +2880,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1189674227078662, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
       propertyPath: m_Name
-      value: MoonSword 1
+      value: HeroSword
       objectReference: {fileID: 0}
     - target: {fileID: 4393946019257510, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
       propertyPath: m_LocalScale.x
@@ -2942,10 +2942,39 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 1162986251627204, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1189674227078662, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4101743424033537716}
   m_SourcePrefab: {fileID: 100100000, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
+--- !u!1 &578132324919294549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1189674227078662, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
+  m_PrefabInstance: {fileID: 576964645622393939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4101743424033537716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578132324919294549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09b1f3a7c3bdf748a22787e29c2773d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordSlashFX
+  vfxSpawnPoint: {fileID: 581393777225235937}
+  slashVfxPrefab: {fileID: 198741542255655676, guid: 9c53b72dc7c188b488fdaf2edefb6673, type: 3}
+  vfxScale: 0.8
+  rotationOffsetEuler: {x: -80, y: 0, z: 30}
 --- !u!4 &580496013830910197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4393946019257510, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
+  m_PrefabInstance: {fileID: 576964645622393939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &581393777225235937 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4588015337460146, guid: cfc6cdae425db2647a62e4bc343e3bb4, type: 3}
   m_PrefabInstance: {fileID: 576964645622393939}
   m_PrefabAsset: {fileID: 0}

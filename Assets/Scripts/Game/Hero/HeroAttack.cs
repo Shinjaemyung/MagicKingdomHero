@@ -31,16 +31,18 @@ public class HeroAttack : MonoBehaviour
 
     private Animator _animator;
     private StarterAssetsInputs _input;
+    private SwordSlashFX _swordSlashFX;
 
     private float _cooldownTimer;
     private bool _isAttacking;
 
     private static readonly int AttackHash = Animator.StringToHash("Attack");
 
-    private void Awake()
+private void Awake()
     {
         _animator = GetComponent<Animator>();
         _input = GetComponent<StarterAssetsInputs>();
+        _swordSlashFX = GetComponentInChildren<SwordSlashFX>(true);
     }
 
     private void Update()
@@ -66,13 +68,14 @@ public class HeroAttack : MonoBehaviour
         StartCoroutine(PerformAttack());
     }
 
-    private IEnumerator PerformAttack()
+private IEnumerator PerformAttack()
     {
         // 애니메이션 클립 길이를 기준으로 타격 타이밍을 계산
         float clipLength = GetAttackClipLength();
         float hitDelay = clipLength * hitTimingNormalized;
 
         yield return new WaitForSeconds(hitDelay);
+        _swordSlashFX?.PlaySlash();
         ApplyDamageToEnemiesInRange();
 
         yield return new WaitForSeconds(Mathf.Max(0f, clipLength - hitDelay));
