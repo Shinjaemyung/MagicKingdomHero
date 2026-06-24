@@ -16,7 +16,7 @@ public class UI_SettingsPanel : UI_Panel
 
     private void OnResumeClicked()
     {
-        GameUIManager.Instance.HideSettings();
+        GamePlayManager.Instance.ResumeGame();
     }
 
     private void OnDestroy()

@@ -13736,8 +13736,9 @@ GameObject:
   - component: {fileID: 1100122475}
   - component: {fileID: 1100122474}
   - component: {fileID: 1100122473}
+  - component: {fileID: 1100122476}
   m_Layer: 5
-  m_Name: Button_GameOption
+  m_Name: Button_Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13845,6 +13846,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100122471}
   m_CullTransparentMesh: 1
+--- !u!114 &1100122476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100122471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8f2ee31f7c70e418e1a187b6010da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_SettingsButton
 --- !u!1 &1100865304
 GameObject:
   m_ObjectHideFlags: 0

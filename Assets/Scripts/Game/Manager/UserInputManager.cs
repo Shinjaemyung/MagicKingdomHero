@@ -24,8 +24,19 @@ public class UserInputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameUIManager.Instance.ToggleSettings();
+            GamePlayManager playManager = GamePlayManager.Instance;
+
+            if (playManager.IsPaused)
+            {
+                playManager.ResumeGame();
+            }
+            else
+            {
+                playManager.PauseGame();
+            }
         }
+
+        if (GamePlayManager.Instance.IsPaused) return;
 
         if (Input.GetKeyDown(KeyCode.C))
         {

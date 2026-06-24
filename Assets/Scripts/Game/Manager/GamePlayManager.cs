@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static PlayerModeManager;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class GamePlayManager : MonoBehaviour
 
     public event Action<int> OnPlayerHealthChanged;
     public event Action<int> OnPlayerGoldChanged;
+
+    public bool IsPaused { get; private set; }
 
     private void Awake()
     {
@@ -65,7 +68,7 @@ public class GamePlayManager : MonoBehaviour
 
     void SetGameOverState()
     {
-        PauseGame();
+        Time.timeScale = 0f;
         GameUIManager.Instance.ShowGameOver();
         MouseManager.Instance.SetCursorLockState(false);
     }
@@ -88,14 +91,26 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
+
+    /// <summary>게임 일시 정지하고 설정 패널 표시</summary>
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        MouseManager.Instance.SetCursorLockState(false);
+        GameUIManager.Instance.ShowSettings();
+        IsPaused = true;
     }
 
+    /// <summary>게임 재생하고 설정 패널 숨김</summary>
     public void ResumeGame()
     {
         Time.timeScale = 1f;
+
+        if (PlayerModeManager.Instance.playerMode == PlayerMode.HeroControlMode)
+            MouseManager.Instance.SetCursorLockState(true);
+
+        GameUIManager.Instance.HideSettings();
+        IsPaused = false;
     }
 
     private void OnDestroy()
