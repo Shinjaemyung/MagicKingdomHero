@@ -43,11 +43,6 @@ public class Hero : MonoBehaviour
         _audioSource.playOnAwake = false;
     }
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void UpdateHealth(float amount)
     {
         Health = Mathf.Clamp(Health + amount, 0f, maxHealth);
