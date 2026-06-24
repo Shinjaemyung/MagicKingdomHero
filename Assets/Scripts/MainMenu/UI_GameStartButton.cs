@@ -14,7 +14,7 @@ public class UI_GameStartButton : MonoBehaviour
     }
 
     /// <summary>게임 씬 로드</summary>
-    public void OnStartGameClicked()
+    void OnStartGameClicked()
     {
         SceneManager.LoadScene("GameScene");
     }
