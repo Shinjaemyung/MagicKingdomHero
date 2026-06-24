@@ -102,7 +102,7 @@ public class PlacementManager : MonoBehaviour
         {
             Tower spawnedTower = Instantiate(grabedVirtualTower.MyTower);
             spawnedTower.Initialize(currentVirtualArea, currentVirtualGridPos, spawnedTower.towerData.cost);
-            GameManager.Instance.UpdatePlayerGold(-spawnedTower.towerData.cost);
+            GamePlayManager.Instance.UpdatePlayerGold(-spawnedTower.towerData.cost);
         }
 
         RemoveVirtualTower();

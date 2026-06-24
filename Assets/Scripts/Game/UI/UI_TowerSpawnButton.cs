@@ -32,7 +32,7 @@ public class UI_TowerSpawnButton : MonoBehaviour
 
     void OnClickButton()
     {
-        if (GameManager.Instance.PlayerGold >= spawnTower.towerData.cost) 
+        if (GamePlayManager.Instance.PlayerGold >= spawnTower.towerData.cost) 
         {
             OnButtonClicked?.Invoke(spawnTower);
         }

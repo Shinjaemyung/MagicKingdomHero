@@ -89,7 +89,7 @@ public class Tower : MonoBehaviour
         Tower spawnedTower = Instantiate(upgradeTower);
         int upgradeCost = upgradeTower.towerData.cost;
         spawnedTower.Initialize(placementArea, gridPosition, totalCost + upgradeCost);
-        GameManager.Instance.UpdatePlayerGold(-upgradeCost);
+        GamePlayManager.Instance.UpdatePlayerGold(-upgradeCost);
         Remove();
 
         return spawnedTower;
@@ -116,7 +116,7 @@ public class Tower : MonoBehaviour
     public void Sell()
     {
         int sellCost = Mathf.RoundToInt(totalCost * refundRatio);
-        GameManager.Instance.UpdatePlayerGold(sellCost);
+        GamePlayManager.Instance.UpdatePlayerGold(sellCost);
         placementArea.Clear(gridPosition, dimensions);
 
         Remove();

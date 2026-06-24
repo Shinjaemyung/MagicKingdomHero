@@ -13,7 +13,7 @@ public class EnemyGoalZone : MonoBehaviour
         var enemy = other.GetComponent<Enemy>();
         if (enemy == null) return;
 
-        GameManager.Instance.UpdatePlayerHealth(-damageToPlayer); //enemy의 공격력만큼 데미지로 변경
+        GamePlayManager.Instance.UpdatePlayerHealth(-damageToPlayer); //enemy의 공격력만큼 데미지로 변경
         enemy.Remove();
     }
 }

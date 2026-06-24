@@ -105,7 +105,7 @@ public class UI_TowerInfoPanel : UI_Panel
         if (_currentTower == null) return;
 
         var currentTowerData = _currentTower.towerData;
-        if (GameManager.Instance.PlayerGold >= currentTowerData.cost)
+        if (GamePlayManager.Instance.PlayerGold >= currentTowerData.cost)
         {
             if (currentTowerData.upgradeTowers != null && currentTowerData.upgradeTowers.Length > 0)
             {

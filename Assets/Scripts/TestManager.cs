@@ -10,10 +10,10 @@ public class TestManager : MonoBehaviour
     void Test_ChangeHealthAndGold()
     {
         if (Input.GetKeyDown(KeyCode.Z))
-            GameManager.Instance.UpdatePlayerHealth(-10);
+            GamePlayManager.Instance.UpdatePlayerHealth(-10);
 
         if (Input.GetKeyDown(KeyCode.X))
-            GameManager.Instance.UpdatePlayerGold(10);
+            GamePlayManager.Instance.UpdatePlayerGold(10);
 
 
         if (Input.GetKeyDown(KeyCode.Y))

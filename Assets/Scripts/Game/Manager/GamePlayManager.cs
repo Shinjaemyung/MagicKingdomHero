@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GamePlayManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GamePlayManager Instance { get; private set; }
 
     [SerializeField, Tooltip("게임 시작 시 플레이어 체력")]
     int initialPlayerHealth = 100;

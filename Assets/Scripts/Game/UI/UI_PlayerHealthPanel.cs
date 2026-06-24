@@ -14,8 +14,8 @@ public class UI_PlayerHealthPanel : UI_Panel
 
     private void Start()
     {
-        GameManager.Instance.OnPlayerHealthChanged += SetHealthDisplay;
-        SetHealthDisplay(GameManager.Instance.PlayerHealth);
+        GamePlayManager.Instance.OnPlayerHealthChanged += SetHealthDisplay;
+        SetHealthDisplay(GamePlayManager.Instance.PlayerHealth);
     }
 
     void SetHealthDisplay(int playerHealth)
@@ -25,6 +25,6 @@ public class UI_PlayerHealthPanel : UI_Panel
 
     private void OnDestroy()
     {
-        GameManager.Instance.OnPlayerHealthChanged -= SetHealthDisplay;
+        GamePlayManager.Instance.OnPlayerHealthChanged -= SetHealthDisplay;
     }
 }

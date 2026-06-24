@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
             poolable.Init(enemyPrefab);
 
         var enemy = enemyObject.GetComponent<Enemy>();
-        enemy.Died += GameManager.Instance.OnEnemyDied;
+        enemy.Died += GamePlayManager.Instance.OnEnemyDied;
 
         var mover = enemyObject.GetComponent<EnemyMover>();
         if (mover != null)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
-using static PlayerModeManager;
 
 public class MouseManager : MonoBehaviour
 {

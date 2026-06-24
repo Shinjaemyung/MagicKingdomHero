@@ -14,8 +14,8 @@ public class UI_PlayerGoldPanel : UI_Panel
 
     private void Start()
     {
-        GameManager.Instance.OnPlayerGoldChanged += SetGoldDisplay;
-        SetGoldDisplay(GameManager.Instance.PlayerGold);
+        GamePlayManager.Instance.OnPlayerGoldChanged += SetGoldDisplay;
+        SetGoldDisplay(GamePlayManager.Instance.PlayerGold);
     }
 
     void SetGoldDisplay(int playerGold)
@@ -25,6 +25,6 @@ public class UI_PlayerGoldPanel : UI_Panel
 
     private void OnDestroy()
     {
-        GameManager.Instance.OnPlayerGoldChanged -= SetGoldDisplay;
+        GamePlayManager.Instance.OnPlayerGoldChanged -= SetGoldDisplay;
     }
 }
