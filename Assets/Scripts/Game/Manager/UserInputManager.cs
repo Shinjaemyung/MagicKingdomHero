@@ -24,7 +24,7 @@ public class UserInputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-
+            GameUIManager.Instance.ToggleSettings();
         }
 
         if (Input.GetKeyDown(KeyCode.C))

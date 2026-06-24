@@ -12,6 +12,9 @@ public class GameUIManager : MonoBehaviour
     UI_ModeChangeButton modeChangeButton;
     UI_GameOverPanel gameOverPanel;
     UI_HeroInfoPanel heroInfoPanel;
+    UI_SettingsPanel settingsPanel;
+
+    public bool IsPaused { get; private set; }
 
     private void Awake()
     {
@@ -24,6 +27,7 @@ public class GameUIManager : MonoBehaviour
         modeChangeButton = GetComponentInChildren<UI_ModeChangeButton>(true);
         gameOverPanel = GetComponentInChildren<UI_GameOverPanel>(true);
         heroInfoPanel = GetComponentInChildren<UI_HeroInfoPanel>(true);
+        settingsPanel = GetComponentInChildren<UI_SettingsPanel>(true);
 
         ShowTowerList();
     }
@@ -98,6 +102,34 @@ public class GameUIManager : MonoBehaviour
         towerList.Hide();
         if (towerInfoPanel != null) towerInfoPanel.Hide();
         enemyInfoPanel.ShowEnemyInfo(enemy);
+    }
+
+    /// <summary>설정 패널을 열고 게임 일시정지</summary>
+    public void ShowSettings()
+    {
+        if (settingsPanel == null || IsPaused) return;
+
+        IsPaused = true;
+        Time.timeScale = 0f;
+        settingsPanel.transform.SetAsLastSibling();
+        settingsPanel.Show();
+    }
+
+    /// <summary>설정 패널을 닫고 게임 진행</summary>
+    public void HideSettings()
+    {
+        if (settingsPanel == null || !IsPaused) return;
+
+        IsPaused = false;
+        Time.timeScale = 1f;
+        settingsPanel.Hide();
+    }
+
+    /// <summary>설정 패널 표시 상태를 토글</summary>
+    public void ToggleSettings()
+    {
+        if (IsPaused) HideSettings();
+        else ShowSettings();
     }
 
     /// <summary>게임 오버 패널 표시</summary>

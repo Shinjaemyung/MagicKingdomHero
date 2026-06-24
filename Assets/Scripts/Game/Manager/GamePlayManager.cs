@@ -65,7 +65,7 @@ public class GamePlayManager : MonoBehaviour
 
     void SetGameOverState()
     {
-        Time.timeScale = 0f;
+        PauseGame();
         GameUIManager.Instance.ShowGameOver();
         MouseManager.Instance.SetCursorLockState(false);
     }
@@ -86,6 +86,16 @@ public class GamePlayManager : MonoBehaviour
             if (hero.Health >= hero.MaxHealth)
                 hero.Revive();
         }
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
     }
 
     private void OnDestroy()
