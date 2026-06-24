@@ -88,7 +88,7 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         Time.timeScale = 0f;
     }

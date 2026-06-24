@@ -104,24 +104,27 @@ public class GameUIManager : MonoBehaviour
         enemyInfoPanel.ShowEnemyInfo(enemy);
     }
 
-    /// <summary>설정 패널을 열고 게임 일시정지</summary>
+    /// <summary>설정 패널을 열고 게임 일시정지.</summary>
     public void ShowSettings()
     {
         if (settingsPanel == null || IsPaused) return;
 
         IsPaused = true;
-        Time.timeScale = 0f;
+        GamePlayManager.Instance.PauseGame();
+        MouseManager.Instance.SetCursorLockState(false);
         settingsPanel.transform.SetAsLastSibling();
         settingsPanel.Show();
     }
 
-    /// <summary>설정 패널을 닫고 게임 진행</summary>
+    /// <summary>설정 패널을 닫고 게임 진행.</summary>
     public void HideSettings()
     {
         if (settingsPanel == null || !IsPaused) return;
 
         IsPaused = false;
-        Time.timeScale = 1f;
+        GamePlayManager.Instance.ResumeGame();
+        if (PlayerModeManager.Instance.playerMode == PlayerMode.HeroControlMode)
+            MouseManager.Instance.SetCursorLockState(true);
         settingsPanel.Hide();
     }
 
