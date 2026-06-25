@@ -4965,6 +4965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
+  damageType: 4
   chanceToSpawnCollisionPrefab: 1
   collisionParticles: {fileID: 0}
   alignment:

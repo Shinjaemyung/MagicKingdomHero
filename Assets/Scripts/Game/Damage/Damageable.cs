@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.Health
@@ -10,12 +11,21 @@ namespace Core.Health
     [Serializable]
     public class Damageable
     {
+        [Serializable]
+        public class TypeCalculation
+        {
+            public DamageType damageType;
+            public float multiplier = 1f;
+        }
+
         /// <summary>
         /// 최대 체력
         /// </summary>
         public float maxHealth;
 
         public float startingHealth;
+
+        public List<TypeCalculation> typeCalculations;
 
         /// <summary>
         /// 현재 체력
@@ -132,22 +142,28 @@ namespace Core.Health
         }
 
         /// <summary>
-        /// 데미지를 받을 수 있는 관계인지 alignment를 사용해 확인
+        /// 데미지를 받을 수 있는 관계인지 alignment를 사용해 확인하고,
+        /// DamageType은 Normal(배율 1)로 처리합니다.
         /// </summary>
-        /// <param name="damage">
-        /// 받을 데미지
-        /// </param>
-        /// <param name="damageAlignment">
-        /// 상대 전투원의 alignment
-        /// </param>
-        /// <param name="output">
-        /// 데미지를 받은 경우의 출력 데이터
-        /// </param>
-        /// <returns>
-        /// 데미지가 적용되었으면 true,
-        /// 이미 사망했거나 데미지를 받을 수 없는 상태면 false.
-        /// </returns>
+        /// <param name="damage">받을 데미지</param>
+        /// <param name="damageAlignment">상대 전투원의 alignment</param>
+        /// <param name="output">데미지를 받은 경우의 출력 데이터</param>
+        /// <returns>데미지가 적용되었으면 true, 이미 사망했거나 데미지를 받을 수 없는 상태면 false.</returns>
         public bool TakeDamage(float damage, IAlignmentProvider damageAlignment, out HealthChangeInfo output)
+        {
+            return TakeDamage(damage, damageAlignment, DamageType.Normal, out output);
+        }
+
+        /// <summary>
+        /// 데미지를 받을 수 있는 관계인지 alignment를 사용해 확인하고,
+        /// typeCalculations에 등록된 배율을 damageType에 맞게 적용한 뒤 데미지를 적용합니다.
+        /// </summary>
+        /// <param name="damage">받을 데미지(배율 적용 전 원본 값)</param>
+        /// <param name="damageAlignment">상대 전투원의 alignment</param>
+        /// <param name="damageType">데미지의 속성. typeCalculations에서 배율을 찾는 데 사용</param>
+        /// <param name="output">데미지를 받은 경우의 출력 데이터</param>
+        /// <returns>데미지가 적용되었으면 true, 이미 사망했거나 데미지를 받을 수 없는 상태면 false.</returns>
+        public bool TakeDamage(float damage, IAlignmentProvider damageAlignment, DamageType damageType, out HealthChangeInfo output)
         {
             output = new HealthChangeInfo
             {
@@ -165,7 +181,9 @@ namespace Core.Health
                 return false;
             }
 
-            ChangeHealth(-damage, output);
+            float scaledDamage = ApplyTypeCalculation(damage, damageType);
+
+            ChangeHealth(-scaledDamage, output);
             Damaged?.Invoke(output);
             if (IsDead)
             {
@@ -189,6 +207,28 @@ namespace Core.Health
             }
 
             return info;
+        }
+
+        /// <summary>
+        /// typeCalculations 목록에서 damageType에 해당하는 배율을 찾아 damage에 적용
+        /// 해당 타입에 대한 항목이 없으면 배율 1(원본 데미지)을 그대로 사용
+        /// </summary>
+        protected float ApplyTypeCalculation(float damage, DamageType damageType)
+        {
+            if (typeCalculations == null)
+            {
+                return damage;
+            }
+
+            for (int i = 0; i < typeCalculations.Count; i++)
+            {
+                if (typeCalculations[i].damageType == damageType)
+                {
+                    return damage * typeCalculations[i].multiplier;
+                }
+            }
+
+            return damage;
         }
 
         /// <summary>

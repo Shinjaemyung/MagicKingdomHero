@@ -4,15 +4,15 @@ using UnityEngine;
 namespace ActionGameFramework.Health
 {
     /// <summary>
-    /// Damage collider - a collider based implementation of DamageZone
+    /// DamageZone의 콜라이더 기반 구현체
     /// </summary>
     [RequireComponent(typeof(Collider))]
     public class DamageCollider : DamageZone
     {
         /// <summary>
-        /// On collision enter, see if the colliding object has a Damager and then make the damageableBehaviour take damage
+        /// 충돌이 발생하면, 충돌한 오브젝트에 Damager가 있다면 데미지 처리
         /// </summary>
-        /// <param name="c">The collider</param>
+        /// <param name="c">충돌한 콜라이더</param>
         protected void OnCollisionEnter(Collision c)
         {
             var damager = c.gameObject.GetComponent<Damager>();
@@ -24,16 +24,16 @@ namespace ActionGameFramework.Health
 
             float scaledDamage = ScaleDamage(damager.damage);
             Vector3 collisionPosition = ConvertContactsToPosition(c.contacts);
-            damageableBehaviour.TakeDamage(scaledDamage, collisionPosition, damager.AlignmentProvider);
+            damageableBehaviour.TakeDamage(scaledDamage, collisionPosition, damager.AlignmentProvider, damager.damageType);
 
             damager.HasDamaged(collisionPosition, damageableBehaviour.configuration.AlignmentProvider);
         }
 
         /// <summary>
-        /// Averages the contacts to get the position.
+        /// 여러 개의 충돌 지점(Contact)의 평균 위치 계산
         /// </summary>
-        /// <returns>The average position.</returns>
-        /// <param name="contacts">Contacts.</param>
+        /// <param name="contacts">충돌 지점들</param>
+        /// <returns>평균 충돌 위치</returns>
         protected Vector3 ConvertContactsToPosition(ContactPoint[] contacts)
         {
             Vector3 output = Vector3.zero;

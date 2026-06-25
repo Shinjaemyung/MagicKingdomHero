@@ -57,6 +57,13 @@ MonoBehaviour:
   configuration:
     maxHealth: 10
     startingHealth: 10
+    typeCalculations:
+    - damageType: 1
+      multiplier: 0.5
+    - damageType: 2
+      multiplier: 0.5
+    - damageType: 3
+      multiplier: 1.5
     alignment:
       unityObjectReference: {fileID: 0}
   targetTransform: {fileID: 0}

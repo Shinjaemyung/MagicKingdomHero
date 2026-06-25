@@ -17,6 +17,11 @@ namespace ActionGameFramework.Health
         public float damage;
 
         /// <summary>
+        /// 이 Damager가 주는 데미지의 속성 (typeCalculations와 매칭)
+        /// </summary>
+        public DamageType damageType = DamageType.Normal;
+
+        /// <summary>
         /// 데미지를 주었을 때 발생하는 이벤트
         /// </summary>
         public Action<Vector3> hasDamaged;

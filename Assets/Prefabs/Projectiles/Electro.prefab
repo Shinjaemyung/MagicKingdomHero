@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 4
+  damageType: 3
   chanceToSpawnCollisionPrefab: 1
   collisionParticles: {fileID: 0}
   alignment:

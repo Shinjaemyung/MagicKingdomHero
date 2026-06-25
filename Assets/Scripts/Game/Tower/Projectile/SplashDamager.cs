@@ -20,6 +20,11 @@ namespace TowerDefense.Towers.Projectiles
         public float damageAmount;
 
         /// <summary>
+        /// 이 스플래시 데미지의 속성 (typeCalculations와 매칭)
+        /// </summary>
+        public DamageType damageType = DamageType.Normal;
+
+        /// <summary>
         /// The physics layer mask to search on
         /// </summary>
         public LayerMask mask = -1;
@@ -59,7 +64,7 @@ namespace TowerDefense.Towers.Projectiles
                 {
                     continue;
                 }
-                damageable.TakeDamage(damageAmount, damageable.Position, alignmentProvider);
+                damageable.TakeDamage(damageAmount, damageable.Position, alignmentProvider, damageType);
             }
         }
     }
