@@ -57,24 +57,13 @@ namespace Core.Health
         }
 
         /// <summary>
-        /// 실제 데미지 적용. DamageType은 Normal(배율 1)로 처리.
-        /// </summary>
-        /// <param name="damageValue">입힐 데미지</param>
-        /// <param name="damagePoint">피격 지점</param>
-        /// <param name="alignment">Alignment 정보</param>
-        public virtual void TakeDamage(float damageValue, Vector3 damagePoint, IAlignmentProvider alignment)
-        {
-            TakeDamage(damageValue, damagePoint, alignment, DamageType.Normal);
-        }
-
-        /// <summary>
         /// 실제 데미지 적용. typeCalculations에 등록된 배율을 damageType에 맞게 적용한 뒤 데미지를 적용.
         /// </summary>
         /// <param name="damageValue">입힐 데미지(배율 적용 전 원본 값)</param>
         /// <param name="damagePoint">피격 지점</param>
         /// <param name="alignment">Alignment 정보</param>
         /// <param name="damageType">데미지의 속성</param>
-        public virtual void TakeDamage(float damageValue, Vector3 damagePoint, IAlignmentProvider alignment, DamageType damageType)
+        public virtual void TakeDamage(float damageValue, Vector3 damagePoint, IAlignmentProvider alignment, DamageType damageType = DamageType.Normal)
         {
             HealthChangeInfo info;
             configuration.TakeDamage(damageValue, alignment, damageType, out info);
