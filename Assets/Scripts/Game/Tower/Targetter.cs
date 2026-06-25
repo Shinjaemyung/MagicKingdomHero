@@ -353,7 +353,7 @@ namespace TowerDefense.Targetting
                     Vector3 euler = mesh.rotation.eulerAngles;
                     euler.x = Mathf.Lerp(Wrap180(euler.x), 0, _xRotationCorrectionTime);
                     _xRotationCorrectionTime = Mathf.Clamp01((_xRotationCorrectionTime + Time.deltaTime) / idleCorrectionTime);
-                    euler.y += _currentRotationSpeed * Time.deltaTime;
+                    //euler.y += _currentRotationSpeed * Time.deltaTime;
 
                     mesh.eulerAngles = euler;
                 }

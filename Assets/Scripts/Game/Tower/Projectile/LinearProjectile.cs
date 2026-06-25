@@ -84,6 +84,18 @@ namespace ActionGameFramework.Projectiles
             _collider.enabled = true;
         }
 
+        public virtual void Initialize(Vector3 position)
+        {
+            _target = null;
+
+            _rigidbody.constraints = RigidbodyConstraints.None;
+
+            projectilePS.Play();
+            if (_lightSourse != null)
+                _lightSourse.enabled = true;
+            _collider.enabled = true;
+        }
+
         /// <summary>
         /// 투사체 상태 업데이트
         /// 발사된 상태라면 가속도 적용

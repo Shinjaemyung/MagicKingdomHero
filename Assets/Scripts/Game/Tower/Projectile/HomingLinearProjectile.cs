@@ -52,8 +52,10 @@ namespace ActionGameFramework.Projectiles
             destroyTimerProgress = 0;
         }
 
-        public void Initialize(Vector3 position)
+        public override void Initialize(Vector3 position)
         {
+            base.Initialize(position);
+
             _homingTarget = null;
             targetPos = position;
             destroyTimerProgress = 0;
