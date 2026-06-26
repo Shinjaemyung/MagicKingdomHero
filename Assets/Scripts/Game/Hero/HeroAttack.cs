@@ -29,20 +29,25 @@ public class HeroAttack : MonoBehaviour
     [SerializeField, Tooltip("Enemy 레이어")]
     private LayerMask enemyLayer;
 
+    [SerializeField, Tooltip("공격 시 재생할 효과음")]
+    private AudioClip attackSfx;
+
     private Animator _animator;
     private StarterAssetsInputs _input;
     private SwordSlashFX _swordSlashFX;
+    private AudioSource _audioSource;
 
     private float _cooldownTimer;
     private bool _isAttacking;
 
     private static readonly int AttackHash = Animator.StringToHash("Attack");
 
-private void Awake()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
         _input = GetComponent<StarterAssetsInputs>();
         _swordSlashFX = GetComponentInChildren<SwordSlashFX>(true);
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -64,7 +69,7 @@ private void Awake()
         StartCoroutine(PerformAttack());
     }
 
-private IEnumerator PerformAttack()
+    private IEnumerator PerformAttack()
     {
         // 애니메이션 클립 길이를 기준으로 타격 타이밍을 계산
         float clipLength = GetAttackClipLength();
@@ -72,10 +77,17 @@ private IEnumerator PerformAttack()
 
         yield return new WaitForSeconds(hitDelay);
         _swordSlashFX?.PlaySlash();
+        PlayAttackSfx();
         ApplyDamageToEnemiesInRange();
 
         yield return new WaitForSeconds(Mathf.Max(0f, clipLength - hitDelay));
         _isAttacking = false;
+    }
+
+    private void PlayAttackSfx()
+    {
+        if (attackSfx == null || _audioSource == null) return;
+        _audioSource.PlayOneShot(attackSfx);
     }
 
     private float GetAttackClipLength()

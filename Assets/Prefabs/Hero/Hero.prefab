@@ -914,7 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b13a9d54065ea4981d5f2508122668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeroAttack
-  attackDamage: 2
+  attackDamage: 5
   attackRange: 2.5
   attackAngle: 90
   attackCooldown: 0.8
@@ -922,6 +922,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  attackSfx: {fileID: 8300000, guid: e80f6b382b62179439bca706e6c6a3f7, type: 3}
 --- !u!1 &2085935374489282807
 GameObject:
   m_ObjectHideFlags: 0
