@@ -28,6 +28,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    public void ActivateSpawner()
+    {
+        gameObject.SetActive(true);
+    }
+
     private void SpawnEnemy()
     {
         if (enemyPrefab == null || spawnPoint == null || waypoints == null || waypoints.Length == 0)

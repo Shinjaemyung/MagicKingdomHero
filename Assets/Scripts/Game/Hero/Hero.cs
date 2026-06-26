@@ -26,7 +26,7 @@ public class Hero : MonoBehaviour
     /// <summary>비활성화 시 발생</summary>
     public event Action OnDeactivated;
 
-    [SerializeField, Tooltip("이 Enemy의 이름")]
+    [SerializeField, Tooltip("피격 시 효과음")]
     private AudioClip hitClip;
 
     private AudioSource _audioSource;
