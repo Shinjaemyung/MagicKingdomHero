@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ public class UI_TowerSpawnButton : MonoBehaviour
 {
     [SerializeField]
     Tower spawnTower;
+
+    [SerializeField]
+    TextMeshProUGUI priceText;
 
     Button _button;
     UI_SystemMessagePanel systemMessage;
@@ -23,6 +27,8 @@ public class UI_TowerSpawnButton : MonoBehaviour
     private void Start()
     {
         _button.onClick.AddListener(OnClickButton);
+
+        priceText.text = spawnTower.towerData.cost.ToString();
     }
 
     public void Initialize(Tower tower)
