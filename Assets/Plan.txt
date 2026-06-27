@@ -33,7 +33,7 @@ Hero 연속 공격 기능
 
 Main 기능
 오디오 기능
-UI 디자인
+UI 디자인 - 게임 오버, TowerInfo, EnemyInfo, TowerButton
 Enemy 생성 관리 기능(Wave 관리 기능)
 타워 종류 전부 제작
 
