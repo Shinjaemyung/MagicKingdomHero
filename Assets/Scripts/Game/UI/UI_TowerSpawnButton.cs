@@ -11,7 +11,7 @@ public class UI_TowerSpawnButton : MonoBehaviour
     Tower spawnTower;
 
     [SerializeField]
-    TextMeshProUGUI priceText;
+    TextMeshProUGUI text_Price;
 
     Button _button;
     UI_SystemMessagePanel systemMessage;
@@ -28,7 +28,7 @@ public class UI_TowerSpawnButton : MonoBehaviour
     {
         _button.onClick.AddListener(OnClickButton);
 
-        priceText.text = spawnTower.towerData.cost.ToString();
+        text_Price.text = spawnTower.towerData.cost.ToString();
     }
 
     public void Initialize(Tower tower)
