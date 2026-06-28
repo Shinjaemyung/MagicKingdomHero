@@ -19397,7 +19397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2166982c71328f479e8cb3fb34a74ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTower: {fileID: 3835806559484997089, guid: 476244a12804cb5488679a1392e71ad7, type: 3}
+  spawnTower: {fileID: 3835806559484997089, guid: 01fae9cff69d00c47bf5322dc8a99c34, type: 3}
   text_Price: {fileID: 2109468776}
 --- !u!114 &1423669500
 MonoBehaviour:
@@ -20406,7 +20406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2166982c71328f479e8cb3fb34a74ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTower: {fileID: 3835806559484997089, guid: 476244a12804cb5488679a1392e71ad7, type: 3}
+  spawnTower: {fileID: 3835806559484997089, guid: 6b09be1aed259234187d0a7b392b7eef, type: 3}
   text_Price: {fileID: 403409402}
 --- !u!114 &1514022709
 MonoBehaviour:
@@ -23560,7 +23560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2166982c71328f479e8cb3fb34a74ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTower: {fileID: 3835806559484997089, guid: 6c8f4ada3d85a434e8f138a49de48973, type: 3}
+  spawnTower: {fileID: 3835806559484997089, guid: 9084559862228174dbf63537e8fb2913, type: 3}
   text_Price: {fileID: 939674609}
 --- !u!114 &1668201228
 MonoBehaviour:

@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3835806559484997089}
   - component: {fileID: 6191150999208142552}
   m_Layer: 8
-  m_Name: NormalTower
+  m_Name: FireTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   dimensions:
     x: 2
     y: 2
-  towerData: {fileID: 11400000, guid: ae9829e7d8a828d4a980e3c868e12ef0, type: 2}
+  towerData: {fileID: 11400000, guid: dec9ee980847c8449ae4428d08d10d7a, type: 2}
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: 
-  projectile: {fileID: 1375887527512235453, guid: 65f6c562c13141f4d9e0016c38683a38, type: 3}
+  projectile: {fileID: 1375887527512235453, guid: 7a9cd70054963664fbb32cb3c16a852b, type: 3}
   projectilePoints:
   - {fileID: 7668124808645131158}
   epicenter: {fileID: 8523071728073231706}

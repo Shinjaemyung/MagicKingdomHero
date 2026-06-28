@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3835806559484997089}
   - component: {fileID: 6191150999208142552}
   m_Layer: 8
-  m_Name: NormalTower
+  m_Name: EnergyBallTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   dimensions:
     x: 2
     y: 2
-  towerData: {fileID: 11400000, guid: ae9829e7d8a828d4a980e3c868e12ef0, type: 2}
+  towerData: {fileID: 11400000, guid: 21a1b3ba834914c41ad2a99b430be500, type: 2}
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -241,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 2401b22cf1fc0b842b48394cc7f8f8eb, type: 2}
+      objectReference: {fileID: 9100000, guid: b94e732cd097a354096bf9a4e99c529b, type: 2}
     - target: {fileID: 5866666021909216657, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: 
-  projectile: {fileID: 1375887527512235453, guid: 65f6c562c13141f4d9e0016c38683a38, type: 3}
+  projectile: {fileID: 1375887527512235453, guid: ba5d70545e39ef340b51e5355b32fd11, type: 3}
   projectilePoints:
   - {fileID: 7668124808645131158}
   epicenter: {fileID: 8523071728073231706}

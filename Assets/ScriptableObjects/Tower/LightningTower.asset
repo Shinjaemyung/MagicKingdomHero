@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   upgradeDescription: 
-  cost: 50
+  cost: 150
   thumbnail: {fileID: 0}
   upgradeTowers: []

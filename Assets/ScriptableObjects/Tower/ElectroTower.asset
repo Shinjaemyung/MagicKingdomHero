@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   upgradeDescription: 
-  cost: 80
+  cost: 150
   thumbnail: {fileID: 0}
   upgradeTowers:
   - {fileID: 3835806559484997089, guid: 4fde66eef5dbdf34094e361830eefe97, type: 3}
