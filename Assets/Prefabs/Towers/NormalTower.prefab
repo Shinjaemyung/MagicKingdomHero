@@ -252,7 +252,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8199646654132468430}
+      addedObject: {fileID: 4040164136865771917}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 833451016362370404}
@@ -267,7 +267,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
   m_PrefabInstance: {fileID: 5668892973500458232}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8199646654132468430
+--- !u!114 &4040164136865771917
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,9 +276,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4785811063050262953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134e39f6d35d9284ea3fd9940bab9483, type: 3}
+  m_Script: {fileID: 11500000, guid: db84041415542de44865eb1825000b9d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Towers.TowerLaunchers.HitscanLauncher
   fireParticleSystem: {fileID: 0}
 --- !u!114 &833451016362370404
 MonoBehaviour:
