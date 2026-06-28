@@ -8,9 +8,11 @@ using UnityEngine.SceneManagement;
 public class MainMenuUIManager : MonoBehaviour
 {
     UI_GameStartButton gameStartButton;
+    UI_QuitButton quitButton;
 
     private void Awake()
     {
         gameStartButton = GetComponentInChildren<UI_GameStartButton>();
+        quitButton = GetComponentInChildren<UI_QuitButton>();
     }
 }

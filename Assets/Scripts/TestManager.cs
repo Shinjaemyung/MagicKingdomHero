@@ -2,6 +2,8 @@
 
 public class TestManager : MonoBehaviour
 {
+#if UNITY_EDITOR
+
     void Update()
     {
         Test_ChangeHealthAndGold();
@@ -15,9 +17,9 @@ public class TestManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
             GamePlayManager.Instance.UpdatePlayerGold(10);
 
-
         if (Input.GetKeyDown(KeyCode.Y))
             Hero.Instance.UpdateHealth(-50);
     }
 
+#endif
 }
