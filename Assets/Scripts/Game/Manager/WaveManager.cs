@@ -22,7 +22,7 @@ public class WaveManager : MonoBehaviour
 
     private AudioSource _audioSource;
 
-    public event Action OnWaveCleared;
+    public event Action WaveCleared;
 
     private void Awake()
     {
@@ -36,7 +36,6 @@ public class WaveManager : MonoBehaviour
     {
         var spawnPointPos = enemySpanwers[currentWaveIndex].spawnPoint.position;
         CameraManager.Instance.MoveTowerPlacementCameraTo(spawnPointPos, 1.5f, OnCameraMoveCompleted);
-        currentWaveIndex++;
     }
 
     void OnCameraMoveCompleted()
@@ -52,11 +51,18 @@ public class WaveManager : MonoBehaviour
         CameraManager.Instance.UnlockTowerPlacementCamera();
     }
 
+    /// <summary>스포너가 이번 wave에 스폰한 적을 모두 스폰하고, 그 적들이 전부 죽었을 때 호출됨</summary>
+    void OnSpawnerWaveCleared(EnemySpawner spawner)
+    {
+        spawner.WaveCleared -= OnSpawnerWaveCleared;
+        ClearWave();
+    }
+
     // 마지막 적 죽으면 실행
     void ClearWave()
     {
         currentWaveIndex++;
-        OnWaveCleared?.Invoke();
+        WaveCleared?.Invoke();
     }
 
     void ActivateSpawner()
@@ -67,7 +73,9 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
-        enemySpanwers[activatedSpawnerNum].ActivateSpawner();
+        var spawner = enemySpanwers[activatedSpawnerNum];
+        spawner.WaveCleared += OnSpawnerWaveCleared;
+        spawner.StartWave(currentWaveIndex);
         activatedSpawnerNum++;
 
         if (spanwerActivateClip != null)

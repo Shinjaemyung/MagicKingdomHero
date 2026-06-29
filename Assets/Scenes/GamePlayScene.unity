@@ -251,7 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fdd2cb200a94b43b027ce212597af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
   spawnPoint: {fileID: 113196586}
   waypoints:
   - {fileID: 1207311766}
@@ -263,6 +262,13 @@ MonoBehaviour:
   - {fileID: 1200854374}
   - {fileID: 1677820655}
   spawnInterval: 5
+  waveSpawnDataList:
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
+  - enemyPrefab: {fileID: 4899833032356138635, guid: a6f656ff8ca9a7c4a96bd94ad587344b, type: 3}
+    spawnCount: 3
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
 --- !u!1001 &13206469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9784,7 +9790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fdd2cb200a94b43b027ce212597af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
   spawnPoint: {fileID: 189442172}
   waypoints:
   - {fileID: 572531234}
@@ -9796,6 +9801,13 @@ MonoBehaviour:
   - {fileID: 1496877817}
   - {fileID: 383631753}
   spawnInterval: 5
+  waveSpawnDataList:
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
+  - enemyPrefab: {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
+    spawnCount: 3
 --- !u!1 &801724170
 GameObject:
   m_ObjectHideFlags: 0
@@ -20016,7 +20028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fdd2cb200a94b43b027ce212597af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
   spawnPoint: {fileID: 750596214}
   waypoints:
   - {fileID: 1245800743}
@@ -20028,6 +20039,13 @@ MonoBehaviour:
   - {fileID: 117710939}
   - {fileID: 1956346144}
   spawnInterval: 5
+  waveSpawnDataList:
+  - enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
+    spawnCount: 3
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
 --- !u!1 &1480640729
 GameObject:
   m_ObjectHideFlags: 0
@@ -26151,7 +26169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fdd2cb200a94b43b027ce212597af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
   spawnPoint: {fileID: 777228553}
   waypoints:
   - {fileID: 1848171524}
@@ -26163,6 +26180,13 @@ MonoBehaviour:
   - {fileID: 952554838}
   - {fileID: 1328247697}
   spawnInterval: 5
+  waveSpawnDataList:
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
+  - enemyPrefab: {fileID: 0}
+    spawnCount: 0
+  - enemyPrefab: {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
+    spawnCount: 3
 --- !u!1001 &1881498345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28626,8 +28650,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1475938645}
-  - {fileID: 1879806492}
   - {fileID: 8433253}
+  - {fileID: 1879806492}
   - {fileID: 783575687}
   m_Father: {fileID: 1008404227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

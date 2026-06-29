@@ -36,14 +36,14 @@ namespace Core.Health
         public event Action<HitInfo> Hit;
 
         /// <summary>
-        /// 풀로 반환되거나 파괴될 때 호출되는 이벤트
-        /// </summary>
-        public event Action<DamageableBehaviour> Removed;
-
-        /// <summary>
         /// 사망 시 호출되는 이벤트
         /// </summary>
         public event Action<DamageableBehaviour> Died;
+
+        /// <summary>
+        /// 풀로 반환되거나 파괴될 때 호출되는 이벤트
+        /// </summary>
+        public event Action<DamageableBehaviour> Removed;
 
         protected virtual void Awake()
         {
