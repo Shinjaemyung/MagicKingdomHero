@@ -1,6 +1,7 @@
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using System;
 using static PlayerModeManager;
 
 public class CameraManager : MonoBehaviour
@@ -161,19 +162,20 @@ public class CameraManager : MonoBehaviour
 
     /// <summary>
     /// TowerPlacementCamera를 targetPosition을 바라보는 위치로 duration초에 걸쳐 이동
-    /// 동시에 Zoom도 startZoom 값으로 변경
+    /// 이동이 끝나면 onComplete를 호출
     /// </summary>
     /// <param name="targetPosition">카메라가 바라봐야 할 지점</param>
     /// <param name="duration">이동에 걸리는 시간(초)</param>
-    public void MoveTowerPlacementCameraTo(Vector3 targetPosition, float duration = 1.5f)
+    /// <param name="onComplete">이동이 끝난 직후 호출할 콜백</param>
+    public void MoveTowerPlacementCameraTo(Vector3 targetPosition, float duration = 1.5f, Action onComplete = null)
     {
         if (_moveCameraCoroutine != null)
             StopCoroutine(_moveCameraCoroutine);
 
-        _moveCameraCoroutine = StartCoroutine(MoveTowerPlacementCameraRoutine(targetPosition, duration));
+        _moveCameraCoroutine = StartCoroutine(MoveTowerPlacementCameraRoutine(targetPosition, duration, onComplete));
     }
 
-    IEnumerator MoveTowerPlacementCameraRoutine(Vector3 targetPosition, float duration)
+    IEnumerator MoveTowerPlacementCameraRoutine(Vector3 targetPosition, float duration, Action onComplete)
     {
         LockTowerPlacementCamera();
 
@@ -197,8 +199,8 @@ public class CameraManager : MonoBehaviour
         towerPlacementCamera.m_Lens.FieldOfView = endFov;
         currentZoom = endFov;
 
-        UnlockTowerPlacementCamera();
         _moveCameraCoroutine = null;
+        onComplete?.Invoke();
     }
 
     public void LockTowerPlacementCamera()

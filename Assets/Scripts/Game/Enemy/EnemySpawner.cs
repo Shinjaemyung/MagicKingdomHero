@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyPrefab;
 
     [SerializeField, Tooltip("스폰 위치")]
-    private Transform spawnPoint;
+    public Transform spawnPoint;
 
     [SerializeField, Tooltip("순서대로 이동할 웨이포인트 배열")]
     private Transform[] waypoints;

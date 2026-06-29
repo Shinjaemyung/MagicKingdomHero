@@ -13,7 +13,7 @@ public class UI_BackToMainMenuButton : MonoBehaviour
     }
 
     /// <summary>로비 씬 로드</summary>
-    public void LoadMainMenuScene()
+    private void LoadMainMenuScene()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenuScene");
