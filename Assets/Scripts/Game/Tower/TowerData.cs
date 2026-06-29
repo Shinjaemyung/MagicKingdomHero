@@ -8,7 +8,7 @@ public class TowerData : ScriptableObject
     public int cost;
     //public int sell;
 
-    public Sprite damageTypeIcon;
+    public DamageType damageType;
 
     public Tower[] upgradeTowers;
 }

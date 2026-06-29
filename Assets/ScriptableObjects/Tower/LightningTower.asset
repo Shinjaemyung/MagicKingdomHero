@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Lightning
   cost: 150
+  damageType: 3
   damageTypeIcon: {fileID: 0}
   upgradeTowers: []

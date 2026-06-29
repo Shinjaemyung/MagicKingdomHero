@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Ice
   cost: 30
+  damageType: 4
   damageTypeIcon: {fileID: 0}
   upgradeTowers: []

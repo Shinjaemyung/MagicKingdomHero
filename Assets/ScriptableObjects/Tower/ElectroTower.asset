@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Electro
   cost: 150
+  damageType: 3
   damageTypeIcon: {fileID: 0}
   upgradeTowers:
   - {fileID: 3835806559484997089, guid: 4fde66eef5dbdf34094e361830eefe97, type: 3}

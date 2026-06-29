@@ -48,7 +48,7 @@ public class UI_TowerInfoPanel : UI_Panel
             towerNameText.text = data.towerName;
 
         if (damageTypeIcon != null)
-            damageTypeIcon.sprite = data.damageTypeIcon;
+            damageTypeIcon.sprite = data.damageType.GetIcon();
 
         // 판매 버튼: 판매 금액 표시
         if (sellButtonText != null)
@@ -59,7 +59,6 @@ public class UI_TowerInfoPanel : UI_Panel
 
         BuildUpgradeButtons(data);
 
-        //SetPositionToTower(tower);
         Show();
     }
 

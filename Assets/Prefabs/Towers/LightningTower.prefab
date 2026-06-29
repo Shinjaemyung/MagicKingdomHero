@@ -126,7 +126,8 @@ MonoBehaviour:
   dimensions:
     x: 2
     y: 2
-  towerData: {fileID: 11400000, guid: c962c19998d3f84479301c773a3b6219, type: 2}
+  towerData: {fileID: 11400000, guid: e7440ca2315816b408e18ec06a11b5bc, type: 2}
+  refundRatio: 0.75
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 0

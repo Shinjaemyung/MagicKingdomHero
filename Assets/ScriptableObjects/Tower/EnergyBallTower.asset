@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: EnergyBallTower
   m_EditorClassIdentifier: 
-  towerName: EnergyBall
+  towerName: Energy Ball
   cost: 250
   damageTypeIcon: {fileID: 0}
   upgradeTowers: []

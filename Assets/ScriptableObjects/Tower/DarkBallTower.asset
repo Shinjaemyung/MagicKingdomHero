@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: DarkBallTower
   m_EditorClassIdentifier: 
-  towerName: DarkBall
+  towerName: Dark Ball
   cost: 50
   damageTypeIcon: {fileID: 0}
   upgradeTowers: []

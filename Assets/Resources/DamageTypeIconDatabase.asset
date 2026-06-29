@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f755379e7759864097ffc447a3833ac, type: 3}
+  m_Name: DamageTypeIconDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::DamageTypeIconDatabase
+  entries:
+  - damageType: 0
+    icon: {fileID: 21300000, guid: d104b57531a79894a85c067e586f56cb, type: 3}
+  - damageType: 1
+    icon: {fileID: 21300000, guid: c956199ac37bc924ab017643487c0e94, type: 3}
+  - damageType: 2
+    icon: {fileID: 21300000, guid: 671b3172c2ee7c5488ada47bbff49d01, type: 3}
+  - damageType: 3
+    icon: {fileID: 21300000, guid: 0cb3bd0b4977e124184696279469ffe7, type: 3}
+  - damageType: 4
+    icon: {fileID: 21300000, guid: 495d74c8f1059ad45bef25a492fe46d2, type: 3}
