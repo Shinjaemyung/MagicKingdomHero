@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public void StartWave()
+    public void StartSpawnerActivate()
     {
         var spawnPointPos = enemySpanwers[currentWaveIndex].spawnPoint.position;
         CameraManager.Instance.MoveTowerPlacementCameraTo(spawnPointPos, 1.5f, OnCameraMoveCompleted);
@@ -51,6 +51,23 @@ public class WaveManager : MonoBehaviour
         CameraManager.Instance.UnlockTowerPlacementCamera();
     }
 
+    void ActivateSpawner()
+    {
+        if (enemySpanwers == null || enemySpanwers.Count == 0)
+        {
+            Debug.LogWarning("[WaveManager] enemySpanwers 가 비어있습니다.");
+            return;
+        }
+
+        if (spanwerActivateClip != null)
+            _audioSource.PlayOneShot(spanwerActivateClip);
+
+        var spawner = enemySpanwers[activatedSpawnerNum];
+        spawner.WaveCleared += OnSpawnerWaveCleared;
+        spawner.StartWave(currentWaveIndex);
+        activatedSpawnerNum++;
+    }
+
     /// <summary>스포너가 이번 wave에 스폰한 적을 모두 스폰하고, 그 적들이 전부 죽었을 때 호출됨</summary>
     void OnSpawnerWaveCleared(EnemySpawner spawner)
     {
@@ -63,23 +80,6 @@ public class WaveManager : MonoBehaviour
     {
         currentWaveIndex++;
         WaveCleared?.Invoke();
-    }
-
-    void ActivateSpawner()
-    {
-        if (enemySpanwers == null || enemySpanwers.Count == 0)
-        {
-            Debug.LogWarning("[WaveManager] enemySpanwers 가 비어있습니다.");
-            return;
-        }
-
-        var spawner = enemySpanwers[activatedSpawnerNum];
-        spawner.WaveCleared += OnSpawnerWaveCleared;
-        spawner.StartWave(currentWaveIndex);
-        activatedSpawnerNum++;
-
-        if (spanwerActivateClip != null)
-            _audioSource.PlayOneShot(spanwerActivateClip);
     }
 
 }

@@ -8,7 +8,7 @@ public class UI_WaveStartButton : MonoBehaviour
     private void Awake()
     {
         _button = GetComponent<Button>();
-        _button.onClick.AddListener(WaveStart);
+        _button.onClick.AddListener(StartWave);
     }
 
     private void Start()
@@ -16,10 +16,10 @@ public class UI_WaveStartButton : MonoBehaviour
         WaveManager.Instance.WaveCleared += ActivateButton;
     }
 
-    void WaveStart()
+    void StartWave()
     {
         DeactivateButton();
-        WaveManager.Instance.StartWave();
+        WaveManager.Instance.StartSpawnerActivate();
     }
 
     public void ActivateButton()

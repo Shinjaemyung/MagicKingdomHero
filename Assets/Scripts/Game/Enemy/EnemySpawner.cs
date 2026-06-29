@@ -66,6 +66,9 @@ public class EnemySpawner : MonoBehaviour
     /// <param name="waveIndex">waveSpawnDataList에서 사용할 wave 번호</param>
     public void StartWave(int waveIndex)
     {
+        if (!gameObject.activeInHierarchy)
+            return;
+
         if (waveSpawnDataList == null || waveIndex < 0 || waveIndex >= waveSpawnDataList.Count)
         {
             Debug.LogWarning($"[EnemySpawner] {name} 에 wave {waveIndex}에 대한 스폰 데이터가 없습니다.");
