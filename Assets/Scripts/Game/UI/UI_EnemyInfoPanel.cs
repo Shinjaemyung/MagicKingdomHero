@@ -13,12 +13,6 @@ public class UI_EnemyInfoPanel : UI_Panel
     [SerializeField, Tooltip("체력 텍스트 (현재/최대)")]
     private Text healthText;
 
-    [SerializeField, Tooltip("공격력 텍스트")]
-    private Text attackDamageText;
-
-    [SerializeField, Tooltip("골드 보상 텍스트")]
-    private Text goldRewardText;
-
     private Enemy _currentEnemy;
 
     /// <summary>적 정보를 받아 패널을 업데이트하고 표시</summary>
@@ -36,12 +30,6 @@ public class UI_EnemyInfoPanel : UI_Panel
 
         if (healthText != null)
             healthText.text = Mathf.CeilToInt(enemy.configuration.CurrentHealth) + " / " + Mathf.CeilToInt(enemy.configuration.maxHealth);
-
-        if (attackDamageText != null)
-            attackDamageText.text = "ATK " + (data != null ? data.attackDamage : 0);
-
-        if (goldRewardText != null)
-            goldRewardText.text = (data != null ? data.goldReward : 0) + "G";
 
         Show();
     }

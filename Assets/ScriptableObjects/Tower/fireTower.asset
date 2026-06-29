@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
-  m_Name: fireTower
+  m_Name: FireTower
   m_EditorClassIdentifier: 
-  description: 
-  upgradeDescription: 
+  towerName: Fire
   cost: 100
-  thumbnail: {fileID: 0}
+  damageTypeIcon: {fileID: 0}
   upgradeTowers: []

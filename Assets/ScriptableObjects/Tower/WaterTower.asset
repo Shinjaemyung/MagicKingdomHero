@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: WaterTower
   m_EditorClassIdentifier: 
-  description: 
-  upgradeDescription: 
+  towerName: Water
   cost: 50
-  thumbnail: {fileID: 0}
+  damageTypeIcon: {fileID: 0}
   upgradeTowers:
   - {fileID: 3835806559484997089, guid: 6c8f4ada3d85a434e8f138a49de48973, type: 3}

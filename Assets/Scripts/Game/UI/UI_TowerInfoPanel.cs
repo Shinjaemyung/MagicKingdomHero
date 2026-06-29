@@ -1,5 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using static UI_SystemMessagePanel;
 
@@ -9,20 +8,20 @@ using static UI_SystemMessagePanel;
 /// </summary>
 public class UI_TowerInfoPanel : UI_Panel
 {
-    [SerializeField, Tooltip("타워 썸네일 이미지")]
-    private Image thumbnailImage;
-
     [SerializeField, Tooltip("타워 이름 텍스트")]
     private Text towerNameText;
 
-    [SerializeField, Tooltip("타워 설명 텍스트")]
-    private Text descriptionText;
+    [SerializeField, Tooltip("데미지 타입 이미지")]
+    private Image damageTypeIcon;
 
-    [SerializeField, Tooltip("판매 버튼")]
-    private Button sellButton;
+    [SerializeField, Tooltip("업그레이드 타워 이름 텍스트")]
+    private Text upgradeTowerNameText;
 
     [SerializeField, Tooltip("업그레이드 버튼")]
     private Button upgradeButton;
+
+    [SerializeField, Tooltip("판매 버튼")]
+    private Button sellButton;
 
     [SerializeField, Tooltip("판매 버튼 텍스트")]
     private Text sellButtonText;
@@ -45,14 +44,19 @@ public class UI_TowerInfoPanel : UI_Panel
 
         var data = tower.towerData;
 
-        if (thumbnailImage != null)
-            thumbnailImage.sprite = data.thumbnail;
-
         if (towerNameText != null)
-            towerNameText.text = data.description;
+            towerNameText.text = data.towerName;
 
-        if (descriptionText != null)
-            descriptionText.text = data.upgradeDescription;
+        if (damageTypeIcon != null)
+            damageTypeIcon.sprite = data.damageTypeIcon;
+
+        if (upgradeTowerNameText != null)
+        {
+            for (int i = 0; i < data.upgradeTowers.Length; i++)
+            {
+                upgradeTowerNameText.text = data.upgradeTowers[i].towerData.towerName; // 프리팹으로 버튼 생성 뒤 이름 변경
+            }
+        }
 
         // 판매 버튼: 판매 금액 표시 (구매가의 75%)
         if (sellButtonText != null)
