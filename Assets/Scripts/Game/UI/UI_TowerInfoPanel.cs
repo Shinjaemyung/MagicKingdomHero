@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using static UI_SystemMessagePanel;
 
@@ -14,11 +15,8 @@ public class UI_TowerInfoPanel : UI_Panel
     [SerializeField, Tooltip("데미지 타입 이미지")]
     private Image damageTypeIcon;
 
-    [SerializeField, Tooltip("업그레이드 타워 이름 텍스트")]
-    private Text upgradeTowerNameText;
-
-    [SerializeField, Tooltip("업그레이드 버튼")]
-    private Button upgradeButton;
+    [SerializeField, Tooltip("업그레이드 버튼들이 생성될 부모(Layout)")]
+    private Transform upgradeButtonContainer;
 
     [SerializeField, Tooltip("판매 버튼")]
     private Button sellButton;
@@ -26,9 +24,11 @@ public class UI_TowerInfoPanel : UI_Panel
     [SerializeField, Tooltip("판매 버튼 텍스트")]
     private Text sellButtonText;
 
+    [SerializeField, Tooltip("업그레이드 버튼 프리팹")]
+    private UI_TowerUpgradeButton upgradeButtonPrefab;
+
     private Tower _currentTower;
-    private RectTransform _rectTransform;
-    private Canvas _parentCanvas;
+    private readonly List<UI_TowerUpgradeButton> _upgradeButtons = new List<UI_TowerUpgradeButton>();
 
     UI_SystemMessagePanel systemMessage;
 
@@ -50,50 +50,55 @@ public class UI_TowerInfoPanel : UI_Panel
         if (damageTypeIcon != null)
             damageTypeIcon.sprite = data.damageTypeIcon;
 
-        if (upgradeTowerNameText != null)
-        {
-            for (int i = 0; i < data.upgradeTowers.Length; i++)
-            {
-                upgradeTowerNameText.text = data.upgradeTowers[i].towerData.towerName; // 프리팹으로 버튼 생성 뒤 이름 변경
-            }
-        }
-
-        // 판매 버튼: 판매 금액 표시 (구매가의 75%)
+        // 판매 버튼: 판매 금액 표시
         if (sellButtonText != null)
-            sellButtonText.text = "Sell (" + Mathf.RoundToInt(tower.TotalCost * 0.75f) + "G)";
-
-        // 업그레이드 가능 여부에 따라 버튼 활성화
-        if (upgradeButton != null)
-            upgradeButton.gameObject.SetActive(data.upgradeTowers != null && data.upgradeTowers.Length > 0);
+            sellButtonText.text = "Sell (" + Mathf.RoundToInt(tower.TotalCost * tower.refundRatio) + "G)";
 
         sellButton.onClick.RemoveAllListeners();
         sellButton.onClick.AddListener(OnSellClicked);
 
-        upgradeButton.onClick.RemoveAllListeners();
-        upgradeButton.onClick.AddListener(OnUpgradeClicked);
+        BuildUpgradeButtons(data);
 
         //SetPositionToTower(tower);
         Show();
     }
-    /*
-    private void SetPositionToTower(Tower tower)
+
+    /// <summary>data.upgradeTowers 개수만큼 업그레이드 버튼을 생성</summary>
+    private void BuildUpgradeButtons(TowerData data)
     {
-        if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>();
+        ClearUpgradeButtons();
 
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(tower.transform.position);
+        if (upgradeButtonContainer == null || upgradeButtonPrefab == null)
+            return;
 
-        // 화면 하단 절반이면 패널이 위로, 상단 절반이면 아래로 표시
-        float pivotY = screenPos.y < Screen.height * 0.5f ? 0f : 1f;
-        _rectTransform.pivot = new Vector2(0f, pivotY);
-        _rectTransform.anchorMin = Vector2.zero;
-        _rectTransform.anchorMax = Vector2.zero;
-        _rectTransform.anchoredPosition = screenPos;
+        if (data.upgradeTowers == null || data.upgradeTowers.Length == 0)
+            return;
+
+        for (int i = 0; i < data.upgradeTowers.Length; i++)
+        {
+            Tower upgradeTower = data.upgradeTowers[i];
+            if (upgradeTower == null) continue;
+
+            var buttonInstance = Instantiate(upgradeButtonPrefab, upgradeButtonContainer);
+            buttonInstance.Setup(upgradeTower.towerData.towerName, () => OnUpgradeClicked(upgradeTower));
+            _upgradeButtons.Add(buttonInstance);
+        }
     }
-    */
+
+    private void ClearUpgradeButtons()
+    {
+        for (int i = 0; i < _upgradeButtons.Count; i++)
+        {
+            if (_upgradeButtons[i] != null)
+                Destroy(_upgradeButtons[i].gameObject);
+        }
+        _upgradeButtons.Clear();
+    }
 
     public override void Hide()
     {
         _currentTower = null;
+        ClearUpgradeButtons();
         base.Hide();
     }
 
@@ -104,18 +109,15 @@ public class UI_TowerInfoPanel : UI_Panel
         Hide();
     }
 
-    private void OnUpgradeClicked()
+    private void OnUpgradeClicked(Tower upgradeTower)
     {
-        if (_currentTower == null) return;
+        if (_currentTower == null || upgradeTower == null) return;
 
         var currentTowerData = _currentTower.towerData;
         if (GamePlayManager.Instance.PlayerGold >= currentTowerData.cost)
         {
-            if (currentTowerData.upgradeTowers != null && currentTowerData.upgradeTowers.Length > 0)
-            {
-                var upgradedTower = _currentTower.UpgradeTower(currentTowerData.upgradeTowers[0]);
-                ShowTowerInfo(upgradedTower);
-            }
+            var upgradedTower = _currentTower.UpgradeTower(upgradeTower);
+            ShowTowerInfo(upgradedTower);
         }
         else
         {

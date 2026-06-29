@@ -20,7 +20,7 @@ public class Tower : MonoBehaviour
     int totalCost = 0;
     public int TotalCost => totalCost;
 
-    private float refundRatio = 0.75f;
+    public float refundRatio = 0.75f;
 
     IntVector2 gridPosition;
     IPlacementArea placementArea;
