@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e5935b5576fd14dba6a17c95542d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 0
+  damageType: 0
   chanceToSpawnCollisionPrefab: 1
   collisionParticles: {fileID: 198149439886552118, guid: 266bfc3979b19d3478e92304dab844d6, type: 3}
   alignment:

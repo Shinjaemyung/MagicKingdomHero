@@ -11,6 +11,7 @@ namespace ActionGameFramework.Projectiles
     /// 가속도를 받아 직선으로 날아가는 투사체
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Damager))]
     public class LinearProjectile : Poolable, IProjectile
     {
         [SerializeField, Tooltip("투사체의 초기 발사 속도")]

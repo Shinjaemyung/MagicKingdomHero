@@ -61,6 +61,6 @@ namespace TowerDefense.Towers
         /// </param>
         /// 발사 위치 리스트
         /// <param name="firingPoint"></param>
-        void LaunchAtPosition(Vector3 position, GameObject attack, Transform[] firingPoint);
+        void LaunchToPosition(Vector3 position, GameObject attack, Transform[] firingPoint);
     }
 }

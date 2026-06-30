@@ -61,7 +61,7 @@ namespace ActionGameFramework.Health
         {
             if (damageAmount < 0)
             {
-                return;
+                damage = 0;
             }
             damage = damageAmount;
         }

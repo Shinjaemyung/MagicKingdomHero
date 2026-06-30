@@ -56,7 +56,7 @@ namespace TowerDefense.Towers.TowerLaunchers
         /// <param name="firingPoint">
         /// 투사체가 발사되는 위치
         /// </param>
-        public override void LaunchAtPosition(Vector3 position, GameObject attack, Transform firingPoint)
+        public override void LaunchToPosition(Vector3 position, GameObject attack, Transform firingPoint)
         {
             var homingMissile = attack.GetComponent<HomingLinearProjectile>();
             if (homingMissile == null)

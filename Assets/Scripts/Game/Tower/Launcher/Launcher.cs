@@ -24,6 +24,7 @@ namespace TowerDefense.Towers.TowerLaunchers
 
                 GameObject poolObject = PoolManager.Instance.GetObject(projectile);
                 poolObject.GetComponent<Poolable>().Init(projectile);
+                SetProjectileDamage(poolObject);
                 Launch(enemy, poolObject, firingPoint);
             }
         }
@@ -32,19 +33,21 @@ namespace TowerDefense.Towers.TowerLaunchers
         {
             GameObject poolObject = PoolManager.Instance.GetObject(projectile);
             poolObject.GetComponent<Poolable>().Init(projectile);
+            SetProjectileDamage(poolObject);
             Launch(enemy, poolObject, GetRandomTransform(firingPoints));
         }
 
-        public virtual void LaunchAtPosition(Vector3 position, GameObject projectile, Transform firingPoint)
+        public virtual void LaunchToPosition(Vector3 position, GameObject projectile, Transform firingPoint)
         {
 
         }
 
-        public virtual void LaunchAtPosition(Vector3 position, GameObject projectile, Transform[] firingPoints)
+        public virtual void LaunchToPosition(Vector3 position, GameObject projectile, Transform[] firingPoints)
         {
             GameObject poolObject = PoolManager.Instance.GetObject(projectile);
             poolObject.GetComponent<Poolable>().Init(projectile);
-            LaunchAtPosition(position, poolObject, GetRandomTransform(firingPoints));
+            SetProjectileDamage(poolObject);
+            LaunchToPosition(position, poolObject, GetRandomTransform(firingPoints));
         }
 
         public void PlayParticles(ParticleSystem particleSystemToPlay, Vector3 origin, Vector3 lookPosition)
@@ -58,6 +61,17 @@ namespace TowerDefense.Towers.TowerLaunchers
             particleSystemToPlay.Play();
         }
 
+
+        protected void SetProjectileDamage(GameObject projectileObject)
+        {
+            Tower tower = GetComponentInParent<Tower>();
+            if (tower == null || tower.towerData == null)
+                return;
+
+            Damager damager = projectileObject.GetComponent<Damager>();
+            if (damager != null)
+                damager.SetDamage(tower.towerData.damage);
+        }
 
         public Transform GetRandomTransform(Transform[] launchPoints)
         {
