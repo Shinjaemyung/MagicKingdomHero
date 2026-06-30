@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Electro
   damageType: 3
-  damage: 3
+  damage: 13
   attackRange: 6
-  attackSpeed: 1
+  attackSpeed: 1.5
   cost: 150
   upgradeTowers:
   - {fileID: 3835806559484997089, guid: 4fde66eef5dbdf34094e361830eefe97, type: 3}

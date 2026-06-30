@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Water
   damageType: 1
-  damage: 3
+  damage: 5
   attackRange: 6
   attackSpeed: 1
   cost: 50

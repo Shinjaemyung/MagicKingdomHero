@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Ice
   damageType: 4
-  damage: 3
+  damage: 9
   attackRange: 6
   attackSpeed: 1
-  cost: 30
+  cost: 40
   upgradeTowers: []

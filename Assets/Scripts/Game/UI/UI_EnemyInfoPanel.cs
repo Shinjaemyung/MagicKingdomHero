@@ -29,7 +29,7 @@ public class UI_EnemyInfoPanel : UI_Panel
             enemyNameText.text = data != null ? data.enemyName : enemy.name;
 
         if (healthText != null)
-            healthText.text = Mathf.CeilToInt(enemy.configuration.CurrentHealth) + " / " + Mathf.CeilToInt(enemy.configuration.maxHealth);
+            healthText.text = Mathf.CeilToInt(enemy.configuration.CurrentHealth) + " / " + Mathf.CeilToInt(enemy.configuration.MaxHealth);
 
         Show();
     }
@@ -40,7 +40,7 @@ public class UI_EnemyInfoPanel : UI_Panel
         if (_currentEnemy == null) return;
 
         if (healthText != null)
-            healthText.text = Mathf.CeilToInt(_currentEnemy.configuration.CurrentHealth) + " / " + Mathf.CeilToInt(_currentEnemy.configuration.maxHealth);
+            healthText.text = Mathf.CeilToInt(_currentEnemy.configuration.CurrentHealth) + " / " + Mathf.CeilToInt(_currentEnemy.configuration.MaxHealth);
     }
 
     /// <summary>현재 표시 중인 적이 사망했을 때 패널을 닫음</summary>

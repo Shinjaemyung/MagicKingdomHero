@@ -55,8 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configuration:
-    maxHealth: 10
-    startingHealth: 10
+    maxHealth: 0
     typeCalculations:
     - damageType: 1
       multiplier: 0.5
@@ -68,7 +67,7 @@ MonoBehaviour:
       unityObjectReference: {fileID: 0}
   targetTransform: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyData: {fileID: 11400000, guid: 6a2c47974aced1f4399a7c296e5f2d0d, type: 2}
+  enemyData: {fileID: 11400000, guid: 6856acf56dc31254f8b641784db6792c, type: 2}
 --- !u!54 &8106249905074614151
 Rigidbody:
   m_ObjectHideFlags: 0

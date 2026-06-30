@@ -52,7 +52,6 @@ namespace Core.Health
 
         protected virtual void OnEnable()
         {
-            configuration.Init();
             configuration.Died += OnConfigurationDied;
         }
 

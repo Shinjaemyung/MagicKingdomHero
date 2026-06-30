@@ -21,9 +21,9 @@ namespace Core.Health
         /// <summary>
         /// 최대 체력
         /// </summary>
-        public float maxHealth;
+        float maxHealth;
 
-        public float startingHealth;
+        public float MaxHealth => maxHealth;
 
         public List<TypeCalculation> typeCalculations;
 
@@ -86,15 +86,7 @@ namespace Core.Health
         }
 
         /// <summary>
-        /// 현재 체력을 시작 체력 값으로 초기화
-        /// </summary>
-        public virtual void Init()
-        {
-            CurrentHealth = startingHealth;
-        }
-
-        /// <summary>
-        /// 최대 체력과 시작 체력을 동일한 값으로 설정합니다
+        /// 최대 체력 설정
         /// </summary>
         public void SetMaxHealth(float health)
         {
@@ -102,20 +94,7 @@ namespace Core.Health
             {
                 return;
             }
-            maxHealth = startingHealth = health;
-        }
-
-        /// <summary>
-        /// 최대 체력과 시작 체력을 설정
-        /// </summary>
-        public void SetMaxHealth(float health, float startingHealth)
-        {
-            if (health <= 0)
-            {
-                return;
-            }
-            maxHealth = health;
-            this.startingHealth = startingHealth;
+            maxHealth = CurrentHealth = health;
         }
 
         /// <summary>

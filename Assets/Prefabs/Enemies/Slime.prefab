@@ -55,8 +55,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configuration:
-    maxHealth: 10
-    startingHealth: 10
+    maxHealth: 0
+    typeCalculations: []
     alignment:
       unityObjectReference: {fileID: 0}
   targetTransform: {fileID: 0}

@@ -19,4 +19,4 @@ MonoBehaviour:
   attackSpeed: 1
   cost: 30
   upgradeTowers:
-  - {fileID: 3835806559484997089, guid: cb6d965843a599b49ba5a953b4e174b4, type: 3}
+  - {fileID: 3835806559484997089, guid: 3bd19bad5d3676e49941296c6594ecd5, type: 3}

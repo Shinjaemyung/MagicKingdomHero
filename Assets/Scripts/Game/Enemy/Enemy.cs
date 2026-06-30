@@ -24,6 +24,7 @@ public class Enemy : Targetable
     protected override void OnEnable()
     {
         base.OnEnable();
+        configuration.SetMaxHealth(enemyData.maxHealth);
         Hit += OnHit;
     }
 

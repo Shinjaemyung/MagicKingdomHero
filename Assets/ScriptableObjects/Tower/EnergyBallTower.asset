@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Energy Ball
   damageType: 0
-  damage: 3
+  damage: 40
   attackRange: 6
-  attackSpeed: 1
+  attackSpeed: 0.8
   cost: 250
   upgradeTowers: []

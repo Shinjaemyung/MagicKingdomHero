@@ -16,12 +16,6 @@ public class EnemyPoolable : Poolable
         _healthBar = GetComponent<UI_EnemyHealthBar>();
     }
 
-    public override void OnSpawn()
-    {
-        base.OnSpawn();
-        _enemy.configuration.Init();
-    }
-
     public override void OnDespawn()
     {
         _mover.ResetState();

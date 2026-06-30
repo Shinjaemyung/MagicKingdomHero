@@ -6,6 +6,9 @@ public class EnemyData : ScriptableObject
     [Tooltip("이 Enemy의 이름")]
     public string enemyName;
 
+    [Tooltip("이 Enemy의 최대 체력")]
+    public float maxHealth;
+
     [Tooltip("Hero와 충돌 시 주는 데미지")]
     public float attackDamage;
 

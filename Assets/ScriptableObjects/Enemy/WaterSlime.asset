@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
-  m_Name: LightningTower
-  m_EditorClassIdentifier: 
-  towerName: Lightning
-  damageType: 3
-  damage: 23
-  attackRange: 7
-  attackSpeed: 1.5
-  cost: 100
-  upgradeTowers: []
+  m_Script: {fileID: 11500000, guid: 27aa29dc7164896499f60d0f9f8d4ae8, type: 3}
+  m_Name: WaterSlime
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyName: Water Slime
+  maxHealth: 10
+  attackDamage: 10
+  goldReward: 10
