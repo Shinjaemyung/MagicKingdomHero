@@ -29,7 +29,7 @@ BGM / 배경 변경 기능
 Enmemy 죽는 모션 - 기본 죽는 이펙트 우선
 Hero 연속 공격 기능
 난이도 조절(메인 메뉴에서 적 체력 비율 조정)
-TargetterEditor 사용 제거
+HeroInfo UI
 
 
 Main 기능
@@ -42,14 +42,12 @@ Enemy 생성 관리 기능(Wave 관리 기능)
 
 
 
-UI
-궁극기 쿨타임
-
 버그
 호밍 투사체 너무 빠르면 타겟에 안닿음 - 버그 발생 상황 적으니 보류
 Enemy 충돌 쿨타임 지나기 전에 pool됐다가 재생성된 같은 인스턴스에 맞을 경우 데미지 쿨타임 이전 걸로 적용 - 버그 발생 상황 매우 적음
 BallisticProjectile 미완성 - targetPoint가 항상 0이 됨
 grid 연결 부위는 서로 다른 grid라 배치 못하는 버그 있음 -> Grid끼리 붙이지 말고 분리 필요
+적을 공격 중이라면 Tagetter가 돌아가지 않도록 필요
 
 
 난이도는 어떻게 증가?

@@ -9,11 +9,20 @@ using static UI_SystemMessagePanel;
 /// </summary>
 public class UI_TowerInfoPanel : UI_Panel
 {
+    [SerializeField, Tooltip("데미지 타입 이미지")]
+    private Image damageTypeIcon;
+
     [SerializeField, Tooltip("타워 이름 텍스트")]
     private Text towerNameText;
 
-    [SerializeField, Tooltip("데미지 타입 이미지")]
-    private Image damageTypeIcon;
+    [SerializeField, Tooltip("데미지 텍스트")]
+    private Text damageText;
+
+    [SerializeField, Tooltip("사거리 텍스트")]
+    private Text attackRangeText;
+
+    [SerializeField, Tooltip("공격 속도 텍스트")]
+    private Text attackSpeedText;
 
     [SerializeField, Tooltip("업그레이드 버튼들이 생성될 부모(Layout)")]
     private Transform upgradeButtonContainer;
@@ -49,6 +58,15 @@ public class UI_TowerInfoPanel : UI_Panel
 
         if (damageTypeIcon != null)
             damageTypeIcon.sprite = data.damageType.GetIcon();
+
+        if (damageText != null)
+            damageText.text = data.damage.ToString();
+
+        if (attackRangeText != null)
+            attackRangeText.text = data.attackRange.ToString();
+
+        if (attackSpeedText != null)
+            attackSpeedText.text = data.attackSpeed.ToString();
 
         // 판매 버튼: 판매 금액 표시
         if (sellButtonText != null)
