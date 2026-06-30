@@ -58,7 +58,7 @@ namespace TowerDefense.UI
                 radiusVisualizer.SetActive(true);
                 radiusVisualizer.transform.SetParent(virtualTower == null ? tower.transform : virtualTower);
                 radiusVisualizer.transform.localPosition = new Vector3(0, radiusVisualizerHeight, 0);
-                radiusVisualizer.transform.localScale = Vector3.one * provider.EffectRadius * 2.0f;
+                radiusVisualizer.transform.localScale = Vector3.one * tower.towerData.attackRange * 2.0f;
                 radiusVisualizer.transform.localRotation = new Quaternion { eulerAngles = localEuler };
 
                 var visualizerRenderer = radiusVisualizer.GetComponent<Renderer>();

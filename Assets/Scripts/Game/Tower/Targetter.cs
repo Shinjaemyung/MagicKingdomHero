@@ -118,8 +118,7 @@ namespace TowerDefense.Targetting
         public IAlignmentProvider alignment;
 
         /// <summary>
-        /// 연결된 콜라이더가 SphereCollider 또는 CapsuleCollider일 경우
-        /// 그 반지름을 반환
+        /// 콜라이더의 반지름을 반환
         /// </summary>
         public float EffectRadius
         {
@@ -127,16 +126,11 @@ namespace TowerDefense.Targetting
             {
                 var sphere = attachedCollider as SphereCollider;
                 if (sphere != null)
-                {
                     return sphere.radius;
-                }
+ 
                 return 0;
             }
         }
-
-        /// <summary>
-        /// 현재 선택된 타깃을 반환
-        /// </summary>
         public Targetable GetTarget()
         {
             return _currentTargetable;
