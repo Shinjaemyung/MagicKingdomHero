@@ -15,7 +15,7 @@ MonoBehaviour:
   towerName: Fire
   damageType: 2
   damage: 0
-  attackRange: 0
+  attackRange: 6
   attackSpeed: 1
   cost: 100
   upgradeTowers: []

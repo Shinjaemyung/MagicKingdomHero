@@ -63,9 +63,14 @@ namespace TowerDefense.Targetting
         public float idleCorrectionTime = 2.0f;
 
         /// <summary>
-        /// Targetter에 연결된 콜라이더
+        /// Targetter에 연결된 콜라이더 (Awake에서 자동 설정)
         /// </summary>
         public Collider attachedCollider;
+
+        /// <summary>
+        /// TowerData 참조 — attackRange를 사거리(콜라이더 반지름)로 사용
+        /// </summary>
+        TowerData _towerData;
 
         /// <summary>
         /// 대기 상태에서 회전을 시작하기 전까지 기다리는 시간
@@ -125,11 +130,6 @@ namespace TowerDefense.Targetting
                 {
                     return sphere.radius;
                 }
-                var capsule = attachedCollider as CapsuleCollider;
-                if (capsule != null)
-                {
-                    return capsule.radius;
-                }
                 return 0;
             }
         }
@@ -173,9 +173,7 @@ namespace TowerDefense.Targetting
         /// <summary>
         /// 적 타깃의 Targetable이 유효한지 확인
         /// </summary>
-        /// <param name="targetable">
-        /// 검사할 타깃
-        /// </param>
+        /// <param name="targetable">검사할 타깃</param>
         /// <returns>Targetable이 있으면 true, 없으면 false</returns>
         protected virtual bool IsTargetableValid(Targetable targetable)
         {
@@ -265,6 +263,33 @@ namespace TowerDefense.Targetting
             }
 
             return nearest;
+        }
+
+        /// <summary>
+        /// SphereCollider를 가져오거나 없으면 생성하고,
+        /// towerData.attackRange로 반지름을 설정한 뒤 트리거로 활성화
+        /// </summary>
+        protected virtual void Awake()
+        {
+            attachedCollider = GetComponent<SphereCollider>();
+            if (attachedCollider == null)
+            {
+                attachedCollider = gameObject.AddComponent<SphereCollider>();
+            }
+
+            _towerData = GetComponentInParent<Tower>().towerData;
+
+            if (_towerData != null)
+            {
+                ((SphereCollider)attachedCollider).radius = _towerData.attackRange;
+            }
+            else
+            {
+                Debug.LogWarning($"[Targetter] {gameObject.name}: towerData가 할당되지 않았습니다. attackRange를 적용할 수 없습니다.");
+            }
+
+            attachedCollider.isTrigger = true;
+            //attachedCollider.hideFlags = HideFlags.HideInInspector;
         }
 
         /// <summary>
