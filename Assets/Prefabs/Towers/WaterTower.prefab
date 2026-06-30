@@ -127,6 +127,7 @@ MonoBehaviour:
     x: 2
     y: 2
   towerData: {fileID: 11400000, guid: 18dbafcf96d76d249a2b6d5a92a88336, type: 2}
+  refundRatio: 0.75
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -298,7 +299,6 @@ MonoBehaviour:
   - {fileID: 7668124808645131158}
   epicenter: {fileID: 8523071728073231706}
   isMultiAttack: 0
-  fireRate: 1
   towerTargetter: {fileID: 4781304514445816318}
   radiusEffectColor: {r: 0, g: 1, b: 1, a: 0.09803922}
   attackAnimator: {fileID: 2288217520679901545}

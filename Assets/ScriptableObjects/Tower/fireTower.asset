@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: FireTower
   m_EditorClassIdentifier: 
   towerName: Fire
-  cost: 100
   damageType: 2
-  damageTypeIcon: {fileID: 0}
+  damage: 0
+  attackRange: 0
+  attackSpeed: 1
+  cost: 100
   upgradeTowers: []

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: WaterTower
   m_EditorClassIdentifier: 
   towerName: Water
-  cost: 50
   damageType: 1
-  damageTypeIcon: {fileID: 0}
+  damage: 0
+  attackRange: 0
+  attackSpeed: 1
+  cost: 50
   upgradeTowers:
   - {fileID: 3835806559484997089, guid: 6c8f4ada3d85a434e8f138a49de48973, type: 3}

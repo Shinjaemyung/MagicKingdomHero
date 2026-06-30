@@ -38,8 +38,9 @@ namespace TowerDefense.Affectors
         public bool isMultiAttack;
 
         /// <summary>
-        /// 초당 공격 횟수(Fires Per Second)
+        /// 초당 공격 횟수(Fires Per Second) - Deprecated: TowerData.attackSpeed를 사용합니다.
         /// </summary>
+        [HideInInspector]
         public float fireRate;
 
         /// <summary>
@@ -63,6 +64,11 @@ namespace TowerDefense.Affectors
         public Filter fireCondition;
 
         protected ILauncher _launcher;
+
+        /// <summary>
+        /// TowerData 캐시 (attackSpeed 참조용)
+        /// </summary>
+        protected TowerData _towerData;
 
         /// <summary>
         /// 다음 공격 가능까지 남은 시간
@@ -135,6 +141,7 @@ namespace TowerDefense.Affectors
         {
             Tower tower = GetComponentInParent<Tower>();
             epicenter = tower.GetComponent<Transform>();
+            _towerData = tower.towerData;
         }
 
         /// <summary>
@@ -189,7 +196,13 @@ namespace TowerDefense.Affectors
         /// </summary>
         protected virtual void SetUpTimers()
         {
-            _fireTimer = 1 / fireRate;
+            if (_towerData == null)
+            {
+                Tower tower = GetComponentInParent<Tower>();
+                if (tower != null) _towerData = tower.towerData;
+            }
+
+            _fireTimer = 1 / _towerData.attackSpeed;
             _launcher = GetComponent<ILauncher>();
         }
 
@@ -202,7 +215,7 @@ namespace TowerDefense.Affectors
             if (_trackingEnemy != null && _fireTimer <= 0.0f)
             {
                 OnFireAnimation();
-                _fireTimer = 1 / fireRate;
+                _fireTimer = 1 / _towerData.attackSpeed;
             }
         }
 
@@ -230,7 +243,7 @@ namespace TowerDefense.Affectors
                 // fireRate에 맞게 애니메이션 속도 조절 (클립 길이 직접 계산)
                 var clips = attackAnimator.runtimeAnimatorController.animationClips;
                 float clipLength = clips.Length > 0 ? clips[0].length : 1f;
-                attackAnimator.speed = clipLength * fireRate;
+                attackAnimator.speed = clipLength * _towerData.attackSpeed;;
                 attackAnimator.ResetTrigger(AttackHash);
                 attackAnimator.SetTrigger(AttackHash);
             }

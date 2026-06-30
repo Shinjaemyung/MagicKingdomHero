@@ -29,6 +29,7 @@ BGM / 배경 변경 기능
 Enmemy 죽는 모션 - 기본 죽는 이펙트 우선
 Hero 연속 공격 기능
 난이도 조절(메인 메뉴에서 적 체력 비율 조정)
+TargetterEditor 사용 제거
 
 
 Main 기능

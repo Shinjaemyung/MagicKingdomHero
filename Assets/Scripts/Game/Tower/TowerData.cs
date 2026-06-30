@@ -4,11 +4,13 @@ using UnityEngine;
 public class TowerData : ScriptableObject
 {
     public string towerName;
+    public DamageType damageType;
+
+    public float damage;
+    public float attackRange;
+    public float attackSpeed;
 
     public int cost;
-    //public int sell;
-
-    public DamageType damageType;
 
     public Tower[] upgradeTowers;
 }

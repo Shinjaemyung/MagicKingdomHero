@@ -3929,9 +3929,9 @@ MonoBehaviour:
   towerNameText: {fileID: 801724172}
   damageTypeIcon: {fileID: 1963083728}
   upgradeButtonContainer: {fileID: 70876104}
-  upgradeButtonPrefab: {fileID: 5437020713966774593, guid: e7c498ec5eb320c4cbe3494df44e0d03, type: 3}
   sellButton: {fileID: 1319473627}
   sellButtonText: {fileID: 1492147243}
+  upgradeButtonPrefab: {fileID: 5437020713966774593, guid: e7c498ec5eb320c4cbe3494df44e0d03, type: 3}
 --- !u!114 &399195121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26497,7 +26497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
