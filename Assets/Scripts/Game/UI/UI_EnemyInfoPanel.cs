@@ -62,7 +62,7 @@ public class UI_EnemyInfoPanel : UI_Panel
         if (label == null) return;
 
         float multiplier = 1f;
-        var calcs = enemy.configuration.typeCalculations;
+        var calcs = enemy.enemyData.typeCalculations;
         if (calcs != null)
         {
             foreach (var calc in calcs)

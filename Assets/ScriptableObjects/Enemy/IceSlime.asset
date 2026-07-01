@@ -16,3 +16,8 @@ MonoBehaviour:
   maxHealth: 20
   attackDamage: 10
   goldReward: 10
+  typeCalculations:
+  - damageType: 2
+    multiplier: 1.5
+  - damageType: 4
+    multiplier: 0.5

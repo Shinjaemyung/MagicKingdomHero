@@ -25,7 +25,7 @@ namespace Core.Health
 
         public float MaxHealth => maxHealth;
 
-        public List<TypeCalculation> typeCalculations;
+        List<TypeCalculation> _typeCalculations;
 
         /// <summary>
         /// 현재 체력
@@ -85,16 +85,19 @@ namespace Core.Health
             get { return Mathf.Approximately(CurrentHealth, maxHealth); }
         }
 
+
         /// <summary>
-        /// 최대 체력 설정
+        /// Damageable 초기화
         /// </summary>
-        public void SetMaxHealth(float health)
+        public void Initialize(EnemyData data)
         {
-            if (health <= 0)
+            if (data.maxHealth <= 0)
             {
                 return;
             }
-            maxHealth = CurrentHealth = health;
+            maxHealth = CurrentHealth = data.maxHealth;
+
+            _typeCalculations = data.typeCalculations;
         }
 
         /// <summary>
@@ -194,16 +197,16 @@ namespace Core.Health
         /// </summary>
         protected float ApplyTypeCalculation(float damage, DamageType damageType)
         {
-            if (typeCalculations == null)
+            if (_typeCalculations == null)
             {
                 return damage;
             }
 
-            for (int i = 0; i < typeCalculations.Count; i++)
+            for (int i = 0; i < _typeCalculations.Count; i++)
             {
-                if (typeCalculations[i].damageType == damageType)
+                if (_typeCalculations[i].damageType == damageType)
                 {
-                    return damage * typeCalculations[i].multiplier;
+                    return damage * _typeCalculations[i].multiplier;
                 }
             }
 

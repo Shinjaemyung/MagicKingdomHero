@@ -55,12 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configuration:
-    maxHealth: 0
-    typeCalculations:
-    - damageType: 1
-      multiplier: 1.5
-    - damageType: 2
-      multiplier: 0.5
+    typeCalculations: []
     alignment:
       unityObjectReference: {fileID: 0}
   targetTransform: {fileID: 0}

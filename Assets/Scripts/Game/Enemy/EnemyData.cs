@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using static Core.Health.Damageable;
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Scriptable Objects/EnemyData")]
 public class EnemyData : ScriptableObject
@@ -14,4 +16,7 @@ public class EnemyData : ScriptableObject
 
     [Tooltip("사망 시 지급하는 골드")]
     public int goldReward;
+
+    [Tooltip("타입별 적에게 받는 데미지 비율")]
+    public List<TypeCalculation> typeCalculations;
 }
