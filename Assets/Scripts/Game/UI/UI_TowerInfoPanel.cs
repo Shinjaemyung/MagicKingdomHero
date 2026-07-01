@@ -98,7 +98,7 @@ public class UI_TowerInfoPanel : UI_Panel
             if (upgradeTower == null) continue;
 
             var buttonInstance = Instantiate(upgradeButtonPrefab, upgradeButtonContainer);
-            buttonInstance.Setup(upgradeTower.towerData.towerName, () => OnUpgradeClicked(upgradeTower));
+            buttonInstance.Setup(upgradeTower.towerData, () => OnUpgradeClicked(upgradeTower));
             _upgradeButtons.Add(buttonInstance);
         }
     }

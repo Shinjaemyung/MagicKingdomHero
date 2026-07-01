@@ -14,18 +14,18 @@ public class UI_TowerUpgradeButton : MonoBehaviour
 
 
     /// <summary>버튼 텍스트와 클릭 콜백 설정</summary>
-    public void Setup(string upgradeTowerName, Action onClick)
+    public void Setup(TowerData upgradeTowerData, Action onClick)
     {
-        SetText(upgradeTowerName);
+        SetText(upgradeTowerData.towerName, upgradeTowerData.cost);
 
         _button.onClick.RemoveAllListeners();
         if (onClick != null)
             _button.onClick.AddListener(() => onClick());
     }
 
-    public void SetText(string upgradeTowerName)
+    public void SetText(string upgradeTowerName, float cost)
     {
         if (_buttonText != null)
-            _buttonText.text = upgradeTowerName;
+            _buttonText.text = upgradeTowerName + "\n(" + Mathf.RoundToInt(cost) + "G)";
     }
 }
