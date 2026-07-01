@@ -270,6 +270,7 @@ namespace TowerDefense.Targetting
             {
                 attachedCollider = gameObject.AddComponent<SphereCollider>();
             }
+            attachedCollider.isTrigger = true;
 
             _towerData = GetComponentInParent<Tower>().towerData;
 
