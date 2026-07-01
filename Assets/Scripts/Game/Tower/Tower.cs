@@ -46,6 +46,18 @@ public class Tower : MonoBehaviour
     private void Awake()
     {
         Initialize(enemyLayerMask);
+        ApplyHatMaterial();
+    }
+
+    /// <summary>
+    /// TowerData의 DamageType에 맞게 WizardHat 머티리얼(색상)을 적용
+    /// </summary>
+    private void ApplyHatMaterial()
+    {
+        if (towerData == null)
+            return;
+
+        WizardHatMaterialApplier.ApplyHatMaterial(transform, towerData.damageType);
     }
 
     public virtual void Initialize(IPlacementArea placementArea, IntVector2 destination, int cost)

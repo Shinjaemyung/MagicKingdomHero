@@ -20,7 +20,9 @@ public class VirtualTower : MonoBehaviour
         MyTower = tower;
         this.invalidPlacementMaterial = invalidPlacementMaterial;
 
-        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        ApplyHatMaterial();
+
+        SkinnedMeshRenderer[] meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
 
         foreach (var renderer in meshRenderers)
         {
@@ -31,6 +33,17 @@ public class VirtualTower : MonoBehaviour
 
         isPlacementValid = true;
         SetInvalidPlacementState();
+    }
+
+    /// <summary>
+    /// MyTower의 TowerData.DamageType에 맞게 WizardHat 머티리얼 적용
+    /// </summary>
+    void ApplyHatMaterial()
+    {
+        if (MyTower == null || MyTower.towerData == null)
+            return;
+
+        WizardHatMaterialApplier.ApplyHatMaterial(transform, MyTower.towerData.damageType);
     }
 
     public void Move(Vector3 worldPosition, bool placementPossible)
