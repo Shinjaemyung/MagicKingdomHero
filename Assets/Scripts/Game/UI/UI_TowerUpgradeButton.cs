@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 public class UI_TowerUpgradeButton : MonoBehaviour
 {
     [SerializeField] private Button _button;
-    [SerializeField] private Text _buttonText;
+    [SerializeField] private TextMeshProUGUI _buttonText;
 
 
     /// <summary>버튼 텍스트와 클릭 콜백 설정</summary>

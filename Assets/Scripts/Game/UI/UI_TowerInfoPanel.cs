@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UI_SystemMessagePanel;
@@ -13,16 +14,16 @@ public class UI_TowerInfoPanel : UI_Panel
     private Image damageTypeIcon;
 
     [SerializeField, Tooltip("타워 이름 텍스트")]
-    private Text towerNameText;
+    private TextMeshProUGUI towerNameText;
 
     [SerializeField, Tooltip("데미지 텍스트")]
-    private Text damageText;
+    private TextMeshProUGUI damageText;
 
     [SerializeField, Tooltip("사거리 텍스트")]
-    private Text attackRangeText;
+    private TextMeshProUGUI attackRangeText;
 
     [SerializeField, Tooltip("공격 속도 텍스트")]
-    private Text attackSpeedText;
+    private TextMeshProUGUI attackSpeedText;
 
     [SerializeField, Tooltip("업그레이드 버튼들이 생성될 부모(Layout)")]
     private Transform upgradeButtonContainer;
@@ -31,7 +32,7 @@ public class UI_TowerInfoPanel : UI_Panel
     private Button sellButton;
 
     [SerializeField, Tooltip("판매 버튼 텍스트")]
-    private Text sellButtonText;
+    private TextMeshProUGUI sellButtonText;
 
     [SerializeField, Tooltip("업그레이드 버튼 프리팹")]
     private UI_TowerUpgradeButton upgradeButtonPrefab;
