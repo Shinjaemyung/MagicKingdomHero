@@ -32,7 +32,7 @@ public class UI_TowerInfoPanel : UI_Panel
     private Button sellButton;
 
     [SerializeField, Tooltip("판매 버튼 텍스트")]
-    private TextMeshProUGUI sellButtonText;
+    private TextMeshProUGUI sellPriceText;
 
     [SerializeField, Tooltip("업그레이드 버튼 프리팹")]
     private UI_TowerUpgradeButton upgradeButtonPrefab;
@@ -70,8 +70,8 @@ public class UI_TowerInfoPanel : UI_Panel
             attackSpeedText.text = data.attackSpeed.ToString();
 
         // 판매 버튼: 판매 금액 표시
-        if (sellButtonText != null)
-            sellButtonText.text = "Sell (" + Mathf.RoundToInt(tower.TotalCost * tower.refundRatio) + "G)";
+        if (sellPriceText != null)
+            sellPriceText.text = Mathf.RoundToInt(tower.TotalCost * tower.refundRatio).ToString();
 
         sellButton.onClick.RemoveAllListeners();
         sellButton.onClick.AddListener(OnSellClicked);

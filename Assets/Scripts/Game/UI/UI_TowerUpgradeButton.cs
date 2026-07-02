@@ -9,13 +9,15 @@ using UnityEngine.UI;
 /// </summary>
 public class UI_TowerUpgradeButton : MonoBehaviour
 {
-    [SerializeField] private Button _button;
-    [SerializeField] private TextMeshProUGUI _buttonText;
-
+    private Button _button;
+    [SerializeField] private TextMeshProUGUI UpgradeTowerNameText;
+    [SerializeField] private TextMeshProUGUI upgradePriceText;
 
     /// <summary>버튼 텍스트와 클릭 콜백 설정</summary>
     public void Setup(TowerData upgradeTowerData, Action onClick)
     {
+        _button = GetComponent<Button>();
+
         SetText(upgradeTowerData.towerName, upgradeTowerData.cost);
 
         _button.onClick.RemoveAllListeners();
@@ -25,7 +27,10 @@ public class UI_TowerUpgradeButton : MonoBehaviour
 
     public void SetText(string upgradeTowerName, float cost)
     {
-        if (_buttonText != null)
-            _buttonText.text = upgradeTowerName + "\n(" + Mathf.RoundToInt(cost) + "G)";
+        if (UpgradeTowerNameText != null)
+            UpgradeTowerNameText.text = upgradeTowerName;
+
+        if (upgradePriceText != null)
+            upgradePriceText.text = Mathf.RoundToInt(cost).ToString();
     }
 }
