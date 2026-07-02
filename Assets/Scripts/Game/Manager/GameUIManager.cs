@@ -71,7 +71,6 @@ public class GameUIManager : MonoBehaviour
 
     public void CompleteHeroControlMode()
     {
-        heroInfoPanel.Show();
         modeChangeButton.ChangeButtonText(PlayerMode.HeroControlMode);
         modeChangeButton.SetButtonInteractable(true);
     }

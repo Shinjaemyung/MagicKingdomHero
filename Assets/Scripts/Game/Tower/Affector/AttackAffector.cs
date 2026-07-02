@@ -17,10 +17,11 @@ namespace TowerDefense.Affectors
     [RequireComponent(typeof(ILauncher))]
     public class AttackAffector : Affector, ITowerRadiusProvider
     {
-        /// <summary>
-        /// 공격에 사용할 투사체
-        /// </summary>
-        public GameObject projectile;
+        [SerializeField, Tooltip("공격에 사용할 투사체")]
+        GameObject projectile;
+
+        [SerializeField, Tooltip("공격 시 재생할 오디오 소스")]
+        AudioClip fireClip;
 
         /// <summary>
         /// 투사체를 발사할 위치 리스트
@@ -38,15 +39,10 @@ namespace TowerDefense.Affectors
         public bool isMultiAttack;
 
         /// <summary>
-        /// 초당 공격 횟수(Fires Per Second) - Deprecated: TowerData.attackSpeed를 사용합니다.
+        /// 초당 공격 횟수
         /// </summary>
         [HideInInspector]
         public float fireRate;
-
-        /// <summary>
-        /// 공격 시 재생할 오디오 소스
-        /// </summary>
-        //public RandomAudioSource randomAudioSource;
 
         public Targetter towerTargetter;
 
@@ -96,8 +92,8 @@ namespace TowerDefense.Affectors
         /// </summary>
         private int _attackTargetSpawnId = -1;
 
-        [Tooltip("공격 애니메이션을 재생할 Animator")]
-        public Animator attackAnimator;
+        Animator animator;
+        AudioSource audioSource;
 
         /// <summary>Attack 파라미터 해시</summary>
         private static readonly int AttackHash = Animator.StringToHash("Attack");
@@ -137,8 +133,10 @@ namespace TowerDefense.Affectors
             get { return towerTargetter; }
         }
 
-        private void OnEnable()
+        private void Awake()
         {
+            animator = GetComponent<Animator>();
+            audioSource = GetComponent<AudioSource>();
             Tower tower = GetComponentInParent<Tower>();
             epicenter = tower.GetComponent<Transform>();
             _towerData = tower.towerData;
@@ -238,14 +236,14 @@ namespace TowerDefense.Affectors
             _attackTargetSpawnId = poolable.SpawnId;
             _attackTargetPos = _attackTarget.gameObject.transform.position;
 
-            if (attackAnimator != null)
+            if (animator != null)
             {
                 // fireRate에 맞게 애니메이션 속도 조절 (클립 길이 직접 계산)
-                var clips = attackAnimator.runtimeAnimatorController.animationClips;
+                var clips = animator.runtimeAnimatorController.animationClips;
                 float clipLength = clips.Length > 0 ? clips[0].length : 1f;
-                attackAnimator.speed = clipLength * _towerData.attackSpeed;;
-                attackAnimator.ResetTrigger(AttackHash);
-                attackAnimator.SetTrigger(AttackHash);
+                animator.speed = clipLength * _towerData.attackSpeed;;
+                animator.ResetTrigger(AttackHash);
+                animator.SetTrigger(AttackHash);
             }
             else
             {
@@ -289,13 +287,8 @@ namespace TowerDefense.Affectors
                 }
             }
 
-            // 오디오 나중에
-            /*
-            if (randomAudioSource != null)
-            {
-                randomAudioSource.PlayRandomClip();
-            }
-            */
+            if (audioSource != null || fireClip != null)
+                audioSource.PlayOneShot(fireClip);
         }
 
         /// <summary>
