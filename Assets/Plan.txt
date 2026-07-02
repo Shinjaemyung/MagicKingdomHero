@@ -36,7 +36,7 @@ Main 기능
 오디오 기능
 타워 종류 전부 제작
 적 종류 제작
-UI 디자인 - 일시 정지, 게임 오버, TowerInfo, EnemyInfo, TowerButton
+UI 디자인 - 일시 정지, 게임 오버
 Enemy 생성 관리 기능(Wave 관리 기능) 
 - 4개 다 활성화 후엔 어떻게 되는지 테스트
 
