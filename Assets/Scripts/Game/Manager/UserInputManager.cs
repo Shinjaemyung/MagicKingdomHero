@@ -22,6 +22,8 @@ public class UserInputManager : MonoBehaviour
 
     private void Update()
     {
+        if (GamePlayManager.Instance.IsGameOvered) return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GamePlayManager playManager = GamePlayManager.Instance;

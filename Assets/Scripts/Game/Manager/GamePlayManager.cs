@@ -23,6 +23,7 @@ public class GamePlayManager : MonoBehaviour
     public event Action<int> OnPlayerGoldChanged;
 
     public bool IsPaused { get; private set; }
+    public bool IsGameOvered { get; private set; }
 
     private void Awake()
     {
@@ -66,13 +67,6 @@ public class GamePlayManager : MonoBehaviour
         UpdatePlayerGold(enemy.enemyData.goldReward);
     }
 
-    void SetGameOverState()
-    {
-        Time.timeScale = 0f;
-        GameUIManager.Instance.ShowGameOver();
-        MouseManager.Instance.SetCursorLockState(false);
-    }
-
     private void OnHeroDied()
     {
         StartCoroutine(HeroRecoveryCoroutine());
@@ -111,6 +105,14 @@ public class GamePlayManager : MonoBehaviour
 
         GameUIManager.Instance.HideSettings();
         IsPaused = false;
+    }
+
+    void SetGameOverState()
+    {
+        Time.timeScale = 0f;
+        GameUIManager.Instance.ShowGameOver();
+        MouseManager.Instance.SetCursorLockState(false);
+        IsGameOvered = true;
     }
 
     private void OnDestroy()
