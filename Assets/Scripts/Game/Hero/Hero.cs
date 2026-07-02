@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using UnityEngine;
 
@@ -30,6 +31,7 @@ public class Hero : MonoBehaviour
     private AudioClip hitClip;
 
     private AudioSource _audioSource;
+    private CinemachineImpulseSource _impulseSource;
 
     public bool isDead;
 
@@ -41,6 +43,7 @@ public class Hero : MonoBehaviour
         Health = maxHealth;
         _audioSource = gameObject.GetComponent<AudioSource>();
         _audioSource.playOnAwake = false;
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     public void UpdateHealth(float amount)
@@ -49,7 +52,7 @@ public class Hero : MonoBehaviour
         if (amount < 0f)
         {
             _audioSource?.PlayOneShot(hitClip);
-            CameraManager.Instance?.ShakeCamera();
+            _impulseSource.GenerateImpulseWithForce(0.5f);
         }
 
         OnHealthChanged?.Invoke(Health, maxHealth);

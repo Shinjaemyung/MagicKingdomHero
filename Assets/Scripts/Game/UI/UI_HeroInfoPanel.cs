@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -11,7 +12,7 @@ public class UI_HeroInfoPanel : UI_Panel
     private Image healthBarFill;
 
     [SerializeField, Tooltip("체력 수치 텍스트")]
-    private Text healthText;
+    private TextMeshProUGUI healthText;
 
     private void Start()
     {

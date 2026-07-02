@@ -1,8 +1,9 @@
-using System.Collections.Generic;
+using Cinemachine;
 using Core.Health;
 using Core.Utilities;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class EnemySpawner : MonoBehaviour
     private int _remainingSpawnCount;
     private GameObject _currentEnemyPrefab;
     private bool _isSpawning;
+
+    CinemachineImpulseSource _impulseSource;
 
     /// <summary>이 스포너가 이번 wave에서 스폰한 적이 전부 죽었을 때 발생</summary>
     public event Action<EnemySpawner> WaveCleared;
@@ -78,6 +81,9 @@ public class EnemySpawner : MonoBehaviour
         _aliveCount = 0;
         _timer = spawnInterval; // 활성화 즉시 첫 적을 스폰
         _isSpawning = true;
+
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
+        _impulseSource.GenerateImpulseWithForce(0.5f);
 
         gameObject.SetActive(true);
     }

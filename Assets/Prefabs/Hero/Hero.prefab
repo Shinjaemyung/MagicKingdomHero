@@ -503,8 +503,9 @@ GameObject:
   - component: {fileID: 8979406775667107767}
   - component: {fileID: 5442580219938384084}
   - component: {fileID: 2946039920311408390}
-  - component: {fileID: 1465349680864314771}
   - component: {fileID: 7206373114963490187}
+  - component: {fileID: 1465349680864314771}
+  - component: {fileID: 3856519499300752065}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -805,6 +806,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeroContactDamage
   damageInterval: 1
+--- !u!114 &7206373114963490187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983908037375513166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b13a9d54065ea4981d5f2508122668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeroAttack
+  attackDamage: 5
+  attackRange: 2.5
+  attackAngle: 90
+  attackCooldown: 0.8
+  hitTimingNormalized: 0.4
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  attackSfx: {fileID: 8300000, guid: e80f6b382b62179439bca706e6c6a3f7, type: 3}
 --- !u!82 &1465349680864314771
 AudioSource:
   m_ObjectHideFlags: 0
@@ -902,7 +924,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7206373114963490187
+--- !u!114 &3856519499300752065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -911,18 +933,95 @@ MonoBehaviour:
   m_GameObject: {fileID: 1983908037375513166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b13a9d54065ea4981d5f2508122668, type: 3}
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeroAttack
-  attackDamage: 5
-  attackRange: 2.5
-  attackAngle: 90
-  attackCooldown: 0.8
-  hitTimingNormalized: 0.4
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  attackSfx: {fileID: 8300000, guid: e80f6b382b62179439bca706e6c6a3f7, type: 3}
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineImpulseSource
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 2
+    m_ImpulseShape: 2
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.19642246
+        value: 0.9986335
+        inSlope: 0.896953
+        outSlope: 0.896953
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.49585772
+        value: 0.0017415881
+        inSlope: 1.0790973
+        outSlope: 1.0790973
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.7735318
+        value: 0.9936001
+        inSlope: 1.1836601
+        outSlope: 1.1836601
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.009523809
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.3
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0.02
+      m_SustainTime: 0
+      m_DecayTime: 0.25
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: 0, z: 3}
 --- !u!1 &2085935374489282807
 GameObject:
   m_ObjectHideFlags: 0

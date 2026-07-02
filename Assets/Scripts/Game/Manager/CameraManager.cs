@@ -28,7 +28,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] float zoomSpeed = 4000f;
 
     CinemachineBrain cinemachineBrain;
-    CinemachineImpulseSource impulseSource;
 
     [SerializeField, Tooltip("Hero 모드 가상 카메라")]
     CinemachineVirtualCamera heroFollowCamera;
@@ -49,8 +48,6 @@ public class CameraManager : MonoBehaviour
         else Destroy(gameObject);
 
         cinemachineBrain = FindAnyObjectByType<CinemachineBrain>();
-        impulseSource = GetComponent<CinemachineImpulseSource>();
-
         currentZoom = towerPlacementCamera.m_Lens.FieldOfView;
     }
 
@@ -211,13 +208,5 @@ public class CameraManager : MonoBehaviour
     public void UnlockTowerPlacementCamera()
     {
         isTowerPlacementCameraLocked = false;
-    }
-
-    /// <summary>카메라 흔들림</summary>
-    /// <param name="force">흔들림 강도</param>
-    public void ShakeCamera(float force = 0.5f)
-    {
-        if (impulseSource == null) return;
-        impulseSource.GenerateImpulseWithForce(force);
     }
 }
