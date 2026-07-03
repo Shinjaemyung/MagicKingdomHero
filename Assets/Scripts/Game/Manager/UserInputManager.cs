@@ -40,7 +40,7 @@ public class UserInputManager : MonoBehaviour
 
         if (GamePlayManager.Instance.IsPaused) return;
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !CameraManager.Instance.isTowerPlacementCameraLocked) 
         {
             PlayerModeManager.Instance.RequestPlayerModeChange();
         }

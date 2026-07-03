@@ -32,10 +32,11 @@ namespace ActionGameFramework.Health
         [Range(0, 1)]
         public float chanceToSpawnCollisionPrefab = 1.0f;
 
-        /// <summary>
-        /// 공격했을 때 발생하는 파티클
-        /// </summary>
-        public ParticleSystem collisionParticles;
+        [SerializeField, Tooltip("공격했을 때 발생하는 파티클")]
+        ParticleSystem hitParticle;
+
+        [SerializeField, Tooltip("공격 맞았을 때 효과음")]
+        AudioClip hitSound;
 
         /// <summary>
         /// Damager의 alignment
@@ -82,15 +83,30 @@ namespace ActionGameFramework.Health
         /// </summary>
         void OnCollisionEnter(Collision other)
         {
-            if (collisionParticles == null || Random.value > chanceToSpawnCollisionPrefab)
+            if (hitParticle == null || Random.value > chanceToSpawnCollisionPrefab)
             {
                 return;
             }
 
-            var pfx = PoolManager.Instance.GetObject(collisionParticles.gameObject).GetComponent<ParticleSystem>();
+            PlayHitEffects(transform.position);
+        }
 
-            pfx.transform.position = transform.position;
-            pfx.Play();
+        /// <summary>
+        /// 공격이 적에게 명중했을 때 파티클과 효과음을 재생
+        /// </summary>
+        public void PlayHitEffects(Vector3 hitPosition)
+        {
+            if (hitParticle != null)
+            {
+                var pfx = PoolManager.Instance.GetObject(hitParticle.gameObject).GetComponent<ParticleSystem>();
+                pfx.transform.position = hitPosition;
+                pfx.Play();
+            }
+
+            if (hitSound != null)
+            {
+                AudioSource.PlayClipAtPoint(hitSound, hitPosition);
+            }
         }
     }
 }

@@ -35,7 +35,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField, Tooltip("타워 배치 모드 가상 카메라")]
     CinemachineVirtualCamera towerPlacementCamera;
 
-    bool isTowerPlacementCameraLocked;
+    public bool isTowerPlacementCameraLocked;
 
     Coroutine _moveCameraCoroutine;
 
