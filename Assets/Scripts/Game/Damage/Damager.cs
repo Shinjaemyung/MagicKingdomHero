@@ -98,9 +98,9 @@ namespace ActionGameFramework.Health
         {
             if (hitParticle != null)
             {
-                var pfx = PoolManager.Instance.GetObject(hitParticle.gameObject).GetComponent<ParticleSystem>();
-                pfx.transform.position = hitPosition;
-                pfx.Play();
+                var particleObj = PoolManager.Instance.GetObject(hitParticle.gameObject);
+                particleObj.GetComponent<Poolable>().Init(hitParticle.gameObject);
+                particleObj.GetComponent<PooledParticleSystem>().Play(hitPosition);
             }
 
             if (hitSound != null)

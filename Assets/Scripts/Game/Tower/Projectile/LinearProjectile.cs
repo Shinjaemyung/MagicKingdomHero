@@ -40,7 +40,7 @@ namespace ActionGameFramework.Projectiles
         protected ParticleSystem hitPS;
         protected GameObject hit;
 
-        [SerializeField, Tooltip("")]
+        [SerializeField, Tooltip("Flash 파티클 시스템")]
         protected GameObject flashPS;
 
         [SerializeField, Tooltip("충돌 이후 투사체와 분리되어 제거되는 오브젝트")]
