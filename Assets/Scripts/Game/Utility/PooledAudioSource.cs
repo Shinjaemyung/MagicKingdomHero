@@ -18,8 +18,7 @@ public class PooledAudioSource : Poolable
     }
 
     /// <summary>
-    /// 지정한 위치에서 clip을 재생하고,
-    /// 재생이 끝나면 자동으로 풀에 반환한다.
+    /// 지정한 위치에서 clip을 재생하고 재생이 끝나면 자동으로 풀에 반환
     /// </summary>
     public void Play(AudioClip clip, Vector3 position)
     {
