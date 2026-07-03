@@ -105,7 +105,7 @@ namespace ActionGameFramework.Health
 
             if (hitSound != null)
             {
-                AudioSource.PlayClipAtPoint(hitSound, hitPosition);
+                AudioManager.Instance.PlaySound(hitSound, hitPosition);
             }
         }
     }

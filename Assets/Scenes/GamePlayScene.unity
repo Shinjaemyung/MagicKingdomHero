@@ -11053,6 +11053,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 829952211679526009, guid: 0694c2be9a9eae9418f8587aa5efbb64, type: 3}
   m_PrefabInstance: {fileID: 754922999}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &758304101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758304102}
+  - component: {fileID: 758304103}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &758304102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758304101}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1780956041}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758304103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758304101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0403025b63aae9438753c30400cd737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  audioSourcePrefab: {fileID: 1936097756964509582, guid: 3decb4e05114ea64d92f1701adeae187, type: 3}
 --- !u!1001 &766753114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24421,6 +24466,7 @@ MonoBehaviour:
   zoomSpeed: 4000
   heroFollowCamera: {fileID: 1702737795}
   towerPlacementCamera: {fileID: 1095098899}
+  isTowerPlacementCameraLocked: 0
 --- !u!1001 &1552345717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27869,6 +27915,7 @@ Transform:
   - {fileID: 361803379}
   - {fileID: 741226602}
   - {fileID: 724898378}
+  - {fileID: 758304102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1785891602
