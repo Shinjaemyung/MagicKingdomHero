@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Affectors.AttackAffector
   description: 
   projectile: {fileID: 1375887527512235453, guid: 989de83048f70bf478b3357d40b0e9bd, type: 3}
-  fireClip: {fileID: 0}
+  fireClip: {fileID: 8300000, guid: 0dafec79ab81b5749b13ac0680de2def, type: 3}
   projectilePoints:
   - {fileID: 436222317625622721}
   epicenter: {fileID: 8523071728073231706}

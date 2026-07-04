@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Dark Ball
   damageType: 0
-  damage: 250
+  damage: 125
   attackRange: 7
-  attackSpeed: 0.4
+  attackSpeed: 0.8
   cost: 500
   upgradeTowers: []
