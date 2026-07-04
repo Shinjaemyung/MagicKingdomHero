@@ -19,12 +19,22 @@ public class PooledParticleSystem : Poolable
     }
 
     /// <summary>
-    /// 지정한 위치에서 파티클을 재생하고,
-    /// 재생이 끝나면 자동으로 풀에 반환한다.
+    /// 지정한 위치/회전에서 파티클 재생
+    /// 재생이 끝나면 자동으로 풀에 반환
     /// </summary>
     public void Play(Vector3 position)
     {
+        Play(position, transform.rotation);
+    }
+
+    /// <summary>
+    /// 지정한 위치/회전으로 파티클 재생
+    /// 재생이 끝나면 자동으로 풀에 반환
+    /// </summary>
+    public void Play(Vector3 position, Quaternion rotation)
+    {
         transform.position = position;
+        transform.rotation = rotation;
         _particleSystem.Clear();
         _particleSystem.Play();
 

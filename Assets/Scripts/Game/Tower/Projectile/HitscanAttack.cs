@@ -43,7 +43,7 @@ namespace TowerDefense.Towers.Projectiles
         protected virtual void Awake()
         {
             _damager = GetComponent<Damager>();
-            _timer = new Timer(delay, DealDamage);
+            _timer = new Timer(delay, ExecuteAttack);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace TowerDefense.Towers.Projectiles
         /// Hitscan 공격의 실제 공격 동작
         /// 공격할 적이 없으면 return
         /// </summary>
-        protected void DealDamage()
+        protected void ExecuteAttack()
         {
             if (_enemy == null || _enemy.IsDead)
             {
@@ -87,8 +87,25 @@ namespace TowerDefense.Towers.Projectiles
                 return;
             }
 
+            // 충돌 지점 계산
+            Vector3 hitPosition = _enemy.Position;
+            Vector3 hitNormal = (_origin - hitPosition);
+            hitNormal = hitNormal.sqrMagnitude > 0.0001f ? hitNormal.normalized : Vector3.up;
+
+            Collider enemyCollider = _enemy.GetComponentInChildren<Collider>();
+            if (enemyCollider != null)
+            {
+                Vector3 closestPoint = enemyCollider.ClosestPoint(_origin);
+                Vector3 diff = _origin - closestPoint;
+                if (diff.sqrMagnitude > 0.0001f)
+                {
+                    hitPosition = closestPoint;
+                    hitNormal = diff.normalized;
+                }
+            }
+
             // 이펙트
-            _damager.PlayHitEffects(_enemy.Position);
+            _damager.PlayHitEffects(hitPosition, hitNormal);
 
             _enemy.TakeDamage(_damager.damage, _enemy.Position, _damager.AlignmentProvider);
             _pauseTimer = true;
