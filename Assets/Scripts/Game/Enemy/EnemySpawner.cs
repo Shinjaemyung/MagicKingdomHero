@@ -52,9 +52,14 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Tooltip("무한 웨이브 스폰 간격이 줄어들 수 있는 최소값(초)")]
     private float infiniteMinSpawnInterval = 0.1f;
 
+    [SerializeField, Tooltip("무한 웨이브에서 몇 마리를 소환할 때마다 enemy 종류를 새로 랜덤하게 바꿀지")]
+    private int infiniteEnemyChangeInterval = 10;
+
     private float _timer;
     private int _remainingSpawnCount;
     private GameObject _currentEnemyPrefab;
+    private int _spawnCountSinceEnemyChange;
+
     private bool _isSpawning;
 
     private bool _isInfiniteMode;
@@ -85,6 +90,16 @@ public class EnemySpawner : MonoBehaviour
                 if (_remainingSpawnCount <= 0)
                 {
                     _isSpawning = false;
+                }
+            }
+            else
+            {
+                // 무한 웨이브에서 n마리를 소환할 때마다 소환되는 enemy 종류를 랜덤하게 변경
+                _spawnCountSinceEnemyChange++;
+                if (infiniteEnemyChangeInterval > 0 && _spawnCountSinceEnemyChange >= infiniteEnemyChangeInterval)
+                {
+                    _spawnCountSinceEnemyChange = 0;
+                    _currentEnemyPrefab = GetRandomInfiniteEnemyPrefab();
                 }
             }
         }
@@ -154,6 +169,7 @@ public class EnemySpawner : MonoBehaviour
 
         _isInfiniteMode = true;
         _currentEnemyPrefab = GetRandomInfiniteEnemyPrefab();
+        _spawnCountSinceEnemyChange = 0;
         _remainingSpawnCount = 0; // 무한 웨이브에서는 사용하지 않음
         _aliveCount = 0;
         ApplyInfiniteWaveDifficulty(waveIndex);

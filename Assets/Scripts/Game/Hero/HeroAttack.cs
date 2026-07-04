@@ -11,8 +11,8 @@ using StarterAssets;
 [RequireComponent(typeof(Animator))]
 public class HeroAttack : MonoBehaviour
 {
-    [SerializeField, Tooltip("공격 데미지")]
-    private float attackDamage = 2f;
+    [SerializeField, Tooltip("공격 데미지 (적 최대 체력의 n% 데미지)")]
+    private float attackDamage = 20f;
 
     [SerializeField, Tooltip("공격 판정 범위 (전방 구체 거리)")]
     private float attackRange = 2.5f;
@@ -124,9 +124,11 @@ public class HeroAttack : MonoBehaviour
         }
     }
 
-    private void DealDamage(Enemy enemy)
+private void DealDamage(Enemy enemy)
     {
-        enemy.TakeDamage(attackDamage, enemy.Position, null);
+        // 적의 최대 체력 attackDamage%만큼 데미지를 준다.
+        float damage = enemy.configuration.MaxHealth * (attackDamage * 0.01f);
+        enemy.TakeDamage(damage, enemy.Position, null);
     }
 
 #if UNITY_EDITOR

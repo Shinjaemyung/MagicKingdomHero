@@ -818,7 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b13a9d54065ea4981d5f2508122668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeroAttack
-  attackDamage: 5
+  attackDamage: 30
   attackRange: 2.5
   attackAngle: 90
   attackCooldown: 0.8

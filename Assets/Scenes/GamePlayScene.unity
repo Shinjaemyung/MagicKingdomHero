@@ -413,9 +413,9 @@ MonoBehaviour:
   - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
   - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
   infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 20
+  infiniteHealthIncreasePerWave: 2
   infiniteBaseSpawnInterval: 5
-  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteSpawnIntervalDecreasePerWave: 0.1
   infiniteMinSpawnInterval: 0.1
 --- !u!114 &8433255
 MonoBehaviour:
@@ -12049,9 +12049,9 @@ MonoBehaviour:
   - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
   - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
   infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 20
+  infiniteHealthIncreasePerWave: 2
   infiniteBaseSpawnInterval: 5
-  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteSpawnIntervalDecreasePerWave: 0.1
   infiniteMinSpawnInterval: 0.1
 --- !u!114 &783575689
 MonoBehaviour:
@@ -23126,9 +23126,9 @@ MonoBehaviour:
   - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
   - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
   infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 20
+  infiniteHealthIncreasePerWave: 2
   infiniteBaseSpawnInterval: 5
-  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteSpawnIntervalDecreasePerWave: 0.1
   infiniteMinSpawnInterval: 0.1
 --- !u!114 &1475938647
 MonoBehaviour:
@@ -29982,9 +29982,9 @@ MonoBehaviour:
   - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
   - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
   infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 20
+  infiniteHealthIncreasePerWave: 2
   infiniteBaseSpawnInterval: 5
-  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteSpawnIntervalDecreasePerWave: 0.1
   infiniteMinSpawnInterval: 0.1
 --- !u!114 &1879806494
 MonoBehaviour:
