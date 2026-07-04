@@ -325,7 +325,7 @@ MonoBehaviour:
   - {fileID: 423949469}
   - {fileID: 1200854374}
   - {fileID: 1677820655}
-  spawnInterval: 5
+  spawnInterval: 1
   waveSpawnDataList:
   - enemyPrefab: {fileID: 0}
     spawnCount: 0
@@ -335,6 +335,13 @@ MonoBehaviour:
     spawnCount: 0
   - enemyPrefab: {fileID: 0}
     spawnCount: 0
+  infiniteWaveStartIndex: 4
+  infiniteEnemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
+  infiniteBaseMaxHealth: 50
+  infiniteHealthIncreasePerWave: 20
+  infiniteBaseSpawnInterval: 3
+  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteMinSpawnInterval: 0.5
 --- !u!114 &8433255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,10 +671,10 @@ RectTransform:
   - {fileID: 1639835291}
   m_Father: {fileID: 8272475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -150}
-  m_SizeDelta: {x: 140, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &21691978
 MonoBehaviour:
@@ -3285,10 +3292,10 @@ RectTransform:
   - {fileID: 1115462439}
   m_Father: {fileID: 8272475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 220, y: -150}
-  m_SizeDelta: {x: 140, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &251237421
 MonoBehaviour:
@@ -10249,6 +10256,7 @@ MonoBehaviour:
   - {fileID: 1879806493}
   - {fileID: 783575688}
   activateSpawnerDelayAfterCameraMove: 0.5
+  infiniteWaveAutoAdvanceInterval: 1
 --- !u!82 &724898380
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11082,7 +11090,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1165075321}
   m_Father: {fileID: 1780956041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &758304103
@@ -11791,7 +11800,7 @@ MonoBehaviour:
   - {fileID: 260932593}
   - {fileID: 1496877817}
   - {fileID: 383631753}
-  spawnInterval: 5
+  spawnInterval: 1
   waveSpawnDataList:
   - enemyPrefab: {fileID: 0}
     spawnCount: 0
@@ -11801,6 +11810,13 @@ MonoBehaviour:
     spawnCount: 0
   - enemyPrefab: {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
     spawnCount: 3
+  infiniteWaveStartIndex: 4
+  infiniteEnemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
+  infiniteBaseMaxHealth: 50
+  infiniteHealthIncreasePerWave: 20
+  infiniteBaseSpawnInterval: 3
+  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteMinSpawnInterval: 0.5
 --- !u!114 &783575689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19227,12 +19243,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165075319}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 758304102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1181310268
 PrefabInstance:
@@ -22967,7 +22983,7 @@ MonoBehaviour:
   - {fileID: 1820801498}
   - {fileID: 117710939}
   - {fileID: 1956346144}
-  spawnInterval: 5
+  spawnInterval: 1
   waveSpawnDataList:
   - enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
     spawnCount: 3
@@ -22977,6 +22993,13 @@ MonoBehaviour:
     spawnCount: 0
   - enemyPrefab: {fileID: 0}
     spawnCount: 0
+  infiniteWaveStartIndex: 4
+  infiniteEnemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
+  infiniteBaseMaxHealth: 50
+  infiniteHealthIncreasePerWave: 20
+  infiniteBaseSpawnInterval: 3
+  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteMinSpawnInterval: 0.5
 --- !u!114 &1475938647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29315,7 +29338,7 @@ MonoBehaviour:
   - {fileID: 1207433747}
   - {fileID: 952554838}
   - {fileID: 1328247697}
-  spawnInterval: 5
+  spawnInterval: 1
   waveSpawnDataList:
   - enemyPrefab: {fileID: 0}
     spawnCount: 0
@@ -29325,6 +29348,13 @@ MonoBehaviour:
     spawnCount: 3
   - enemyPrefab: {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
     spawnCount: 3
+  infiniteWaveStartIndex: 4
+  infiniteEnemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
+  infiniteBaseMaxHealth: 50
+  infiniteHealthIncreasePerWave: 20
+  infiniteBaseSpawnInterval: 3
+  infiniteSpawnIntervalDecreasePerWave: 0.2
+  infiniteMinSpawnInterval: 0.5
 --- !u!114 &1879806494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56725,10 +56755,10 @@ RectTransform:
   - {fileID: 8551572615493087634}
   m_Father: {fileID: 8272475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -150}
-  m_SizeDelta: {x: 140, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1885471441442656403
 MonoBehaviour:
@@ -57440,7 +57470,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
-  - {fileID: 1165075321}
   - {fileID: 705507995}
   - {fileID: 1556390446}
   - {fileID: 954955669}

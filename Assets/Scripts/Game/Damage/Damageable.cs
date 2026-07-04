@@ -101,6 +101,22 @@ namespace Core.Health
         }
 
         /// <summary>
+        /// 최대 체력을 직접 재정의하고, 체력을 그 최댓값으로 채웁니다.
+        /// EnemyData(공용 에셋)를 수정하지 않고 인스턴스마다 다른 최대 체력을 주고 싶을 때 사용합니다.
+        /// (예: 무한 웨이브에서 웨이브가 오를수록 체력이 늘어나는 경우)
+        /// </summary>
+        public void OverrideMaxHealth(float newMaxHealth)
+        {
+            if (newMaxHealth <= 0f)
+            {
+                return;
+            }
+
+            maxHealth = newMaxHealth;
+            CurrentHealth = maxHealth;
+        }
+
+        /// <summary>
         /// 이 인스턴스의 체력을 직접 설정
         /// </summary>
         /// <param name="health">

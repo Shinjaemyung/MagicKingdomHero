@@ -287,7 +287,7 @@ namespace TowerDefense.Affectors
                 }
             }
 
-            if (audioSource != null || fireClip != null)
+            if (audioSource != null && fireClip != null)
                 audioSource.PlayOneShot(fireClip);
         }
 

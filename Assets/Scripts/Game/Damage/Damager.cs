@@ -26,12 +26,6 @@ namespace ActionGameFramework.Health
         /// </summary>
         public Action<Vector3> hasDamaged;
 
-        /// <summary>
-        /// Collision Projectile 프리팹을 생성할 확률
-        /// </summary>
-        [Range(0, 1)]
-        public float chanceToSpawnCollisionPrefab = 1.0f;
-
         [SerializeField, Tooltip("공격했을 때 발생하는 파티클")]
         ParticleSystem hitParticle;
 
@@ -83,11 +77,6 @@ namespace ActionGameFramework.Health
         /// </summary>
         void OnCollisionEnter(Collision other)
         {
-            if (hitParticle == null || Random.value > chanceToSpawnCollisionPrefab)
-            {
-                return;
-            }
-
             PlayHitEffects(transform.position);
         }
 

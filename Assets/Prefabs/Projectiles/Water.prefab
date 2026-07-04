@@ -4967,8 +4967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   damageType: 1
-  chanceToSpawnCollisionPrefab: 1
-  collisionParticles: {fileID: 0}
+  hitParticle: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: ef10775981c7a62489509bd493d29e24, type: 3}
   alignment:
     unityObjectReference: {fileID: 0}
 --- !u!54 &6132271777024668777

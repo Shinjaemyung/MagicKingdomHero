@@ -18,4 +18,5 @@ MonoBehaviour:
   attackRange: 6
   attackSpeed: 0.8
   cost: 250
-  upgradeTowers: []
+  upgradeTowers:
+  - {fileID: 3835806559484997089, guid: cb6d965843a599b49ba5a953b4e174b4, type: 3}

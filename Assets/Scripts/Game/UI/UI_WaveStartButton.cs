@@ -13,13 +13,13 @@ public class UI_WaveStartButton : MonoBehaviour
 
     private void Start()
     {
-        WaveManager.Instance.WaveCleared += ActivateButton;
+        WaveManager.Instance.TutorialWaveCleared += ActivateButton;
     }
 
     void StartWave()
     {
         DeactivateButton();
-        WaveManager.Instance.StartSpawnerActivate();
+        WaveManager.Instance.OnClickWaveStart();
     }
 
     public void ActivateButton()
@@ -34,6 +34,6 @@ public class UI_WaveStartButton : MonoBehaviour
 
     private void OnDestroy()
     {
-        WaveManager.Instance.WaveCleared -= ActivateButton;
+        WaveManager.Instance.TutorialWaveCleared -= ActivateButton;
     }
 }

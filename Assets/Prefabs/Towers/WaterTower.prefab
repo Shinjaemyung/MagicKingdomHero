@@ -306,7 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   projectile: {fileID: 1375887527512235453, guid: 45e5a0abbad95384fbcbfb1716af7a2f, type: 3}
-  fireClip: {fileID: 0}
+  fireClip: {fileID: 8300000, guid: 14363b049a85bbc4cabb65e44ea163de, type: 3}
   projectilePoints:
   - {fileID: 7668124808645131158}
   epicenter: {fileID: 8523071728073231706}

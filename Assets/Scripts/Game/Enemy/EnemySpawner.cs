@@ -30,10 +30,36 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Tooltip("wave 순서대로 적용될 스폰 데이터 (리스트의 index = wave 번호)")]
     private List<WaveSpawnData> waveSpawnDataList;
 
+    [Header("무한 웨이브 설정")]
+    [SerializeField, Tooltip("이 wave 번호(0-based)부터 무한 웨이브 모드로 전환됩니다. 이 값 이상의 waveIndex로 StartWave가 호출되면 항상 같은 적(infiniteEnemyPrefab)만 소환하며, wave가 증가할수록 최대 체력은 늘고 스폰 간격은 짧아집니다. -1이면 비활성화.")]
+    private int infiniteWaveStartIndex = -1;
+
+    [SerializeField, Tooltip("무한 웨이브 모드에서 항상 소환할 Enemy 프리팹")]
+    private GameObject infiniteEnemyPrefab;
+
+    [SerializeField, Tooltip("무한 웨이브 시작 wave(=infiniteWaveStartIndex)에서 적의 최대 체력")]
+    private float infiniteBaseMaxHealth = 100f;
+
+    [SerializeField, Tooltip("무한 웨이브에서 wave가 1 증가할 때마다 늘어나는 최대 체력")]
+    private float infiniteHealthIncreasePerWave = 20f;
+
+    [SerializeField, Tooltip("무한 웨이브 시작 wave(=infiniteWaveStartIndex)에서 스폰 간격(초)")]
+    private float infiniteBaseSpawnInterval = 3f;
+
+    [SerializeField, Tooltip("무한 웨이브에서 wave가 1 증가할 때마다 줄어드는 스폰 간격(초)")]
+    private float infiniteSpawnIntervalDecreasePerWave = 0.2f;
+
+    [SerializeField, Tooltip("무한 웨이브 스폰 간격이 줄어들 수 있는 최소값(초)")]
+    private float infiniteMinSpawnInterval = 0.5f;
+
     private float _timer;
     private int _remainingSpawnCount;
     private GameObject _currentEnemyPrefab;
     private bool _isSpawning;
+
+    private bool _isInfiniteMode;
+    private float _currentSpawnInterval;
+    private float? _currentMaxHealthOverride;
 
     CinemachineImpulseSource _impulseSource;
 
@@ -48,15 +74,18 @@ public class EnemySpawner : MonoBehaviour
             return;
 
         _timer += Time.deltaTime;
-        if (_timer >= spawnInterval)
+        if (_timer >= _currentSpawnInterval)
         {
             _timer = 0f;
             SpawnEnemy();
 
-            _remainingSpawnCount--;
-            if (_remainingSpawnCount <= 0)
+            if (!_isInfiniteMode)
             {
-                _isSpawning = false;
+                _remainingSpawnCount--;
+                if (_remainingSpawnCount <= 0)
+                {
+                    _isSpawning = false;
+                }
             }
         }
     }
@@ -67,8 +96,22 @@ public class EnemySpawner : MonoBehaviour
     /// 지정된 수량을 모두 스폰하면 자동으로 멈춘다.
     /// </summary>
     /// <param name="waveIndex">waveSpawnDataList에서 사용할 wave 번호</param>
+/// <summary>
+    /// 지정한 waveIndex의 스폰 데이터(적 종류, 수량)를 기준으로 스포너를 활성화
+    /// 활성화 즉시 첫 번째 적이 스폰되고, 이후 spawnInterval마다 스폰되며,
+    /// 지정된 수량을 모두 스폰하면 자동으로 멈춘다.
+    /// waveIndex가 infiniteWaveStartIndex 이상이면 무한 웨이브 모드로 전환되어
+    /// 같은 적만 계속 소환되고(수량 제한 없음), 이후 AdvanceInfiniteWave로만 갱신된다.
+    /// </summary>
+    /// <param name="waveIndex">waveSpawnDataList에서 사용할 wave 번호</param>
     public void StartWave(int waveIndex)
     {
+        if (IsInfiniteWaveIndex(waveIndex))
+        {
+            StartInfiniteWave(waveIndex);
+            return;
+        }
+
         if (waveSpawnDataList == null || waveIndex < 0 || waveIndex >= waveSpawnDataList.Count)
         {
             Debug.LogWarning($"[EnemySpawner] {name} 에 wave {waveIndex}에 대한 스폰 데이터가 없습니다.");
@@ -76,16 +119,72 @@ public class EnemySpawner : MonoBehaviour
         }
 
         var data = waveSpawnDataList[waveIndex];
+        _isInfiniteMode = false;
         _currentEnemyPrefab = data.enemyPrefab;
         _remainingSpawnCount = data.spawnCount;
+        _currentMaxHealthOverride = null;
+        _currentSpawnInterval = spawnInterval;
         _aliveCount = 0;
-        _timer = spawnInterval; // 활성화 즉시 첫 적을 스폰
+        _timer = _currentSpawnInterval; // 활성화 즉시 첫 적을 스폰
         _isSpawning = true;
 
         _impulseSource = GetComponent<CinemachineImpulseSource>();
         _impulseSource.GenerateImpulseWithForce(0.5f);
 
         gameObject.SetActive(true);
+    }
+
+    /// <summary>waveIndex가 무한 웨이브 모드에 해당하는지 여부</summary>
+    public bool IsInfiniteWaveIndex(int waveIndex)
+    {
+        return infiniteWaveStartIndex >= 0 && waveIndex >= infiniteWaveStartIndex;
+    }
+
+    /// <summary>
+    /// 무한 웨이브 모드를 시작한다. infiniteEnemyPrefab만 무제한으로 소환하며,
+    /// infiniteWaveStartIndex로부터 몇 단계 지났는지에 따라 최대 체력은 올라가고 스폰 간격은 짧아진다.
+    /// </summary>
+    private void StartInfiniteWave(int waveIndex)
+    {
+        if (infiniteEnemyPrefab == null)
+        {
+            Debug.LogWarning($"[EnemySpawner] {name} 에 무한 웨이브용 infiniteEnemyPrefab이 설정되어 있지 않습니다.");
+            return;
+        }
+
+        _isInfiniteMode = true;
+        _currentEnemyPrefab = infiniteEnemyPrefab;
+        _remainingSpawnCount = 0; // 무한 웨이브에서는 사용하지 않음
+        _aliveCount = 0;
+        ApplyInfiniteWaveDifficulty(waveIndex);
+        _timer = _currentSpawnInterval; // 활성화 즉시 첫 적을 스폰
+        _isSpawning = true;
+    }
+
+    /// <summary>
+    /// 이미 무한 웨이브 모드로 스폰 중일 때 wave가 한 단계 더 진행되면 호출한다.
+    /// 스폰을 멈추거나 재시작하지 않고, 다음 스폰부터 적용될 최대 체력/스폰 간격만 갱신한다.
+    /// </summary>
+    public void AdvanceInfiniteWave(int waveIndex)
+    {
+        if (!_isInfiniteMode)
+        {
+            StartInfiniteWave(waveIndex);
+            return;
+        }
+
+        ApplyInfiniteWaveDifficulty(waveIndex);
+    }
+
+    /// <summary>infiniteWaveStartIndex로부터 몇 wave 지났는지를 기준으로 체력/스폰 간격을 계산해 적용</summary>
+    private void ApplyInfiniteWaveDifficulty(int waveIndex)
+    {
+        int stepsIntoInfinite = Mathf.Max(0, waveIndex - infiniteWaveStartIndex);
+
+        _currentMaxHealthOverride = infiniteBaseMaxHealth + infiniteHealthIncreasePerWave * stepsIntoInfinite;
+        _currentSpawnInterval = Mathf.Max(
+            infiniteMinSpawnInterval,
+            infiniteBaseSpawnInterval - infiniteSpawnIntervalDecreasePerWave * stepsIntoInfinite);
     }
 
     private void SpawnEnemy()
@@ -103,6 +202,9 @@ public class EnemySpawner : MonoBehaviour
             poolable.Init(_currentEnemyPrefab);
 
         var enemy = enemyObject.GetComponent<Enemy>();
+        if (_currentMaxHealthOverride.HasValue)
+            enemy.SetMaxHealth(_currentMaxHealthOverride.Value);
+
         enemy.Died += GamePlayManager.Instance.OnEnemyDied;
         enemy.Removed += OnSpawnedEnemyDied;
 
