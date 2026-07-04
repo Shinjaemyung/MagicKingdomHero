@@ -31,13 +31,13 @@ public class EnemySpawner : MonoBehaviour
     private List<WaveSpawnData> waveSpawnDataList;
 
     [Header("무한 웨이브 설정")]
-    [SerializeField, Tooltip("이 wave 번호(0-based)부터 무한 웨이브 모드로 전환됩니다. 이 값 이상의 waveIndex로 StartWave가 호출되면 항상 같은 적(infiniteEnemyPrefab)만 소환하며, wave가 증가할수록 최대 체력은 늘고 스폰 간격은 짧아집니다. -1이면 비활성화.")]
+    [SerializeField, Tooltip("이 wave 번호(0-based)부터 무한 웨이브 모드로 전환됩니다. -1이면 비활성화.")]
     private int infiniteWaveStartIndex = -1;
 
-    [SerializeField, Tooltip("무한 웨이브 모드에서 항상 소환할 Enemy 프리팹")]
-    private GameObject infiniteEnemyPrefab;
+    [SerializeField, Tooltip("무한 웨이브 모드에서 항상 소환할 Enemy 프리팹 종류")]
+    private List<GameObject> infiniteEnemyPrefabs = new();
 
-    [SerializeField, Tooltip("무한 웨이브 시작 wave(=infiniteWaveStartIndex)에서 적의 최대 체력")]
+    [SerializeField, Tooltip("무한 웨이브 시작 시 적의 최대 체력")]
     private float infiniteBaseMaxHealth = 100f;
 
     [SerializeField, Tooltip("무한 웨이브에서 wave가 1 증가할 때마다 늘어나는 최대 체력")]
@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
     private float infiniteSpawnIntervalDecreasePerWave = 0.2f;
 
     [SerializeField, Tooltip("무한 웨이브 스폰 간격이 줄어들 수 있는 최소값(초)")]
-    private float infiniteMinSpawnInterval = 0.5f;
+    private float infiniteMinSpawnInterval = 0.1f;
 
     private float _timer;
     private int _remainingSpawnCount;
@@ -146,19 +146,31 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void StartInfiniteWave(int waveIndex)
     {
-        if (infiniteEnemyPrefab == null)
+        if (infiniteEnemyPrefabs == null || infiniteEnemyPrefabs.Count == 0)
         {
             Debug.LogWarning($"[EnemySpawner] {name} 에 무한 웨이브용 infiniteEnemyPrefab이 설정되어 있지 않습니다.");
             return;
         }
 
         _isInfiniteMode = true;
-        _currentEnemyPrefab = infiniteEnemyPrefab;
+        _currentEnemyPrefab = GetRandomInfiniteEnemyPrefab();
         _remainingSpawnCount = 0; // 무한 웨이브에서는 사용하지 않음
         _aliveCount = 0;
         ApplyInfiniteWaveDifficulty(waveIndex);
         _timer = _currentSpawnInterval; // 활성화 즉시 첫 적을 스폰
         _isSpawning = true;
+    }
+
+    /// <summary>무한 웨이브 모드에 사용될 Enemy 프리팹 랜덤 반환</summary>
+    public GameObject GetRandomInfiniteEnemyPrefab()
+    {
+        if (infiniteEnemyPrefabs == null || infiniteEnemyPrefabs.Count == 0)
+        {
+            return null;
+        }
+
+        int index = UnityEngine.Random.Range(0, infiniteEnemyPrefabs.Count);
+        return infiniteEnemyPrefabs[index];
     }
 
     /// <summary>

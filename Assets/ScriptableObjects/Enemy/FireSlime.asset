@@ -21,3 +21,5 @@ MonoBehaviour:
     multiplier: 1.5
   - damageType: 2
     multiplier: 0.5
+  - damageType: 4
+    multiplier: 0.5
