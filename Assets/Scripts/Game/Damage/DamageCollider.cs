@@ -13,9 +13,9 @@ namespace ActionGameFramework.Health
         /// 충돌이 발생하면, 충돌한 오브젝트에 Damager가 있다면 데미지 처리
         /// </summary>
         /// <param name="c">충돌한 콜라이더</param>
-        protected void OnCollisionEnter(Collision c)
+        protected void OnTriggerEnter(Collider other)
         {
-            var damager = c.gameObject.GetComponent<Damager>();
+            var damager = other.gameObject.GetComponent<Damager>();
             if (damager == null)
             {
                 return;
@@ -23,7 +23,7 @@ namespace ActionGameFramework.Health
             LazyLoad();
 
             float scaledDamage = ScaleDamage(damager.damage);
-            Vector3 collisionPosition = ConvertContactsToPosition(c.contacts);
+            Vector3 collisionPosition = other.transform.position;
             damageableBehaviour.TakeDamage(scaledDamage, collisionPosition, damager.AlignmentProvider, damager.damageType);
 
             damager.HasDamaged(collisionPosition, damageableBehaviour.configuration.AlignmentProvider);

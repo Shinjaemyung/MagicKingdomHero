@@ -71,6 +71,7 @@ namespace ActionGameFramework.Projectiles
             _rigidbody = GetComponent<Rigidbody>();
             _lightSourse = GetComponent<Light>();
             _collider = GetComponent<Collider>();
+            _collider.isTrigger = true;
             hit = hitPS.gameObject;
         }
 
@@ -183,9 +184,9 @@ namespace ActionGameFramework.Projectiles
         /// 타깃과 충돌 처리
         /// 지정된 타깃과 충돌했을 때만 제거
         /// </summary>
-        void OnCollisionEnter(Collision other)
+        void OnTriggerEnter(Collider other)
         {
-            Targetable target = other.collider.GetComponent<Targetable>();
+            Targetable target = other.GetComponent<Targetable>();
 
             if (target == null || target != _target)
                 return;
@@ -202,9 +203,13 @@ namespace ActionGameFramework.Projectiles
                 projectilePS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
 
-            ContactPoint contact = other.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            Vector3 pos = contact.point + contact.normal * hitOffset;
+            // 충돌 지점 계산
+            Vector3 contactPoint = other.ClosestPoint(transform.position);
+            Vector3 contactNormal = transform.position - contactPoint;
+            contactNormal = contactNormal.sqrMagnitude > 0.0001f ? contactNormal.normalized : -transform.forward;
+
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contactNormal);
+            Vector3 pos = contactPoint + contactNormal * hitOffset;
 
             // 충돌 시 Hit 이펙트
             if (hit != null)
@@ -213,7 +218,7 @@ namespace ActionGameFramework.Projectiles
                 hit.transform.position = pos;
                 if (useFirePointRotation) { hit.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
                 else if (rotationOffset != Vector3.zero) { hit.transform.rotation = Quaternion.Euler(rotationOffset); }
-                else { hit.transform.LookAt(contact.point + contact.normal); }
+                else { hit.transform.LookAt(contactPoint + contactNormal); }
                 hitPS.Play();
             }
 
