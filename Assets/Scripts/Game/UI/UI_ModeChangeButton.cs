@@ -6,15 +6,10 @@ using static PlayerModeManager;
 public class UI_ModeChangeButton : MonoBehaviour
 {
     Button _button;
-    TextMeshProUGUI buttonText;
-
-    public string heroControlModeText;
-    public string towerPlacementModeText;
 
     private void Awake()
     {
         _button = GetComponent<Button>();
-        buttonText = GetComponentInChildren<TextMeshProUGUI>();
         _button.onClick.AddListener(OnClickButton);
     }
 
@@ -28,10 +23,8 @@ public class UI_ModeChangeButton : MonoBehaviour
         switch (mode)
         {
             case PlayerMode.TowerPlacementMode:
-                buttonText.text = heroControlModeText;
                 break;
             case PlayerMode.HeroControlMode:
-                buttonText.text = towerPlacementModeText;
                 break;
         }
     }
