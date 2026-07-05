@@ -15,12 +15,10 @@ public class WizardHat : MonoBehaviour
         public Material material;
     }
 
-    [Tooltip("색상을 바꿀 대상 Renderer")]
-    [SerializeField]
+    [SerializeField, Tooltip("색상을 바꿀 대상 Renderer")]
     private Renderer targetRenderer;
 
-    [Tooltip("DamageType별로 적용할 머티리얼 매핑")]
-    [SerializeField]
+    [SerializeField, Tooltip("DamageType별로 적용할 머티리얼 매핑")]
     private List<DamageTypeMaterial> materialsByDamageType = new();
 
     private Dictionary<DamageType, Material> _lookup;

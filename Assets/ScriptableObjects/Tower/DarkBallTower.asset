@@ -17,5 +17,5 @@ MonoBehaviour:
   damage: 125
   attackRange: 7
   attackSpeed: 0.8
-  cost: 500
+  cost: 400
   upgradeTowers: []

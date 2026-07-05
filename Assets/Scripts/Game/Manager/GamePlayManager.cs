@@ -12,15 +12,19 @@ public class GamePlayManager : MonoBehaviour
     int initialPlayerHealth = 100;
     [SerializeField, Tooltip("게임 시작 시 플레이어 골드")]
     int initialPlayerGold = 500;
+    [SerializeField, Tooltip("적이 하나 죽을 때마다 늘어나는 스코어의 양")]
+    int increasingScoreAmount = 10;
 
     public int PlayerHealth { get; private set; }
     public int PlayerGold { get; private set; }
+    public int PlayerScore { get; private set; }
 
     [SerializeField, Tooltip("Hero 사망 시 체력 회복 속도")]
     float heroHealthRegenRate = 1;
 
     public event Action<int> OnPlayerHealthChanged;
     public event Action<int> OnPlayerGoldChanged;
+    public event Action<int> OnPlayerScoreChanged;
 
     public bool IsPaused { get; private set; }
     public bool IsGameOvered { get; private set; }
@@ -56,15 +60,22 @@ public class GamePlayManager : MonoBehaviour
         OnPlayerGoldChanged?.Invoke(PlayerGold);
     }
 
+    public void UpdatePlayerScore(int amount)
+    {
+        PlayerScore += amount;
+        PlayerScore = Mathf.Max(PlayerScore, 0);
+        OnPlayerScoreChanged?.Invoke(PlayerScore);
+    }
+
     public void OnEnemyDied(DamageableBehaviour damageable)
     {
-        // Enemy 말고 scriptable 참조하는 걸로 변경 필요
         Enemy enemy = damageable.GetComponent<Enemy>();
 
         if (enemy == null)
             return;
 
         UpdatePlayerGold(enemy.enemyData.goldReward);
+        UpdatePlayerScore(increasingScoreAmount);
     }
 
     private void OnHeroDied()

@@ -16,6 +16,6 @@ MonoBehaviour:
   damageType: 4
   damage: 9
   attackRange: 6
-  attackSpeed: 1
+  attackSpeed: 1.3
   cost: 40
   upgradeTowers: []

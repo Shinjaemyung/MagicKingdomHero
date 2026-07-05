@@ -13,6 +13,7 @@ public class GameUIManager : MonoBehaviour
     UI_GameOverPanel gameOverPanel;
     UI_HeroInfoPanel heroInfoPanel;
     UI_SettingsPanel settingsPanel;
+    UI_PlayerScorePanel playerScorePanel;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class GameUIManager : MonoBehaviour
         gameOverPanel = GetComponentInChildren<UI_GameOverPanel>(true);
         heroInfoPanel = GetComponentInChildren<UI_HeroInfoPanel>(true);
         settingsPanel = GetComponentInChildren<UI_SettingsPanel>(true);
+        playerScorePanel = GetComponentInChildren<UI_PlayerScorePanel>(true);
 
         ShowTowerList();
     }
@@ -113,6 +115,12 @@ public class GameUIManager : MonoBehaviour
     {
         if (settingsPanel == null) return;
         settingsPanel.Hide();
+    }
+
+    public void ShowScorePanel()
+    {
+        if (playerScorePanel == null) return;
+        playerScorePanel.Show();
     }
 
     /// <summary>게임 오버 패널 표시</summary>
