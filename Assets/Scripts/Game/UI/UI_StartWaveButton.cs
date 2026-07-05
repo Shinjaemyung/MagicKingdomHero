@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_WaveStartButton : MonoBehaviour
+public class UI_StartWaveButton : MonoBehaviour
 {
     Button _button;
 

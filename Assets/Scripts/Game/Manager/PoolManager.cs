@@ -29,7 +29,7 @@ namespace Core.Utilities
                     actionOnRelease: (obj) => obj.GetComponent<Poolable>()?.OnDespawn(),
                     actionOnDestroy: (obj) => Destroy(obj),
                     defaultCapacity: 10,
-                    maxSize: 50
+                    maxSize: 100
                 );
             }
             return pools[prefab].Get(); // 풀에서 가져오기

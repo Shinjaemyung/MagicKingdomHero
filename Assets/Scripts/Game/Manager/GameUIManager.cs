@@ -127,7 +127,6 @@ public class GameUIManager : MonoBehaviour
     public void ShowGameOver()
     {
         if (gameOverPanel == null) return;
-        gameOverPanel.transform.SetAsLastSibling();
         gameOverPanel.Show();
     }
 

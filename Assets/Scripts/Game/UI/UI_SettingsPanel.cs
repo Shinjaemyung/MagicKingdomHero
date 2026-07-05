@@ -8,12 +8,17 @@ using UnityEngine.UI;
 public class UI_SettingsPanel : UI_Panel
 {
     [SerializeField] private Button resumeButton;
+    [SerializeField] private Button howToPlayButton;
     [SerializeField] private Button mainMenuButton;
+    [SerializeField] private UI_Panel howToPlayPanel;
 
     private void Awake()
     {
         if (resumeButton != null)
             resumeButton.onClick.AddListener(OnResumeClicked);
+
+        if (howToPlayButton != null)
+            howToPlayButton.onClick.AddListener(OnClickHowToPlayClick);
 
         if (mainMenuButton != null)
             mainMenuButton.onClick.AddListener(OnMainMenuClicked);
@@ -24,10 +29,22 @@ public class UI_SettingsPanel : UI_Panel
         GamePlayManager.Instance.ResumeGame();
     }
 
+    private void OnClickHowToPlayClick()
+    {
+        howToPlayPanel.Show();
+    }
+
     private void OnMainMenuClicked()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public override void Show()
+    {
+        howToPlayPanel.Hide();
+        base.Show();
+        transform.SetAsLastSibling();
     }
 
     private void OnDestroy()
