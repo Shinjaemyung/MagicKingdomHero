@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49786aeb70da8d043afd7b48b87554c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseManager
-  defaultCursor: {fileID: 2800000, guid: a5f9cc9a5efbe894eb85de4851711ba8, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 46a38efe42b34d04b9baea99828fd1b3, type: 3}
   hotspot: {x: 0, y: 0}
 --- !u!1 &1396265939
 GameObject:

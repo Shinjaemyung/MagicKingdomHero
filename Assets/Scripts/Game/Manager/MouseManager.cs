@@ -18,7 +18,10 @@ public class MouseManager : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
 
+    private void Start()
+    {
         ApplyCursor(defaultCursor);
     }
 
