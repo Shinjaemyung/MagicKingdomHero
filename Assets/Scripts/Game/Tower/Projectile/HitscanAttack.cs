@@ -27,6 +27,7 @@ namespace TowerDefense.Towers.Projectiles
 
 
         protected Damager _damager;
+        protected HitEffectPlayer _hitEffectPlayer;
 
         /// <summary>
         /// 공격이 발사되는 위치
@@ -43,6 +44,7 @@ namespace TowerDefense.Towers.Projectiles
         protected virtual void Awake()
         {
             _damager = GetComponent<Damager>();
+            _hitEffectPlayer = GetComponent<HitEffectPlayer>();
             _timer = new Timer(delay, ExecuteAttack);
         }
 
@@ -105,7 +107,7 @@ namespace TowerDefense.Towers.Projectiles
             }
 
             // 이펙트
-            _damager.PlayHitEffects(hitPosition, hitNormal);
+            _hitEffectPlayer.PlayHitEffects(hitPosition, hitNormal);
 
             _enemy.TakeDamage(_damager.damage, _enemy.Position, _damager.AlignmentProvider);
             _pauseTimer = true;

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2991476242001280587}
   - component: {fileID: 2330482575932774178}
   - component: {fileID: -4142023654185989021}
+  - component: {fileID: 5198489007731158619}
   - component: {fileID: 6132271777024668777}
   - component: {fileID: 9101781516093522615}
   m_Layer: 10
@@ -78,6 +79,20 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 64eb262602b7e764e89f0d7f0eb52d7d, type: 3}
   alignment:
     unityObjectReference: {fileID: 0}
+--- !u!114 &5198489007731158619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375887527512235453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78ae95a8cd41dc4890e88e735565aa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitEffectPlayer
+  hitParticle: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 64eb262602b7e764e89f0d7f0eb52d7d, type: 3}
 --- !u!54 &6132271777024668777
 Rigidbody:
   m_ObjectHideFlags: 0

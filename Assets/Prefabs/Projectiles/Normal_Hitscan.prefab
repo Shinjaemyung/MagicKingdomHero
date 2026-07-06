@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2991476242001280587}
   - component: {fileID: 8368143575097328470}
   - component: {fileID: -4142023654185989021}
+  - component: {fileID: 7835338854030513173}
   m_Layer: 10
   m_Name: Normal_Hitscan
   m_TagString: Untagged
@@ -64,3 +65,17 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 2320dc7b0caf7e144ad39cc3a9ae8e65, type: 3}
   alignment:
     unityObjectReference: {fileID: 0}
+--- !u!114 &7835338854030513173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375887527512235453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78ae95a8cd41dc4890e88e735565aa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitEffectPlayer
+  hitParticle: {fileID: 198149439886552118, guid: 266bfc3979b19d3478e92304dab844d6, type: 3}
+  hitSound: {fileID: 8300000, guid: 2320dc7b0caf7e144ad39cc3a9ae8e65, type: 3}

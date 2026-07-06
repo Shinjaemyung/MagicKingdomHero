@@ -204,12 +204,12 @@ namespace ActionGameFramework.Projectiles
             }
 
             // 충돌 지점 계산
-            Vector3 contactPoint = other.ClosestPoint(transform.position);
-            Vector3 contactNormal = transform.position - contactPoint;
-            contactNormal = contactNormal.sqrMagnitude > 0.0001f ? contactNormal.normalized : -transform.forward;
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            Vector3 hitNormal = transform.position - hitPoint;
+            hitNormal = hitNormal.sqrMagnitude > 0.0001f ? hitNormal.normalized : -transform.forward;
 
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contactNormal);
-            Vector3 pos = contactPoint + contactNormal * hitOffset;
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, hitNormal);
+            Vector3 pos = hitPoint + hitNormal * hitOffset;
 
             // 충돌 시 Hit 이펙트
             if (hit != null)
@@ -218,8 +218,15 @@ namespace ActionGameFramework.Projectiles
                 hit.transform.position = pos;
                 if (useFirePointRotation) { hit.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
                 else if (rotationOffset != Vector3.zero) { hit.transform.rotation = Quaternion.Euler(rotationOffset); }
-                else { hit.transform.LookAt(contactPoint + contactNormal); }
+                else { hit.transform.LookAt(hitPoint + hitNormal); }
                 hitPS.Play();
+            }
+
+            // 충돌체와 별개의 피격 시 효과
+            HitEffectPlayer hitEffectPlayer = GetComponent<HitEffectPlayer>();
+            if (hitEffectPlayer != null) 
+            {
+                hitEffectPlayer.PlayHitEffects(hitPoint, hitNormal);
             }
 
             // 충돌 후 투사체의 이펙트가 자연스럽게 사라지도록 처리

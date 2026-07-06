@@ -26,7 +26,7 @@ namespace ActionGameFramework.Health
             Vector3 collisionPosition = other.transform.position;
             damageableBehaviour.TakeDamage(scaledDamage, collisionPosition, damager.AlignmentProvider, damager.damageType);
 
-            damager.HasDamaged(collisionPosition, damageableBehaviour.configuration.AlignmentProvider);
+            damager.HasDamaged(collisionPosition);
         }
 
         /// <summary>
