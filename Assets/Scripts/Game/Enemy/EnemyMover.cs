@@ -19,11 +19,17 @@ public class EnemyMover : MonoBehaviour
     [SerializeField]
     int _currentWaypointIndex;
 
+    bool isSlowStatus;
+
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = moveSpeed;
+    }
+
+    private void OnEnable()
+    {
         _agent.stoppingDistance = 0f;
+        RemoveSlowStatus();
     }
 
     void Update()
@@ -87,5 +93,19 @@ public class EnemyMover : MonoBehaviour
     {
         if (!_agent.isOnNavMesh || _agent.pathPending) return false;
         return _agent.remainingDistance <= _agent.stoppingDistance;
+    }
+
+    public void ApplySlowStatus(float ratio)
+    {
+        if (isSlowStatus) return;
+
+        _agent.speed *= (100 - ratio) / 100;
+        isSlowStatus = true;
+    }
+
+    public void RemoveSlowStatus()
+    {
+        _agent.speed = moveSpeed;
+        isSlowStatus = false;
     }
 }

@@ -4906,6 +4906,7 @@ GameObject:
   - component: {fileID: 5267344452415141437}
   - component: {fileID: 6132271777024668777}
   - component: {fileID: 9101781516093522615}
+  - component: {fileID: 38849630490390474}
   m_Layer: 10
   m_Name: Ice
   m_TagString: Untagged
@@ -4967,8 +4968,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 3
   damageType: 4
-  hitParticle: {fileID: 0}
-  hitSound: {fileID: 8300000, guid: e998435aaf334704d9d820e69250c907, type: 3}
   alignment:
     unityObjectReference: {fileID: 0}
 --- !u!114 &5267344452415141437
@@ -5033,6 +5032,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &38849630490390474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375887527512235453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c1027738127ac4f989ba96215216da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlowEffect
+  Duration: 3
+  slowRatio: 50
 --- !u!1 &2110586851794525417
 GameObject:
   m_ObjectHideFlags: 0

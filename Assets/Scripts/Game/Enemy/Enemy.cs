@@ -1,5 +1,6 @@
 using ActionGameFramework.Health;
 using Core.Health;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
@@ -7,17 +8,18 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyPoolable))]
 public class Enemy : Targetable
 {
-    [SerializeField] private UI_EnemyHealthBar healthBar;
-
     public EnemyData enemyData;
+
+    private readonly List<StatusEffect> statusEffects = new();
+
+    private UI_EnemyHealthBar healthBar;
 
     private EnemyPoolable _poolable;
 
     protected override void Awake()
     {
         base.Awake();
-        if (healthBar == null)
-            healthBar = GetComponent<UI_EnemyHealthBar>();
+        healthBar = GetComponent<UI_EnemyHealthBar>();
         _poolable = GetComponent<EnemyPoolable>();
     }
 
@@ -26,6 +28,21 @@ public class Enemy : Targetable
         base.OnEnable();
         configuration.Initialize(enemyData);
         Hit += OnHit;
+        statusEffects.Clear();
+    }
+
+    private void Update()
+    {
+        for (int i = statusEffects.Count - 1; i >= 0; i--)
+        {
+            statusEffects[i].Tick(this, Time.deltaTime);
+
+            if (statusEffects[i].IsFinished)
+            {
+                statusEffects[i].OnRemove(this);
+                statusEffects.RemoveAt(i);
+            }
+        }
     }
 
     private void OnHit(HitInfo hitInfo)
@@ -47,6 +64,22 @@ public class Enemy : Targetable
     public void OnClicked()
     {
         GameUIManager.Instance.ShowEnemyInfo(this);
+    }
+
+    /// <summary>상태 이상 적용</summary>
+    public void ApplyStatus(StatusEffect effect)
+    {
+        if (effect.IsStackable)
+        {
+            statusEffects.Add(effect);
+        }
+        else
+        {
+            StatusEffect existing = statusEffects.Find(x => x.GetType() == effect.GetType());
+
+            if (existing == null)
+                statusEffects.Add(effect);
+        }
     }
 
     public override void Remove()

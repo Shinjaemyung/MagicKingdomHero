@@ -23,7 +23,7 @@ namespace ActionGameFramework.Health
         /// <summary>
         /// 데미지를 주었을 때 발생하는 이벤트
         /// </summary>
-        public Action<Vector3> hasDamaged;
+        public Action<DamageableBehaviour> Damaged;
 
         /// <summary>
         /// Damager의 alignment
@@ -57,11 +57,11 @@ namespace ActionGameFramework.Health
         /// <summary>
         /// 데미지가 성공적으로 적용되었을 때 이벤트 호출
         /// </summary>
-        public void HasDamaged(Vector3 point)
+        public void OnDamaged(DamageableBehaviour damageable)
         {
-            if (hasDamaged != null)
+            if (Damaged != null)
             {
-                hasDamaged(point);
+                Damaged(damageable);
             }
         }
     }
