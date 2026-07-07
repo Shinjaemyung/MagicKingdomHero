@@ -10,7 +10,7 @@ public class Poolable : MonoBehaviour
 
     protected GameObject prefabReference;
 
-    bool isPoolReturned = false;
+    public bool IsPoolReturned { get; private set; }
 
     public void Init(GameObject prefab)
     {
@@ -20,7 +20,7 @@ public class Poolable : MonoBehaviour
     public virtual void OnSpawn()
     {
         SpawnId++;
-        isPoolReturned = false;
+        IsPoolReturned = false;
         gameObject.SetActive(true);
     }
 
@@ -32,9 +32,9 @@ public class Poolable : MonoBehaviour
 
     public void ReturnToPool()
     {
-        if (isPoolReturned) return;
+        if (IsPoolReturned) return;
 
-        isPoolReturned = true;
+        IsPoolReturned = true;
         PoolManager.Instance.ReturnObject(prefabReference, gameObject);
     }
 }

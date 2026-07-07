@@ -270,7 +270,7 @@ namespace TowerDefense.Affectors
             // 애니메이션 시작 이후 _attackTarget이 pool 반환→재스폰됐는지 검증
             // pool 오브젝트는 동일 인스턴스를 재사용하므로 SpawnId로 구분
             var poolable = _attackTarget.GetComponent<Poolable>();
-            if (poolable != null && poolable.SpawnId != _attackTargetSpawnId)
+            if (poolable != null && (poolable.SpawnId != _attackTargetSpawnId || poolable.IsPoolReturned))
             {
                 _launcher.LaunchToPosition(_attackTargetPos, DamagerProjectile.gameObject, projectilePoints);
             }

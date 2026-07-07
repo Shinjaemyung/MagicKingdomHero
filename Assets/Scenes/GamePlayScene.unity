@@ -416,7 +416,7 @@ MonoBehaviour:
   infiniteHealthIncreasePerWave: 1
   infiniteBaseSpawnInterval: 10
   infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.1
+  infiniteMinSpawnInterval: 0.5
   infiniteEnemyChangeInterval: 10
 --- !u!114 &8433255
 MonoBehaviour:
@@ -12784,7 +12784,7 @@ MonoBehaviour:
   infiniteHealthIncreasePerWave: 1
   infiniteBaseSpawnInterval: 10
   infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.1
+  infiniteMinSpawnInterval: 0.5
   infiniteEnemyChangeInterval: 10
 --- !u!114 &783575689
 MonoBehaviour:
@@ -24203,7 +24203,7 @@ MonoBehaviour:
   infiniteHealthIncreasePerWave: 1
   infiniteBaseSpawnInterval: 10
   infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.1
+  infiniteMinSpawnInterval: 0.5
   infiniteEnemyChangeInterval: 10
 --- !u!114 &1475938647
 MonoBehaviour:
@@ -31550,7 +31550,7 @@ MonoBehaviour:
   infiniteHealthIncreasePerWave: 1
   infiniteBaseSpawnInterval: 10
   infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.1
+  infiniteMinSpawnInterval: 0.5
   infiniteEnemyChangeInterval: 10
 --- !u!114 &1879806494
 MonoBehaviour:
