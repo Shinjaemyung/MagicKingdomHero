@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa53f534f2c39b4c9c798c4c638cbdd, type: 3}
   m_Name: SlowData
   m_EditorClassIdentifier: Assembly-CSharp::SlowData
-  duration: 0
-  slowRatio: 0
+  duration: 3
+  isStackable: 0
+  slowRatio: 30
