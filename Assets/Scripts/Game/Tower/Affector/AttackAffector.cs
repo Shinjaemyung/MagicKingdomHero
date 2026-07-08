@@ -287,8 +287,7 @@ namespace TowerDefense.Affectors
                 }
                 else
                 {
-                    AttackContext context = new AttackContext(statusEffects);
-
+                    AttackContext context = new AttackContext(_towerData.damage, _towerData.damageType, statusEffects);
                     _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints, context);
                 }
             }

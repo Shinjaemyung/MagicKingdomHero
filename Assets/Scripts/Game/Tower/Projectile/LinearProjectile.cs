@@ -65,26 +65,12 @@ namespace ActionGameFramework.Projectiles
         public virtual void Initialize(Targetable target, AttackContext context)
         {
             _target = target;
-            _rigidbody.constraints = RigidbodyConstraints.None;
-
-            projectilePS.Play();
-            if (_lightSourse != null)
-                _lightSourse.enabled = true;
-            _collider.enabled = true;
-
             _attackContext = context;
         }
 
         public virtual void Initialize(Vector3 position)
         {
             _target = null;
-
-            _rigidbody.constraints = RigidbodyConstraints.None;
-
-            projectilePS.Play();
-            if (_lightSourse != null)
-                _lightSourse.enabled = true;
-            _collider.enabled = true;
         }
 
         /// <summary>
@@ -184,18 +170,6 @@ namespace ActionGameFramework.Projectiles
             Damager damager = GetComponent<Damager>();
             enemy.TakeDamage(damager.damage, transform.position, damager.AlignmentProvider, damager.damageType);
             ApplyStatusEffects(enemy, _attackContext);
-
-            // 투사체 정지
-            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            
-            if (_lightSourse != null)
-                _lightSourse.enabled = false;
-            _collider.enabled = false;
-
-            if (projectilePS)
-            {
-                projectilePS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            }
 
             // 충돌 지점 계산
             Vector3 hitPoint = other.ClosestPoint(transform.position);

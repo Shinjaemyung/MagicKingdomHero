@@ -124,7 +124,7 @@ public class HeroAttack : MonoBehaviour
         }
     }
 
-private void DealDamage(Enemy enemy)
+    private void DealDamage(Enemy enemy)
     {
         // 적의 최대 체력 attackDamage%만큼 데미지를 준다.
         float damage = enemy.configuration.MaxHealth * (attackDamage * 0.01f);
