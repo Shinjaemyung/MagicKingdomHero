@@ -145,6 +145,7 @@ namespace ActionGameFramework.Projectiles
             if (Vector3.Distance(transform.position, targetPos) < 1f || destroyTimerProgress > destroyTimer)
             {
                 Remove();
+                Debug.Log("TryDestroySelf");
             }
         }
     }

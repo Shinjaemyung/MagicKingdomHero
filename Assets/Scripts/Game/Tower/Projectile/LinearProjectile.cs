@@ -3,6 +3,7 @@ using ActionGameFramework.Helpers;
 using Core.Health;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ActionGameFramework.Projectiles
@@ -20,28 +21,12 @@ namespace ActionGameFramework.Projectiles
         [SerializeField, Tooltip("투사체가 가속하는 속도")]
         public float acceleration;
 
-        [SerializeField, Tooltip("충돌 이펙트가 생성될 때 표면으로부터 떨어지는 거리")]
-        protected float hitOffset = 0.1f;
-
-        [SerializeField, Tooltip("충돌 이펙트에 발사체의 회전을 적용")]
-        protected bool useFirePointRotation;
-
-        [SerializeField, Tooltip("충돌 이펙트에 적용할 추가 회전값")]
-        protected Vector3 rotationOffset = new Vector3(0, 0, 0);
-
         protected Rigidbody _rigidbody;
         protected Light _lightSourse;
         protected Collider _collider;
 
         [SerializeField, Tooltip("Projectile 파티클 시스템")]
         protected ParticleSystem projectilePS;
-
-        [SerializeField, Tooltip("충돌 시 재생할 파티클 시스템")]
-        protected ParticleSystem hitPS;
-        protected GameObject hit;
-
-        [SerializeField, Tooltip("Flash 파티클 시스템")]
-        protected GameObject flashPS;
 
         [SerializeField, Tooltip("충돌 이후 투사체와 분리되어 제거되는 오브젝트")]
         protected GameObject[] Detached;
@@ -72,7 +57,6 @@ namespace ActionGameFramework.Projectiles
             _lightSourse = GetComponent<Light>();
             _collider = GetComponent<Collider>();
             _collider.isTrigger = true;
-            hit = hitPS.gameObject;
         }
 
         public virtual void Initialize(Targetable target)
@@ -208,21 +192,7 @@ namespace ActionGameFramework.Projectiles
             Vector3 hitNormal = transform.position - hitPoint;
             hitNormal = hitNormal.sqrMagnitude > 0.0001f ? hitNormal.normalized : -transform.forward;
 
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, hitNormal);
-            Vector3 pos = hitPoint + hitNormal * hitOffset;
-
-            // 충돌 시 Hit 이펙트
-            if (hit != null)
-            {
-                hit.transform.rotation = rot;
-                hit.transform.position = pos;
-                if (useFirePointRotation) { hit.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
-                else if (rotationOffset != Vector3.zero) { hit.transform.rotation = Quaternion.Euler(rotationOffset); }
-                else { hit.transform.LookAt(hitPoint + hitNormal); }
-                hitPS.Play();
-            }
-
-            // 충돌체와 별개의 피격 시 효과
+            // 충돌체의 피격 시 효과
             HitEffectPlayer hitEffectPlayer = GetComponent<HitEffectPlayer>();
             if (hitEffectPlayer != null) 
             {
@@ -240,14 +210,7 @@ namespace ActionGameFramework.Projectiles
                 }
             }
 
-            if (hitPS != null)
-            {
-                Remove(hitPS.main.duration);
-            }
-            else
-            {
-                Remove();
-            }
+            Remove();
         }
 
         /// <summary>
@@ -258,21 +221,13 @@ namespace ActionGameFramework.Projectiles
             ReturnToPool();
         }
 
-        protected void Remove(float delay)
+        private void OnDisable()
         {
             if (removeCoroutine != null)
             {
                 StopCoroutine(removeCoroutine);
+                removeCoroutine = null;
             }
-
-            removeCoroutine = StartCoroutine(ReturnToPoolCoroutine(delay));
-        }
-
-        private IEnumerator ReturnToPoolCoroutine(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-
-            ReturnToPool();
         }
     }
 }

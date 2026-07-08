@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class HitEffectPlayer : MonoBehaviour
 {
-    [SerializeField, Tooltip("공격했을 때 발생하는 파티클")]
+    [SerializeField, Tooltip("공격 맞았을 때 발생하는 파티클")]
     ParticleSystem hitParticle;
 
     [SerializeField, Tooltip("공격 맞았을 때 효과음")]

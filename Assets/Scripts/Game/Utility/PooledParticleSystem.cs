@@ -35,6 +35,7 @@ public class PooledParticleSystem : Poolable
     {
         transform.position = position;
         transform.rotation = rotation;
+        //transform.LookAt(position + rotation);
         _particleSystem.Clear();
         _particleSystem.Play();
 
