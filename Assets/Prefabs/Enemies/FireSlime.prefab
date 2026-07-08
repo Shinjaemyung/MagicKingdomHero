@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5385482975261150409}
   - component: {fileID: 8106249905074614151}
   - component: {fileID: 2790824258607268730}
-  - component: {fileID: 9032214384856084251}
   - component: {fileID: 2968309850245224411}
   - component: {fileID: 124025492213710523}
   - component: {fileID: 10396328998485737}
@@ -55,11 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configuration:
-    typeCalculations: []
     alignment:
       unityObjectReference: {fileID: 0}
   targetTransform: {fileID: 0}
-  healthBar: {fileID: 0}
   enemyData: {fileID: 11400000, guid: 32b03f842130cdf4a8a597dfd65c8afe, type: 2}
 --- !u!54 &8106249905074614151
 Rigidbody:
@@ -109,20 +106,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9032214384856084251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4899833032356138635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78ff87df87993f43a21175a24f2a063, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageableBehaviour: {fileID: 0}
-  damageScale: 1
 --- !u!114 &2968309850245224411
 MonoBehaviour:
   m_ObjectHideFlags: 0

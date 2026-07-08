@@ -1,6 +1,7 @@
 using ActionGameFramework.Health;
 using Core.Utilities;
 using UnityEngine;
+using static AttackUtility;
 
 namespace TowerDefense.Towers.Projectiles
 {
@@ -28,6 +29,8 @@ namespace TowerDefense.Towers.Projectiles
 
         protected Damager _damager;
         protected HitEffectPlayer _hitEffectPlayer;
+
+        protected AttackContext _attackContext;
 
         /// <summary>
         /// 공격이 발사되는 위치
@@ -69,12 +72,13 @@ namespace TowerDefense.Towers.Projectiles
         /// <param name="enemy">
         /// 공격할 적
         /// </param>
-        public void AttackEnemy(Vector3 origin, Targetable enemy)
+        public void Initialize(Vector3 origin, Targetable enemy, AttackContext context)
         {
             _enemy = enemy;
             _origin = origin;
             _timer.Reset();
             _pauseTimer = false;
+            _attackContext = context;
         }
 
         /// <summary>
@@ -109,7 +113,9 @@ namespace TowerDefense.Towers.Projectiles
             // 이펙트
             _hitEffectPlayer.PlayHitEffects(hitPosition, hitNormal);
 
-            _enemy.TakeDamage(_damager.damage, _enemy.Position, _damager.AlignmentProvider);
+            // 데미지 처리
+            _enemy.TakeDamage(_damager.damage, _enemy.Position, _damager.AlignmentProvider, _damager.damageType);
+            ApplyStatusEffects(_enemy, _attackContext);
             _pauseTimer = true;
 
             ReturnToPool();

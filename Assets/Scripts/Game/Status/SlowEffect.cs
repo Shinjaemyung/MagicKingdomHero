@@ -3,7 +3,12 @@ using UnityEngine;
 
 public class SlowEffect : StatusEffect
 {
-    public float slowRatio;
+    private SlowData slowData;
+
+    public SlowEffect(SlowData data) : base(data)
+    {
+        slowData = data;
+    }
 
     public override void OnApply(DamageableBehaviour damageable)
     {
@@ -11,7 +16,7 @@ public class SlowEffect : StatusEffect
 
         EnemyMover enemyMover = damageable.GetComponent<EnemyMover>();
         if (enemyMover != null)
-            enemyMover.ApplySlowStatus(slowRatio);
+            enemyMover.ApplySlowStatus(slowData.slowRatio);
     }
 
     public override void OnRemove(DamageableBehaviour damageable)

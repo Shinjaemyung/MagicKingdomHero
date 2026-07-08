@@ -1,11 +1,12 @@
-using System.Collections.Generic;
 //using ActionGameFramework.Audio;
 using ActionGameFramework.Health;
 using Core.Health;
+using System.Collections.Generic;
 using TowerDefense.Targetting;
 using TowerDefense.Towers;
 using TowerDefense.Towers.Projectiles;
 using UnityEngine;
+using static AttackUtility;
 
 namespace TowerDefense.Affectors
 {
@@ -32,6 +33,9 @@ namespace TowerDefense.Affectors
         /// 타워가 적을 탐색할 기준 중심점
         /// </summary>
         public Transform epicenter;
+
+        [SerializeField, Tooltip("이 공격이 줄 상태 이상 효과들")]
+        private List<StatusEffectData> statusEffects;
 
         /// <summary>
         /// 다중 공격(범위 공격) 여부 설정
@@ -283,7 +287,9 @@ namespace TowerDefense.Affectors
                 }
                 else
                 {
-                    _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints);
+                    AttackContext context = new AttackContext(statusEffects);
+
+                    _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints, context);
                 }
             }
 

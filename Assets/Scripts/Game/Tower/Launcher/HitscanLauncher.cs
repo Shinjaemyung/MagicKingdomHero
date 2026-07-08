@@ -1,6 +1,7 @@
 using ActionGameFramework.Health;
 using TowerDefense.Towers.Projectiles;
 using UnityEngine;
+using static AttackUtility;
 
 namespace TowerDefense.Towers.TowerLaunchers
 {
@@ -27,7 +28,7 @@ namespace TowerDefense.Towers.TowerLaunchers
         /// </param>
         /// 공격이 발사되는 위치
         /// <param name="firingPoint"></param>
-        public override void Launch(Targetable enemy, GameObject attack, Transform firingPoint)
+        public override void Launch(Targetable enemy, GameObject attack, Transform firingPoint, AttackContext attackContext)
         {
             var hitscanAttack = attack.GetComponent<HitscanAttack>();
             if (hitscanAttack == null)
@@ -35,7 +36,7 @@ namespace TowerDefense.Towers.TowerLaunchers
                 return;
             }
             hitscanAttack.transform.position = firingPoint.position;
-            hitscanAttack.AttackEnemy(firingPoint.position, enemy);
+            hitscanAttack.Initialize(firingPoint.position, enemy, attackContext);
             PlayParticles(fireParticleSystem, firingPoint.position, enemy.Position);
         }
     }

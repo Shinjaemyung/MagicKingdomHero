@@ -3,15 +3,16 @@ using ActionGameFramework.Projectiles;
 using Core.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
+using static AttackUtility;
 
 
 namespace TowerDefense.Towers.TowerLaunchers
 {
     public abstract class Launcher : MonoBehaviour, ILauncher
     {
-        public abstract void Launch(Targetable enemy, GameObject projectile, Transform firingPoint);
+        public abstract void Launch(Targetable enemy, GameObject projectile, Transform firingPoint, AttackContext attackContext);
 
-        public virtual void Launch(List<Targetable> enemies, GameObject projectile, Transform[] firingPoints)
+        public virtual void Launch(List<Targetable> enemies, GameObject projectile, Transform[] firingPoints, AttackContext attackContext)
         {
             int count = enemies.Count;
             int currentFiringPointIndex = 0;
@@ -25,16 +26,16 @@ namespace TowerDefense.Towers.TowerLaunchers
                 GameObject poolObject = PoolManager.Instance.GetObject(projectile);
                 poolObject.GetComponent<Poolable>().Init(projectile);
                 SetProjectileDamage(poolObject);
-                Launch(enemy, poolObject, firingPoint);
+                Launch(enemy, poolObject, firingPoint, attackContext);
             }
         }
 
-        public virtual void Launch(Targetable enemy, GameObject projectile, Transform[] firingPoints)
+        public virtual void Launch(Targetable enemy, GameObject projectile, Transform[] firingPoints, AttackContext attackContext)
         {
             GameObject poolObject = PoolManager.Instance.GetObject(projectile);
             poolObject.GetComponent<Poolable>().Init(projectile);
             SetProjectileDamage(poolObject);
-            Launch(enemy, poolObject, GetRandomTransform(firingPoints));
+            Launch(enemy, poolObject, GetRandomTransform(firingPoints), attackContext);
         }
 
         public virtual void LaunchToPosition(Vector3 position, GameObject projectile, Transform firingPoint)

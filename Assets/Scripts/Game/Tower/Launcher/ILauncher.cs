@@ -1,6 +1,7 @@
-using System.Collections.Generic;
 using ActionGameFramework.Health;
+using System.Collections.Generic;
 using UnityEngine;
+using static AttackUtility;
 
 namespace TowerDefense.Towers
 {
@@ -20,7 +21,7 @@ namespace TowerDefense.Towers
         /// </param>
         /// 발사 위치
         /// <param name="firingPoint"></param>
-        void Launch(Targetable enemy, GameObject attack, Transform firingPoint);
+        void Launch(Targetable enemy, GameObject attack, Transform firingPoint, AttackContext attackContext);
 
         /// <summary>
         /// 타워의 발사 로직을 구현하는 메서드
@@ -34,7 +35,7 @@ namespace TowerDefense.Towers
         /// <param name="firingPoints">
         /// 발사 위치 리스트
         /// </param>
-        void Launch(Targetable enemy, GameObject attack, Transform[] firingPoints);
+        void Launch(Targetable enemy, GameObject attack, Transform[] firingPoints, AttackContext attackContext);
 
         /// <summary>
         /// 여러 적을 대상으로 하는 발사 로직을 구현하는 메서드
@@ -47,7 +48,7 @@ namespace TowerDefense.Towers
         /// </param>
         /// 발사 위치 리스트
         /// <param name="firingPoints"></param>
-        void Launch(List<Targetable> enemies, GameObject attack, Transform[] firingPoints);
+        void Launch(List<Targetable> enemies, GameObject attack, Transform[] firingPoints, AttackContext attackContext);
 
 
         /// <summary>

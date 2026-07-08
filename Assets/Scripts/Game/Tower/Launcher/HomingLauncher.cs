@@ -3,6 +3,7 @@ using ActionGameFramework.Helpers;
 using ActionGameFramework.Projectiles;
 using Core.Utilities;
 using UnityEngine;
+using static AttackUtility;
 
 namespace TowerDefense.Towers.TowerLaunchers
 {
@@ -25,7 +26,7 @@ namespace TowerDefense.Towers.TowerLaunchers
         /// <param name="firingPoint">
         /// 투사체가 발사되는 위치
         /// </param>
-        public override void Launch(Targetable enemy, GameObject attack, Transform firingPoint)
+        public override void Launch(Targetable enemy, GameObject attack, Transform firingPoint, AttackContext attackContext)
         {
             var homingMissile = attack.GetComponent<HomingLinearProjectile>();
             if (homingMissile == null)
@@ -39,7 +40,7 @@ namespace TowerDefense.Towers.TowerLaunchers
                 enemy.Velocity, homingMissile.startSpeed,
                 homingMissile.acceleration);
 
-            homingMissile.Initialize(enemy);
+            homingMissile.Initialize(enemy, attackContext);
             homingMissile.FireAtPoint(startingPoint, targetPoint);
             PlayParticles(fireParticleSystem, startingPoint, targetPoint);
         }

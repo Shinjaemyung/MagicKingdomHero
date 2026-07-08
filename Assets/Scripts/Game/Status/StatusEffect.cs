@@ -1,27 +1,24 @@
 using ActionGameFramework.Health;
+using Cinemachine.Utility;
 using Core.Health;
 using UnityEngine;
 
-public abstract class StatusEffect : MonoBehaviour
+public abstract class StatusEffect
 {
-    public float Duration = 3f;
-
-    public virtual bool IsStackable => false;
-
     protected float elapsed;
+    protected StatusEffectData data;
 
-    public bool IsFinished => elapsed >= Duration;
+    public StatusEffectData Data => data;
+    public bool IsFinished => elapsed >= data.duration;
 
-    private void Awake()
+    protected StatusEffect(StatusEffectData data)
     {
-        var damager = GetComponent<Damager>();
-        damager.Damaged += OnApply;
+        this.data = data;
     }
 
     public virtual void OnApply(DamageableBehaviour damageable)
     {
         elapsed = 0;
-        damageable.GetComponent<Enemy>().ApplyStatus(this);
     }
 
     public virtual void Tick(DamageableBehaviour damageable, float deltaTime)
@@ -29,5 +26,7 @@ public abstract class StatusEffect : MonoBehaviour
         elapsed += deltaTime;
     }
 
-    public virtual void OnRemove(DamageableBehaviour damageable) { }
+    public virtual void OnRemove(DamageableBehaviour damageable)
+    {
+    }
 }

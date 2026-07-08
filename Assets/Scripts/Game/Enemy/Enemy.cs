@@ -35,14 +35,38 @@ public class Enemy : Targetable
     {
         for (int i = statusEffects.Count - 1; i >= 0; i--)
         {
-            statusEffects[i].Tick(this, Time.deltaTime);
+            var effect = statusEffects[i];
 
-            if (statusEffects[i].IsFinished)
+            effect.Tick(this, Time.deltaTime);
+
+            if (effect.IsFinished)
             {
-                statusEffects[i].OnRemove(this);
+                effect.OnRemove(this);
                 statusEffects.RemoveAt(i);
             }
         }
+    }
+
+    /// <summary>상태 이상 적용</summary>
+    public void ApplyStatus(StatusEffect effect)
+    {
+        if (effect.Data.isStackable)
+        {
+            effect.OnApply(this);
+            statusEffects.Add(effect);
+            return;
+        }
+
+        StatusEffect existing = statusEffects.Find(x => x.GetType() == effect.GetType());
+
+        if (existing != null)
+        {
+            existing.OnApply(this);
+            return;
+        }
+
+        effect.OnApply(this);
+        statusEffects.Add(effect);
     }
 
     private void OnHit(HitInfo hitInfo)
@@ -64,22 +88,6 @@ public class Enemy : Targetable
     public void OnClicked()
     {
         GameUIManager.Instance.ShowEnemyInfo(this);
-    }
-
-    /// <summary>상태 이상 적용</summary>
-    public void ApplyStatus(StatusEffect effect)
-    {
-        if (effect.IsStackable)
-        {
-            statusEffects.Add(effect);
-        }
-        else
-        {
-            StatusEffect existing = statusEffects.Find(x => x.GetType() == effect.GetType());
-
-            if (existing == null)
-                statusEffects.Add(effect);
-        }
     }
 
     public override void Remove()

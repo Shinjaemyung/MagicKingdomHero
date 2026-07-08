@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using static AttackUtility;
 
 namespace ActionGameFramework.Projectiles
 {
@@ -30,6 +31,8 @@ namespace ActionGameFramework.Projectiles
 
         [SerializeField, Tooltip("충돌 이후 투사체와 분리되어 제거되는 오브젝트")]
         protected GameObject[] Detached;
+
+        protected AttackContext _attackContext;
 
         /// <summary>
         /// Remove 코루틴
@@ -59,7 +62,7 @@ namespace ActionGameFramework.Projectiles
             _collider.isTrigger = true;
         }
 
-        public virtual void Initialize(Targetable target)
+        public virtual void Initialize(Targetable target, AttackContext context)
         {
             _target = target;
             _rigidbody.constraints = RigidbodyConstraints.None;
@@ -68,6 +71,8 @@ namespace ActionGameFramework.Projectiles
             if (_lightSourse != null)
                 _lightSourse.enabled = true;
             _collider.enabled = true;
+
+            _attackContext = context;
         }
 
         public virtual void Initialize(Vector3 position)
@@ -170,11 +175,16 @@ namespace ActionGameFramework.Projectiles
         /// </summary>
         void OnTriggerEnter(Collider other)
         {
-            Targetable target = other.GetComponent<Targetable>();
+            Enemy enemy = other.GetComponent<Enemy>();
 
-            if (target == null || target != _target)
+            if (enemy == null || enemy != _target)
                 return;
             
+            // 데미지 처리
+            Damager damager = GetComponent<Damager>();
+            enemy.TakeDamage(damager.damage, transform.position, damager.AlignmentProvider, damager.damageType);
+            ApplyStatusEffects(enemy, _attackContext);
+
             // 투사체 정지
             _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             

@@ -2,6 +2,7 @@
 using ActionGameFramework.Helpers;
 using Core.Health;
 using UnityEngine;
+using static AttackUtility;
 
 namespace ActionGameFramework.Projectiles
 {
@@ -36,9 +37,9 @@ namespace ActionGameFramework.Projectiles
         /// 발사 후 추적할 대상 설정
         /// </summary>
         /// <param name="target">추적할 대상</param>
-        public override void Initialize(Targetable target)
+        public override void Initialize(Targetable target, AttackContext context)
         {
-            base.Initialize(target);
+            base.Initialize(target, context);
 
             if (!target.IsDead)
             {

@@ -2,6 +2,7 @@ using ActionGameFramework.Health;
 using ActionGameFramework.Helpers;
 using ActionGameFramework.Projectiles;
 using UnityEngine;
+using static AttackUtility;
 
 namespace TowerDefense.Towers.TowerLaunchers
 {
@@ -27,7 +28,7 @@ namespace TowerDefense.Towers.TowerLaunchers
         /// <param name="firingPoint">
         /// The point to fire from
         /// </param>
-        public override void Launch(Targetable enemy, GameObject projectile, Transform firingPoint)
+        public override void Launch(Targetable enemy, GameObject projectile, Transform firingPoint, AttackContext attackContext)
         {
             Vector3 startPosition = firingPoint.position;
             var ballisticProjectile = projectile.GetComponent<BallisticProjectile>();

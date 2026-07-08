@@ -1,6 +1,7 @@
-using System;
 using Core.Health;
 using Core.Utilities;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ActionGameFramework.Health
@@ -19,11 +20,6 @@ namespace ActionGameFramework.Health
         /// 이 Damager가 주는 데미지의 속성 (typeCalculations와 매칭)
         /// </summary>
         public DamageType damageType = DamageType.Normal;
-
-        /// <summary>
-        /// 데미지를 주었을 때 발생하는 이벤트
-        /// </summary>
-        public Action<DamageableBehaviour> Damaged;
 
         /// <summary>
         /// Damager의 alignment
@@ -52,17 +48,6 @@ namespace ActionGameFramework.Health
                 damage = 0;
             }
             damage = damageAmount;
-        }
-
-        /// <summary>
-        /// 데미지가 성공적으로 적용되었을 때 이벤트 호출
-        /// </summary>
-        public void OnDamaged(DamageableBehaviour damageable)
-        {
-            if (Damaged != null)
-            {
-                Damaged(damageable);
-            }
         }
     }
 }
