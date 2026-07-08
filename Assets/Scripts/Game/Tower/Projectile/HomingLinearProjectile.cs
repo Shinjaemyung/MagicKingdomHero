@@ -17,7 +17,7 @@ namespace ActionGameFramework.Projectiles
         /// </summary>
         public bool leadTarget;
 
-        public Targetable _homingTarget;
+        protected Targetable _homingTarget;
         protected Vector3 targetPos;
 
         protected Vector3 _targetVelocity;
@@ -145,8 +145,17 @@ namespace ActionGameFramework.Projectiles
             if (Vector3.Distance(transform.position, targetPos) < 1f || destroyTimerProgress > destroyTimer)
             {
                 Remove();
-                Debug.Log("TryDestroySelf");
             }
+        }
+
+        protected override void Remove()
+        {
+            if (_homingTarget != null)
+            {
+                _homingTarget.Removed -= OnTargetDied;
+            }
+
+            base.Remove();
         }
     }
 }

@@ -216,18 +216,15 @@ namespace ActionGameFramework.Projectiles
         /// <summary>
         /// 이 투사체를 풀로 반환
         /// </summary>
-        protected void Remove()
-        {
-            ReturnToPool();
-        }
-
-        private void OnDisable()
+        protected virtual void Remove()
         {
             if (removeCoroutine != null)
             {
                 StopCoroutine(removeCoroutine);
                 removeCoroutine = null;
             }
+
+            ReturnToPool();
         }
     }
 }
