@@ -8,6 +8,10 @@ public class EnemyData : ScriptableObject
     [Tooltip("이 Enemy의 이름")]
     public string enemyName;
 
+    [Tooltip("이 Enemy를 스폰할 때 사용할 프리팹 (WaveData/SpawnInfo에서 EnemyData만으로 스폰 가능하도록 함)")]
+    public GameObject enemyPrefab;
+
+
     [Tooltip("이 Enemy의 최대 체력")]
     public float maxHealth;
 

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: Slime
+  enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
   maxHealth: 10
   attackDamage: 10
   goldReward: 10
+  typeCalculations: []

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WaterSlime
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: Water Slime
+  enemyPrefab: {fileID: 4899833032356138635, guid: a6f656ff8ca9a7c4a96bd94ad587344b, type: 3}
   maxHealth: 10
   attackDamage: 10
   goldReward: 10
