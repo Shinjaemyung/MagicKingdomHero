@@ -19,7 +19,7 @@ public class UI_StartWaveButton : MonoBehaviour
     void StartWave()
     {
         DeactivateButton();
-        WaveManager.Instance.OnClickWaveStart();
+        WaveManager.Instance.OnClickStartWave();
     }
 
     public void ActivateButton()

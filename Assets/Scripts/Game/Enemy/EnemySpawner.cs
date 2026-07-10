@@ -109,14 +109,7 @@ public class EnemySpawner : MonoBehaviour
     /// 지정한 waveIndex의 스폰 데이터(적 종류, 수량)를 기준으로 스포너를 활성화
     /// 활성화 즉시 첫 번째 적이 스폰되고, 이후 spawnInterval마다 스폰되며,
     /// 지정된 수량을 모두 스폰하면 자동으로 멈춘다.
-    /// </summary>
-    /// <param name="waveIndex">waveSpawnDataList에서 사용할 wave 번호</param>
-/// <summary>
-    /// 지정한 waveIndex의 스폰 데이터(적 종류, 수량)를 기준으로 스포너를 활성화
-    /// 활성화 즉시 첫 번째 적이 스폰되고, 이후 spawnInterval마다 스폰되며,
-    /// 지정된 수량을 모두 스폰하면 자동으로 멈춘다.
-    /// waveIndex가 infiniteWaveStartIndex 이상이면 무한 웨이브 모드로 전환되어
-    /// 같은 적만 계속 소환되고(수량 제한 없음), 이후 AdvanceInfiniteWave로만 갱신된다.
+    /// waveIndex가 infiniteWaveStartIndex 이상이면 무한 웨이브 모드로 전환
     /// </summary>
     /// <param name="waveIndex">waveSpawnDataList에서 사용할 wave 번호</param>
     public void StartWave(int waveIndex)
@@ -124,12 +117,6 @@ public class EnemySpawner : MonoBehaviour
         if (IsInfiniteWaveIndex(waveIndex))
         {
             StartInfiniteWave(waveIndex);
-            return;
-        }
-
-        if (waveSpawnDataList == null || waveIndex < 0 || waveIndex >= waveSpawnDataList.Count)
-        {
-            Debug.LogWarning($"[EnemySpawner] {name} 에 wave {waveIndex}에 대한 스폰 데이터가 없습니다.");
             return;
         }
 
@@ -148,6 +135,36 @@ public class EnemySpawner : MonoBehaviour
 
         gameObject.SetActive(true);
     }
+
+    /// <summary>
+    /// WaveManager로부터 직접 전달받은 스폰 정보(적 데이터, 수량, 간격)로 스포너를 활성화한다.
+    /// 일반 웨이브 전용 진입점이며, waveSpawnDataList나 waveIndex를 사용하지 않는다.
+    /// 무한 웨이브 로직(StartInfiniteWave/AdvanceInfiniteWave)과는 별개로 동작한다.
+    /// </summary>
+    public void StartSpawn(SpawnInfo spawnInfo)
+    {
+        var enemyData = spawnInfo.enemyData;
+        if (enemyData == null || enemyData.enemyPrefab == null)
+        {
+            Debug.LogWarning($"[EnemySpawner] {name} 에 전달된 EnemyData 또는 enemyPrefab이 비어있습니다.");
+            return;
+        }
+
+        _isInfiniteMode = false;
+        _currentEnemyPrefab = enemyData.enemyPrefab;
+        _remainingSpawnCount = spawnInfo.count;
+        _currentMaxHealthOverride = null;
+        _currentSpawnInterval = spawnInfo.interval;
+        _aliveCount = 0;
+        _timer = _currentSpawnInterval; // 활성화 즉시 첫 적을 스폰
+        _isSpawning = true;
+
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
+        _impulseSource.GenerateImpulseWithForce(0.5f);
+
+        gameObject.SetActive(true);
+    }
+
 
     /// <summary>waveIndex가 무한 웨이브 모드에 해당하는지 여부</summary>
     public bool IsInfiniteWaveIndex(int waveIndex)

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1e671414aff44749a164e12dccffaa5, type: 3}
-  m_Name: WaveData1
+  m_Name: WaveData4
   m_EditorClassIdentifier: Assembly-CSharp::WaveData
   spawnInfos:
-  - enemyData: {fileID: 11400000, guid: 6a2c47974aced1f4399a7c296e5f2d0d, type: 2}
-    spawnPoint: 0
+  - enemyData: {fileID: 11400000, guid: 92b3af2c4823b3f41a248ac438b80939, type: 2}
+    spawnPoint: 3
     count: 5
     interval: 5

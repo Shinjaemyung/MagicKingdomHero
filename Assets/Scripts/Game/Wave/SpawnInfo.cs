@@ -10,7 +10,7 @@ using UnityEngine;
 public class SpawnInfo
 {
     [Tooltip("생성할 Enemy 데이터")]
-    public EnemyData enemy;
+    public EnemyData enemyData;
 
     [Tooltip("적을 생성할 스폰 방향 (해당 방향을 가진 EnemySpawner에서 생성됨)")]
     public SpawnPoint spawnPoint;

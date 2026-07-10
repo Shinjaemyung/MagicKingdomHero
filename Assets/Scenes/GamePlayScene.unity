@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 8433254}
   - component: {fileID: 8433255}
   m_Layer: 0
-  m_Name: EnemySpawnZone_West
+  m_Name: EnemySpawner_West
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11356,11 +11356,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spanwerActivateClip: {fileID: 8300000, guid: 60dec50d27032dc49a2435708b2fd9a7, type: 3}
-  enemySpanwers:
-  - {fileID: 1475938646}
-  - {fileID: 8433254}
-  - {fileID: 1879806493}
-  - {fileID: 783575688}
+  enemySpanwer_East: {fileID: 1475938646}
+  enemySpanwer_West: {fileID: 8433254}
+  enemySpanwer_South: {fileID: 1879806493}
+  enemySpanwer_North: {fileID: 783575688}
+  waveDataList:
+  - {fileID: 11400000, guid: bb81cb88f414f564d844535f5fa534f9, type: 2}
+  - {fileID: 11400000, guid: 73a53c76d0ff35149ab7aa0fa5828827, type: 2}
+  - {fileID: 11400000, guid: 2bd282cc626624142a62d73151da3b46, type: 2}
+  - {fileID: 11400000, guid: d8440e89fbc413347920aa941b15510e, type: 2}
+  cameraMoveDuration: 1.5
   activateSpawnerDelayAfterCameraMove: 0.5
   infiniteWaveAutoAdvanceInterval: 5
 --- !u!82 &724898380
@@ -12712,7 +12717,7 @@ GameObject:
   - component: {fileID: 783575688}
   - component: {fileID: 783575689}
   m_Layer: 0
-  m_Name: EnemySpawnZone_North
+  m_Name: EnemySpawner_North
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24131,7 +24136,7 @@ GameObject:
   - component: {fileID: 1475938646}
   - component: {fileID: 1475938647}
   m_Layer: 0
-  m_Name: EnemySpawnZone_East
+  m_Name: EnemySpawner_East
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31478,7 +31483,7 @@ GameObject:
   - component: {fileID: 1879806493}
   - component: {fileID: 1879806494}
   m_Layer: 0
-  m_Name: EnemySpawnZone_South
+  m_Name: EnemySpawner_South
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
