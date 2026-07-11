@@ -74,7 +74,7 @@ public class GamePlayManager : MonoBehaviour
         if (enemy == null)
             return;
 
-        UpdatePlayerGold(enemy.enemyData.goldReward);
+        UpdatePlayerGold(enemy._enemyData.goldReward);
         UpdatePlayerScore(increasingScoreAmount);
     }
 

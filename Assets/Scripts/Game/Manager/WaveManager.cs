@@ -30,13 +30,35 @@ public class WaveManager : MonoBehaviour
     [SerializeField, Tooltip("카메라 이동이 끝난 후 Spawner가 활성화되기까지 걸리는 시간(초)")]
     private float activateSpawnerDelayAfterCameraMove = 0.5f;
 
-    [Header("무한 웨이브 자동 진행 설정")]
-    [SerializeField, Tooltip("무한 웨이브 모드 진입 후 자동으로 다음 wave로 넘어가기까지 걸리는 시간(초)")]
+    [Header("무한 웨이브 설정")]
+    [SerializeField, Tooltip("무한 웨이브 모드 진입 후 다음 wave로 넘어가기까지 걸리는 시간(초)")]
     private float infiniteWaveAutoAdvanceInterval = 10f;
 
-    private Coroutine _infiniteWaveCoroutine;
-    private readonly List<EnemySpawner> _activeInfiniteSpawners = new List<EnemySpawner>();
+    [SerializeField, Tooltip("무한 웨이브 모드에서 소환할 Enemy 종류")]
+    private List<EnemyData> infiniteEnemyDatas = new();
 
+    [SerializeField, Tooltip("무한 웨이브 시작 시 적의 최대 체력")]
+    private float infiniteBaseMaxHealth = 30f;
+
+    [SerializeField, Tooltip("무한 웨이브에서 적이 한 마리 스폰될 때마다 늘어나는 최대 체력")]
+    private float infiniteHealthIncreasePerWave = 1f;
+
+    [SerializeField, Tooltip("무한 웨이브 시작 wave(=infiniteWaveStartIndex)에서 스폰 간격(초)")]
+    private float infiniteBaseSpawnInterval = 10f;
+
+    [SerializeField, Tooltip("무한 웨이브에서 wave가 1 증가할 때마다 줄어드는 스폰 간격(초)")]
+    private float infiniteSpawnIntervalDecreasePerWave = 0.1f;
+
+    [SerializeField, Tooltip("무한 웨이브 스폰 간격이 줄어들 수 있는 최소값(초)")]
+    private float infiniteMinSpawnInterval = 0.5f;
+
+    [SerializeField, Tooltip("무한 웨이브에서 몇 마리를 소환할 때마다 enemy 종류를 새로 랜덤하게 바꿀지")]
+    private int infiniteEnemyChangeInterval = 10;
+
+    private Coroutine _infiniteTimerCoroutine;
+    private Coroutine _infiniteSpawnCoroutine;
+    private float _currentInfiniteSpawnInterval;
+    private float _currentInfiniteMaxHealth;
 
     private int currentWaveIndex;
     private int _pendingSpawnerCount;
@@ -57,12 +79,11 @@ public class WaveManager : MonoBehaviour
     {
         if (currentWaveIndex >= waveDataList.Count)
         {
-            List<EnemySpawner> infiniteSpawners = new();
-            infiniteSpawners.Add(enemySpanwer_East);
-            infiniteSpawners.Add(enemySpanwer_West);
-            infiniteSpawners.Add(enemySpanwer_South);
-            infiniteSpawners.Add(enemySpanwer_North);
-            StartInfiniteAutoProgress(infiniteSpawners);
+            StartInfiniteAutoProgress(
+                enemySpanwer_East,
+                enemySpanwer_West,
+                enemySpanwer_South,
+                enemySpanwer_North);
         }
         else
         {
@@ -117,7 +138,7 @@ public class WaveManager : MonoBehaviour
                 continue;
 
             spawner.WaveCleared += OnSpawnerWaveCleared;
-            spawner.StartSpawn(spawnInfo);
+            spawner.ActivateSpawner(spawnInfo);
             _pendingSpawnerCount++;
         }
 
@@ -174,24 +195,17 @@ public class WaveManager : MonoBehaviour
 
 
     /// <summary>
-    /// 무한 웨이브 모드에 진입하면 호출된다. 이후부터는 플레이어가 WaveStartButton을 클릭하지 않아도
-    /// infiniteWaveAutoAdvanceInterval 마다 자동으로 wave 번호를 올리고, 해당 스포너의 난이도(체력/스폰 간격)를 갱신한다.
+    /// 무한 웨이브 모드에 진입. 자동으로 난이도(체력/스폰 간격)를 갱신.
     /// </summary>
-    void StartInfiniteAutoProgress(List<EnemySpawner> spawners)
+    void StartInfiniteAutoProgress(params EnemySpawner[] spawners)
     {
-        if (_infiniteWaveCoroutine != null)
-            StopCoroutine(_infiniteWaveCoroutine);
+        StopAllInfiniteCoroutines();
 
-        _activeInfiniteSpawners.Clear();
-        _activeInfiniteSpawners.AddRange(spawners);
+        _currentInfiniteMaxHealth = infiniteBaseMaxHealth;
+        ApplyInfiniteWaveDifficulty(currentWaveIndex);
 
-        // 무한 웨이브 진입 즉시 각 스포너의 스폰을 시작한다
-        foreach (var spawner in _activeInfiniteSpawners)
-        {
-            spawner.StartWave(currentWaveIndex);
-        }
-
-        _infiniteWaveCoroutine = StartCoroutine(InfiniteWaveAutoProgressRoutine());
+        _infiniteSpawnCoroutine = StartCoroutine(InfiniteSpawnRoutine(spawners));
+        _infiniteTimerCoroutine = StartCoroutine(InfiniteWaveAutoProgressRoutine());
     }
 
     IEnumerator InfiniteWaveAutoProgressRoutine()
@@ -201,17 +215,77 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(infiniteWaveAutoAdvanceInterval);
 
             currentWaveIndex++;
-            foreach (var spawner in _activeInfiniteSpawners)
+            ApplyInfiniteWaveDifficulty(currentWaveIndex);
+        }
+    }
+
+    /// <summary>
+    /// 한 스포너를 담당하는 무한 스폰 루틴. _currentInfiniteSpawnInterval/_currentInfiniteMaxHealth 값을
+    /// 매 반복마다 다시 읽으므로, 다른 코루틴(난이도 갱신)이 값을 바꾸면 다음 스폰부터 바로 반영된다.
+    /// </summary>
+    IEnumerator InfiniteSpawnRoutine(EnemySpawner[] spawners)
+    {
+        EnemyData currentEnemyData = GetRandomInfiniteEnemyData();
+        int spawnCountSinceChange = 0;
+
+        while (true)
+        {
+            foreach (var spawner in spawners)
             {
-                spawner.AdvanceInfiniteWave(currentWaveIndex);
+                spawner.SpawnOnce(currentEnemyData, _currentInfiniteMaxHealth);
             }
+            _currentInfiniteMaxHealth += infiniteHealthIncreasePerWave;
+
+            spawnCountSinceChange++;
+            if (infiniteEnemyChangeInterval > 0 && spawnCountSinceChange >= infiniteEnemyChangeInterval)
+            {
+                spawnCountSinceChange = 0;
+                currentEnemyData = GetRandomInfiniteEnemyData();
+            }
+
+            yield return new WaitForSeconds(_currentInfiniteSpawnInterval);
+        }
+    }
+
+    /// <summary>waveDataList.Count로부터 몇 wave 지났는지를 기준으로 스폰 간격을 계산해 적용</summary>
+    private void ApplyInfiniteWaveDifficulty(int waveIndex)
+    {
+        int stepsIntoInfinite = Mathf.Max(0, waveIndex - waveDataList.Count);
+
+        _currentInfiniteSpawnInterval = Mathf.Max(
+            infiniteMinSpawnInterval,
+            infiniteBaseSpawnInterval - infiniteSpawnIntervalDecreasePerWave * stepsIntoInfinite);
+    }
+
+    /// <summary>무한 웨이브 모드에서 소환할 EnemyData를 랜덤으로 반환</summary>
+    private EnemyData GetRandomInfiniteEnemyData()
+    {
+        if (infiniteEnemyDatas == null || infiniteEnemyDatas.Count == 0)
+            return null;
+
+        int index = UnityEngine.Random.Range(0, infiniteEnemyDatas.Count);
+        return infiniteEnemyDatas[index];
+    }
+
+    /// <summary>무한 웨이브 관련 코루틴을 전부 정지한다.</summary>
+    private void StopAllInfiniteCoroutines()
+    {
+        if (_infiniteSpawnCoroutine != null)
+        {
+            StopCoroutine(_infiniteSpawnCoroutine);
+            _infiniteSpawnCoroutine = null;
+        }
+
+        if (_infiniteTimerCoroutine != null)
+        {
+            StopCoroutine(_infiniteTimerCoroutine);
+            _infiniteTimerCoroutine = null;
         }
     }
 
     private void OnDestroy()
     {
-        if (_infiniteWaveCoroutine != null)
-            StopCoroutine(_infiniteWaveCoroutine);
+        StopAllInfiniteCoroutines();
     }
 
 

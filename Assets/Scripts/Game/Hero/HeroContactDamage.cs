@@ -31,6 +31,6 @@ public class HeroContactDamage : MonoBehaviour
             if (Time.time - lastTime < damageInterval) return;
 
         _enemyDamageCooltime[enemy] = Time.time;
-        _hero.UpdateHealth(-enemy.enemyData.attackDamage);
+        _hero.UpdateHealth(-enemy._enemyData.attackDamage);
     }
 }

@@ -396,28 +396,6 @@ MonoBehaviour:
   - {fileID: 423949469}
   - {fileID: 1200854374}
   - {fileID: 1677820655}
-  spawnInterval: 5
-  waveSpawnDataList:
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 4899833032356138635, guid: a6f656ff8ca9a7c4a96bd94ad587344b, type: 3}
-    spawnCount: 5
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  infiniteWaveStartIndex: 4
-  infiniteEnemyPrefabs:
-  - {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
-  - {fileID: 4899833032356138635, guid: a6f656ff8ca9a7c4a96bd94ad587344b, type: 3}
-  - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
-  - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
-  infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 1
-  infiniteBaseSpawnInterval: 10
-  infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.5
-  infiniteEnemyChangeInterval: 10
 --- !u!114 &8433255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11368,6 +11346,17 @@ MonoBehaviour:
   cameraMoveDuration: 1.5
   activateSpawnerDelayAfterCameraMove: 0.5
   infiniteWaveAutoAdvanceInterval: 5
+  infiniteEnemyDatas:
+  - {fileID: 11400000, guid: 6a2c47974aced1f4399a7c296e5f2d0d, type: 2}
+  - {fileID: 11400000, guid: 6856acf56dc31254f8b641784db6792c, type: 2}
+  - {fileID: 11400000, guid: 32b03f842130cdf4a8a597dfd65c8afe, type: 2}
+  - {fileID: 11400000, guid: 92b3af2c4823b3f41a248ac438b80939, type: 2}
+  infiniteBaseMaxHealth: 20
+  infiniteHealthIncreasePerWave: 1
+  infiniteBaseSpawnInterval: 10
+  infiniteSpawnIntervalDecreasePerWave: 0.1
+  infiniteMinSpawnInterval: 0.1
+  infiniteEnemyChangeInterval: 10
 --- !u!82 &724898380
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12769,28 +12758,6 @@ MonoBehaviour:
   - {fileID: 260932593}
   - {fileID: 1496877817}
   - {fileID: 383631753}
-  spawnInterval: 5
-  waveSpawnDataList:
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
-    spawnCount: 5
-  infiniteWaveStartIndex: 4
-  infiniteEnemyPrefabs:
-  - {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
-  - {fileID: 4899833032356138635, guid: a6f656ff8ca9a7c4a96bd94ad587344b, type: 3}
-  - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
-  - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
-  infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 1
-  infiniteBaseSpawnInterval: 10
-  infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.5
-  infiniteEnemyChangeInterval: 10
 --- !u!114 &783575689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24188,28 +24155,6 @@ MonoBehaviour:
   - {fileID: 1820801498}
   - {fileID: 117710939}
   - {fileID: 1956346144}
-  spawnInterval: 5
-  waveSpawnDataList:
-  - enemyPrefab: {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
-    spawnCount: 5
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  infiniteWaveStartIndex: 4
-  infiniteEnemyPrefabs:
-  - {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
-  - {fileID: 4899833032356138635, guid: a6f656ff8ca9a7c4a96bd94ad587344b, type: 3}
-  - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
-  - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
-  infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 1
-  infiniteBaseSpawnInterval: 10
-  infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.5
-  infiniteEnemyChangeInterval: 10
 --- !u!114 &1475938647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31535,28 +31480,6 @@ MonoBehaviour:
   - {fileID: 1207433747}
   - {fileID: 952554838}
   - {fileID: 1328247697}
-  spawnInterval: 5
-  waveSpawnDataList:
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  - enemyPrefab: {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
-    spawnCount: 5
-  - enemyPrefab: {fileID: 0}
-    spawnCount: 0
-  infiniteWaveStartIndex: 4
-  infiniteEnemyPrefabs:
-  - {fileID: 4899833032356138635, guid: af3e67f01267a444ab0c6666b259c54f, type: 3}
-  - {fileID: 4899833032356138635, guid: a6f656ff8ca9a7c4a96bd94ad587344b, type: 3}
-  - {fileID: 4899833032356138635, guid: baad3879d6ef8d149a24637b9718bcbc, type: 3}
-  - {fileID: 4899833032356138635, guid: 932d05c4841bd204ea728c2f532e6dd4, type: 3}
-  infiniteBaseMaxHealth: 30
-  infiniteHealthIncreasePerWave: 1
-  infiniteBaseSpawnInterval: 10
-  infiniteSpawnIntervalDecreasePerWave: 0.1
-  infiniteMinSpawnInterval: 0.5
-  infiniteEnemyChangeInterval: 10
 --- !u!114 &1879806494
 MonoBehaviour:
   m_ObjectHideFlags: 0

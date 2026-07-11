@@ -39,7 +39,7 @@ public class UI_EnemyInfoPanel : UI_Panel
         _currentEnemy = enemy;
         _currentEnemy.Died += OnCurrentEnemyDied;
 
-        var data = enemy.enemyData;
+        var data = enemy._enemyData;
 
         if (enemyNameText != null)
             enemyNameText.text = data.enemyName;
@@ -62,7 +62,7 @@ public class UI_EnemyInfoPanel : UI_Panel
         if (label == null) return;
 
         float multiplier = 1f;
-        var calcs = enemy.enemyData.typeCalculations;
+        var calcs = enemy._enemyData.typeCalculations;
         if (calcs != null)
         {
             foreach (var calc in calcs)

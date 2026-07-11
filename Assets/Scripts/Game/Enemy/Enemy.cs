@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyPoolable))]
 public class Enemy : Targetable
 {
-    public EnemyData enemyData;
+    public EnemyData _enemyData;
 
     private readonly List<StatusEffect> statusEffects = new();
 
@@ -23,10 +23,10 @@ public class Enemy : Targetable
         _poolable = GetComponent<EnemyPoolable>();
     }
 
-    protected override void OnEnable()
+    public void Initialize(EnemyData data)
     {
-        base.OnEnable();
-        configuration.Initialize(enemyData);
+        _enemyData = data;
+        configuration.Initialize(_enemyData);
         Hit += OnHit;
         statusEffects.Clear();
     }
