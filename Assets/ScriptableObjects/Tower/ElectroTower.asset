@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: ElectroTower
   m_EditorClassIdentifier: 
+  tower: {fileID: 3835806559484997089, guid: 476244a12804cb5488679a1392e71ad7, type: 3}
   towerName: Electro
-  damageType: 3
   damage: 13
+  damageType: 3
   attackRange: 6
   attackSpeed: 1.5
   cost: 150
   upgradeTowers:
-  - {fileID: 3835806559484997089, guid: 4fde66eef5dbdf34094e361830eefe97, type: 3}
+  - {fileID: 11400000, guid: e7440ca2315816b408e18ec06a11b5bc, type: 2}

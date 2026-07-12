@@ -31,11 +31,6 @@ public class UI_TowerSpawnButton : MonoBehaviour
         text_Price.text = spawnTower.towerData.cost.ToString();
     }
 
-    public void Initialize(Tower tower)
-    {
-        spawnTower = tower;
-    }
-
     void OnClickButton()
     {
         if (GamePlayManager.Instance.PlayerGold >= spawnTower.towerData.cost) 

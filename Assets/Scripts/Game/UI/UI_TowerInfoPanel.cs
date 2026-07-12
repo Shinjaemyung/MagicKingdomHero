@@ -94,11 +94,11 @@ public class UI_TowerInfoPanel : UI_Panel
 
         for (int i = 0; i < data.upgradeTowers.Length; i++)
         {
-            Tower upgradeTower = data.upgradeTowers[i];
+            TowerData upgradeTower = data.upgradeTowers[i];
             if (upgradeTower == null) continue;
 
             var buttonInstance = Instantiate(upgradeButtonPrefab, upgradeButtonContainer);
-            buttonInstance.Setup(upgradeTower.towerData, () => OnUpgradeClicked(upgradeTower));
+            buttonInstance.Setup(upgradeTower, () => OnUpgradeClicked(upgradeTower));
             _upgradeButtons.Add(buttonInstance);
         }
     }
@@ -127,12 +127,12 @@ public class UI_TowerInfoPanel : UI_Panel
         Hide();
     }
 
-    private void OnUpgradeClicked(Tower upgradeTower)
+    private void OnUpgradeClicked(TowerData upgradeTower)
     {
         if (_currentTower == null || upgradeTower == null) return;
 
         var currentTowerData = _currentTower.towerData;
-        if (GamePlayManager.Instance.PlayerGold >= upgradeTower.towerData.cost)
+        if (GamePlayManager.Instance.PlayerGold >= upgradeTower.cost)
         {
             var upgradedTower = _currentTower.UpgradeTower(upgradeTower);
             ShowTowerInfo(upgradedTower);

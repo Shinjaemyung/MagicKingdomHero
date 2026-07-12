@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: FireTower
   m_EditorClassIdentifier: 
+  tower: {fileID: 3835806559484997089, guid: 6b09be1aed259234187d0a7b392b7eef, type: 3}
   towerName: Fire
-  damageType: 2
   damage: 11
+  damageType: 2
   attackRange: 6
   attackSpeed: 1
   cost: 100

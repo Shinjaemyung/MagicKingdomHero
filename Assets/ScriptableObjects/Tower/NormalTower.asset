@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: NormalTower
   m_EditorClassIdentifier: 
+  tower: {fileID: 3835806559484997089, guid: bf85083a72afad24d8faa244a52dbdf5, type: 3}
   towerName: Normal
-  damageType: 0
   damage: 3
+  damageType: 0
   attackRange: 6
   attackSpeed: 1
   cost: 30
   upgradeTowers:
-  - {fileID: 3835806559484997089, guid: 3bd19bad5d3676e49941296c6594ecd5, type: 3}
+  - {fileID: 11400000, guid: 592741d561d1c3b44ba7734912de2ac5, type: 2}

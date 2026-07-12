@@ -149,7 +149,6 @@ namespace TowerDefense.Targetting
             AcquiredTarget = null;
             LostTarget = null;
 
-            // Reset turret facing
             if (mesh != null)
             {
                 mesh.localRotation = Quaternion.identity;

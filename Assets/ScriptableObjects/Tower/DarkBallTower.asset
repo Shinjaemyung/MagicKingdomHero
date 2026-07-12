@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: DarkBallTower
   m_EditorClassIdentifier: 
+  tower: {fileID: 3835806559484997089, guid: cb6d965843a599b49ba5a953b4e174b4, type: 3}
   towerName: Dark Ball
-  damageType: 0
   damage: 125
+  damageType: 0
   attackRange: 7
   attackSpeed: 0.8
   cost: 400

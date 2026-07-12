@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: EnergyBallTower
   m_EditorClassIdentifier: 
+  tower: {fileID: 3835806559484997089, guid: 01fae9cff69d00c47bf5322dc8a99c34, type: 3}
   towerName: Energy Ball
-  damageType: 0
   damage: 45
+  damageType: 0
   attackRange: 6
   attackSpeed: 0.8
   cost: 250
   upgradeTowers:
-  - {fileID: 3835806559484997089, guid: cb6d965843a599b49ba5a953b4e174b4, type: 3}
+  - {fileID: 11400000, guid: 3425998b14cdee348ba1bbf0df41c5cb, type: 2}

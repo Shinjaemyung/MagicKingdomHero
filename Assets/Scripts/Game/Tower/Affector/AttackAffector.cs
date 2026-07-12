@@ -34,9 +34,6 @@ namespace TowerDefense.Affectors
         /// </summary>
         public Transform epicenter;
 
-        [SerializeField, Tooltip("이 공격이 줄 상태 이상 효과들")]
-        private List<StatusEffectData> statusEffects;
-
         /// <summary>
         /// 다중 공격(범위 공격) 여부 설정
         /// </summary>
@@ -184,16 +181,6 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// 투사체의 총 데미지
-        /// </summary>
-        public float GetProjectileDamage()
-        {
-            var splash = projectile.GetComponent<SplashDamager>();
-            float splashDamage = splash != null ? splash.damage : 0;
-            return DamagerProjectile.damage + splashDamage;
-        }
-
-        /// <summary>
         /// 공격 타이머 초기화
         /// </summary>
         protected virtual void SetUpTimers()
@@ -287,7 +274,7 @@ namespace TowerDefense.Affectors
                 }
                 else
                 {
-                    AttackContext context = new AttackContext(_towerData.damage, _towerData.damageType, statusEffects);
+                    AttackContext context = new AttackContext(_towerData.damage, _towerData.damageType, _towerData.statusEffects);
                     _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints, context);
                 }
             }

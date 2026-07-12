@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: LightningTower
   m_EditorClassIdentifier: 
+  tower: {fileID: 3835806559484997089, guid: 4fde66eef5dbdf34094e361830eefe97, type: 3}
   towerName: Lightning
-  damageType: 3
   damage: 23
+  damageType: 3
   attackRange: 7
   attackSpeed: 1.5
   cost: 100

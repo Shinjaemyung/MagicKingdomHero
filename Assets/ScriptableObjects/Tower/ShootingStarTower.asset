@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
   m_Name: ShootingStarTower
   m_EditorClassIdentifier: 
+  tower: {fileID: 3835806559484997089, guid: 3bd19bad5d3676e49941296c6594ecd5, type: 3}
   towerName: Shooting Star
-  damageType: 0
   damage: 7
+  damageType: 0
   attackRange: 9
   attackSpeed: 1
   cost: 50

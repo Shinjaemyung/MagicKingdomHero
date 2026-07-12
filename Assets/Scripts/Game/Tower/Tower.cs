@@ -93,13 +93,13 @@ public class Tower : MonoBehaviour
     /// <summary>
     /// 업그레이드 후 생성된 타워 인스턴스를 반환
     /// </summary>
-    public Tower UpgradeTower(Tower upgradeTower)
+    public Tower UpgradeTower(TowerData upgradeTower)
     {
         if (!towerData.upgradeTowers.Contains(upgradeTower))
             return null;
 
-        Tower spawnedTower = Instantiate(upgradeTower);
-        int upgradeCost = upgradeTower.towerData.cost;
+        Tower spawnedTower = Instantiate(upgradeTower.tower);
+        int upgradeCost = upgradeTower.cost;
         spawnedTower.Initialize(placementArea, gridPosition, totalCost + upgradeCost);
         GamePlayManager.Instance.UpdatePlayerGold(-upgradeCost);
         Remove();
