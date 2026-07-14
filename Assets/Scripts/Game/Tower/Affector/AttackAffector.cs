@@ -93,8 +93,14 @@ namespace TowerDefense.Affectors
         /// </summary>
         private int _attackTargetSpawnId = -1;
 
+        [SerializeField]
         Animator animator;
         AudioSource audioSource;
+
+        /// <summary>
+        /// Animator가 있는 GameObject에서 AnimationEvent를 대신 받아 전달해주는 Relay
+        /// </summary>
+        AnimationEventRelay _animationEventRelay;
 
         /// <summary>Attack 파라미터 해시</summary>
         private static readonly int AttackHash = Animator.StringToHash("Attack");
@@ -136,11 +142,21 @@ namespace TowerDefense.Affectors
 
         private void Awake()
         {
-            animator = GetComponent<Animator>();
             audioSource = GetComponent<AudioSource>();
             Tower tower = GetComponentInParent<Tower>();
             epicenter = tower.GetComponent<Transform>();
             _towerData = tower.towerData;
+
+            // Animator가 있는 GameObject(TowerMesh 등)에서 AnimationEvent(OnAttackAnimationEvent)를
+            // 대신 받아줄 Relay를 찾아 구독한다. 없으면 추가한다.
+            if (animator != null)
+            {
+                _animationEventRelay = animator.GetComponent<AnimationEventRelay>();
+                if (_animationEventRelay == null)
+                    _animationEventRelay = animator.gameObject.AddComponent<AnimationEventRelay>();
+
+                _animationEventRelay.OnAttack += FireProjectile;
+            }
         }
 
         /// <summary>
@@ -243,14 +259,6 @@ namespace TowerDefense.Affectors
         }
 
         /// <summary>
-        /// Animation Event에서 호출. 실제 투사체 발사.
-        /// </summary>
-        public void OnAttackAnimationEvent()
-        {
-            FireProjectile();
-        }
-
-        /// <summary>
         /// 공격 시 공통으로 수행되는 로직
         /// </summary>
         protected virtual void FireProjectile()
@@ -299,6 +307,9 @@ namespace TowerDefense.Affectors
         {
             towerTargetter.AcquiredTarget -= OnAcquiredTarget;
             towerTargetter.LostTarget -= OnLostTarget;
+
+            if (_animationEventRelay != null)
+                _animationEventRelay.OnAttack -= FireProjectile;
         }
 
         /*
