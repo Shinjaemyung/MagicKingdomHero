@@ -220,28 +220,31 @@ public class WaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 한 스포너를 담당하는 무한 스폰 루틴. _currentInfiniteSpawnInterval/_currentInfiniteMaxHealth 값을
-    /// 매 반복마다 다시 읽으므로, 다른 코루틴(난이도 갱신)이 값을 바꾸면 다음 스폰부터 바로 반영된다.
+    /// 무한 스폰 루틴
     /// </summary>
     IEnumerator InfiniteSpawnRoutine(EnemySpawner[] spawners)
     {
-        EnemyData currentEnemyData = GetRandomInfiniteEnemyData();
-        int spawnCountSinceChange = 0;
+        var currentEnemyDatas = new EnemyData[spawners.Length];
+        var spawnCountSinceChange = new int[spawners.Length];
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            currentEnemyDatas[i] = GetRandomInfiniteEnemyData();
+        }
 
         while (true)
         {
-            foreach (var spawner in spawners)
+            for (int i = 0; i < spawners.Length; i++)
             {
-                spawner.SpawnOnce(currentEnemyData, _currentInfiniteMaxHealth);
+                spawners[i].SpawnOnce(currentEnemyDatas[i], _currentInfiniteMaxHealth);
+
+                spawnCountSinceChange[i]++;
+                if (infiniteEnemyChangeInterval > 0 && spawnCountSinceChange[i] >= infiniteEnemyChangeInterval)
+                {
+                    spawnCountSinceChange[i] = 0;
+                    currentEnemyDatas[i] = GetRandomInfiniteEnemyData();
+                }
             }
             _currentInfiniteMaxHealth += infiniteHealthIncreasePerWave;
-
-            spawnCountSinceChange++;
-            if (infiniteEnemyChangeInterval > 0 && spawnCountSinceChange >= infiniteEnemyChangeInterval)
-            {
-                spawnCountSinceChange = 0;
-                currentEnemyData = GetRandomInfiniteEnemyData();
-            }
 
             yield return new WaitForSeconds(_currentInfiniteSpawnInterval);
         }
