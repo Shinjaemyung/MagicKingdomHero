@@ -21,4 +21,5 @@ MonoBehaviour:
   statusEffects: []
   cost: 100
   upgradeTowers:
+  - {fileID: 11400000, guid: fc708eb2b23d7ec4983bbb2ac1527c78, type: 2}
   - {fileID: 11400000, guid: 9ecf11297f47ac845a69757892ae993f, type: 2}

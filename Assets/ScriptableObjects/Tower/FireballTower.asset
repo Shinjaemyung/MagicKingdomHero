@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26639e5737dc6cf42ae5d874a070ebb6, type: 3}
-  m_Name: ExplosionTower
+  m_Name: FireballTower
   m_EditorClassIdentifier: 
-  tower: {fileID: 3835806559484997089, guid: d2c1a620ce812fa46a5c7c644d2d9422, type: 3}
-  towerName: Explosion
-  damage: 27
+  tower: {fileID: 3835806559484997089, guid: 5921d0fde9fb4cd4eb33bb8631d2e275, type: 3}
+  towerName: FireBall
+  damage: 16
   damageType: 2
-  attackRange: 6
-  attackSpeed: 0.9
+  attackRange: 7
+  attackSpeed: 1
   statusEffects: []
-  cost: 100
+  cost: 45
   upgradeTowers: []
