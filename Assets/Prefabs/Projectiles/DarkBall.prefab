@@ -4901,16 +4901,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da8014753875514f8de6a5655aeb8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 5
+  startSpeed: 6
   acceleration: 3
-  hitOffset: 0.1
-  useFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
   projectilePS: {fileID: 3741349210661965394}
   Detached: []
   leadingPrecision: 2
   leadTarget: 0
-  _homingTarget: {fileID: 0}
 --- !u!114 &-4142023654185989021
 MonoBehaviour:
   m_ObjectHideFlags: 0

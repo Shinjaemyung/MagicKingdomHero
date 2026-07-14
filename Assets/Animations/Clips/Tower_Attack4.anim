@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing 2H Magic Attack 01
+  m_Name: Tower_Attack4
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -97800,7 +97800,7 @@ AnimationClip:
   - time: 1.3333334
     functionName: OnAttackAnimationEvent
     data: 
-    objectReferenceParameter: {fileID: 7738470734649893724, guid: cb6d965843a599b49ba5a953b4e174b4, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
