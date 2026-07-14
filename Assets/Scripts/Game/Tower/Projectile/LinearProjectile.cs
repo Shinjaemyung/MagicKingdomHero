@@ -62,6 +62,17 @@ namespace ActionGameFramework.Projectiles
             _collider.isTrigger = true;
         }
 
+        private void OnEnable()
+        {
+            ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>(true);
+            foreach (var ps in particles)
+            {
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                ps.Clear(true);
+                ps.Play(true);
+            }
+        }
+
         public virtual void Initialize(Targetable target, AttackContext context)
         {
             _target = target;
