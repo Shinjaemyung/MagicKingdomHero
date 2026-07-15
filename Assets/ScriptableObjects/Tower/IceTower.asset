@@ -18,5 +18,7 @@ MonoBehaviour:
   damageType: 4
   attackRange: 6
   attackSpeed: 0.9
+  statusEffects:
+  - {fileID: 11400000, guid: c523a0abea3f0b24fb3165c65a436803, type: 2}
   cost: 40
   upgradeTowers: []
