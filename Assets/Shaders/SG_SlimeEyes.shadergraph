@@ -362,6 +362,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "bf2fb95b0f684e188e51c4ceb5d90aa0"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "982b040fe92348108ce7bccda9165855"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "c82cd0500ced47788146af27737a87c4"
                 },
                 "m_SlotId": 4
@@ -3562,7 +3576,7 @@
     "m_ShaderOutputName": "B",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.03999999910593033,
+        "x": 0.5,
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
