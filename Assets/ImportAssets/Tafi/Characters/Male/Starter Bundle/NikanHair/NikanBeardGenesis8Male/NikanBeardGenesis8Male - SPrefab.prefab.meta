@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2168de17ca25bb343b9db9ebd9d8c17b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192235
+  packageName: Starter Bundle from Tafi
+  packageVersion: 1.0
+  assetPath: Assets/Tafi/Characters/Male/Starter Bundle/NikanHair/NikanBeardGenesis8Male/NikanBeardGenesis8Male
+    - SPrefab.prefab
+  uploadId: 427512
