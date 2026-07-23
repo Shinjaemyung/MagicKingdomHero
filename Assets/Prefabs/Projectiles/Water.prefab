@@ -4902,7 +4902,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2991476242001280587}
   - component: {fileID: 5729596076757159888}
-  - component: {fileID: -4142023654185989021}
   - component: {fileID: 2443043527659053253}
   - component: {fileID: 6132271777024668777}
   - component: {fileID: 9101781516093522615}
@@ -4943,30 +4942,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 9
   acceleration: 3
-  hitOffset: 0.1
-  useFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
   projectilePS: {fileID: 4031644464729514609}
   Detached: []
   leadingPrecision: 2
   leadTarget: 0
-  _homingTarget: {fileID: 0}
---- !u!114 &-4142023654185989021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375887527512235453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7e5935b5576fd14dba6a17c95542d95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  damageType: 1
-  alignment:
-    unityObjectReference: {fileID: 0}
 --- !u!114 &2443043527659053253
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -64,7 +64,7 @@ namespace TowerDefense.Towers.Projectiles
                 {
                     continue;
                 }
-                damageable.TakeDamage(damageAmount, damageable.Position, alignmentProvider, damageType);
+                damageable.TakeDamage(damageAmount, damageType, damageable.Position, alignmentProvider);
             }
         }
     }

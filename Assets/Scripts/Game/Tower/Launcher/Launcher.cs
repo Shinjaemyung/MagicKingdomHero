@@ -25,7 +25,6 @@ namespace TowerDefense.Towers.TowerLaunchers
 
                 GameObject poolObject = PoolManager.Instance.GetObject(projectile);
                 poolObject.GetComponent<Poolable>().Init(projectile);
-                SetProjectileDamage(poolObject);
                 Launch(enemy, poolObject, firingPoint, attackContext);
             }
         }
@@ -34,7 +33,6 @@ namespace TowerDefense.Towers.TowerLaunchers
         {
             GameObject poolObject = PoolManager.Instance.GetObject(projectile);
             poolObject.GetComponent<Poolable>().Init(projectile);
-            SetProjectileDamage(poolObject);
             Launch(enemy, poolObject, GetRandomTransform(firingPoints), attackContext);
         }
 
@@ -47,7 +45,6 @@ namespace TowerDefense.Towers.TowerLaunchers
         {
             GameObject poolObject = PoolManager.Instance.GetObject(projectile);
             poolObject.GetComponent<Poolable>().Init(projectile);
-            SetProjectileDamage(poolObject);
             LaunchToPosition(position, poolObject, GetRandomTransform(firingPoints));
         }
 
@@ -60,18 +57,6 @@ namespace TowerDefense.Towers.TowerLaunchers
             particleSystemToPlay.transform.position = origin;
             particleSystemToPlay.transform.LookAt(lookPosition);
             particleSystemToPlay.Play();
-        }
-
-
-        protected void SetProjectileDamage(GameObject projectileObject)
-        {
-            Tower tower = GetComponentInParent<Tower>();
-            if (tower == null || tower.towerData == null)
-                return;
-
-            Damager damager = projectileObject.GetComponent<Damager>();
-            if (damager != null)
-                damager.SetDamage(tower.towerData.damage);
         }
 
         public Transform GetRandomTransform(Transform[] launchPoints)

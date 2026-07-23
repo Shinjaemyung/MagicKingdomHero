@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2991476242001280587}
   - component: {fileID: 8368143575097328470}
-  - component: {fileID: -4142023654185989021}
   - component: {fileID: 7835338854030513173}
   m_Layer: 10
   m_Name: Explosion_Hitscan
@@ -47,22 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
---- !u!114 &-4142023654185989021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375887527512235453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7e5935b5576fd14dba6a17c95542d95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  damageType: 2
-  alignment:
-    unityObjectReference: {fileID: 0}
 --- !u!114 &7835338854030513173
 MonoBehaviour:
   m_ObjectHideFlags: 0

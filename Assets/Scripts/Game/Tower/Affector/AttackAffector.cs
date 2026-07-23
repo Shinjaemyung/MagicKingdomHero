@@ -191,11 +191,6 @@ namespace TowerDefense.Affectors
             _trackingEnemy = acquiredTarget;
         }
 
-        public Damager DamagerProjectile
-        {
-            get { return projectile == null ? null : projectile.GetComponent<Damager>(); }
-        }
-
         /// <summary>
         /// 공격 타이머 초기화
         /// </summary>
@@ -238,14 +233,14 @@ namespace TowerDefense.Affectors
 
             // 애니메이션 시작 시점의 SpawnId를 저장.
             // 애니메이션 재생 도중 _attackTarget이 pool 반환→재스폰되면
-            // SpawnId가 바뀌므로 FireProjectile()에서 발사를 취소할 수 있다.
+            // SpawnId가 바뀌므로 FireProjectile()에서 발사 방식 변경
             var poolable = _attackTarget.GetComponent<Poolable>();
             _attackTargetSpawnId = poolable.SpawnId;
             _attackTargetPos = _attackTarget.gameObject.transform.position;
 
             if (animator != null)
             {
-                // fireRate에 맞게 애니메이션 속도 조절 (클립 길이 직접 계산)
+                // 공격 속도에 맞게 애니메이션 속도 조절
                 var clips = animator.runtimeAnimatorController.animationClips;
                 float clipLength = clips.Length > 0 ? clips[0].length : 1f;
                 animator.speed = clipLength * _towerData.attackSpeed;;
@@ -267,11 +262,10 @@ namespace TowerDefense.Affectors
                 return;
 
             // 애니메이션 시작 이후 _attackTarget이 pool 반환→재스폰됐는지 검증
-            // pool 오브젝트는 동일 인스턴스를 재사용하므로 SpawnId로 구분
             var poolable = _attackTarget.GetComponent<Poolable>();
             if (poolable != null && (poolable.SpawnId != _attackTargetSpawnId || poolable.IsPoolReturned))
             {
-                _launcher.LaunchToPosition(_attackTargetPos, DamagerProjectile.gameObject, projectilePoints);
+                _launcher.LaunchToPosition(_attackTargetPos, projectile, projectilePoints);
             }
             else
             {
@@ -283,7 +277,7 @@ namespace TowerDefense.Affectors
                 else
                 {
                     AttackContext context = new AttackContext(_towerData.damage, _towerData.damageType, _towerData.statusEffects);
-                    _launcher.Launch(_attackTarget, DamagerProjectile.gameObject, projectilePoints, context);
+                    _launcher.Launch(_attackTarget, projectile, projectilePoints, context);
                 }
             }
 

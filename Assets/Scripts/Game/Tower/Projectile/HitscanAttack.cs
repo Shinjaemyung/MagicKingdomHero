@@ -8,7 +8,6 @@ namespace TowerDefense.Towers.Projectiles
     /// <summary>
     /// 적에게 즉시 데미지를 입히는 Hitscan Attack
     /// </summary>
-    [RequireComponent(typeof(Damager))]
     public class HitscanAttack : Poolable
     {
         /// <summary>
@@ -26,11 +25,8 @@ namespace TowerDefense.Towers.Projectiles
         /// </summary>
         protected Targetable _enemy;
 
-
-        protected Damager _damager;
-        protected HitEffectPlayer _hitEffectPlayer;
-
         protected AttackContext _attackContext;
+        protected HitEffectPlayer _hitEffectPlayer;
 
         /// <summary>
         /// 공격이 발사되는 위치
@@ -46,7 +42,6 @@ namespace TowerDefense.Towers.Projectiles
 
         protected virtual void Awake()
         {
-            _damager = GetComponent<Damager>();
             _hitEffectPlayer = GetComponent<HitEffectPlayer>();
             _timer = new Timer(delay, ExecuteAttack);
         }
@@ -114,8 +109,9 @@ namespace TowerDefense.Towers.Projectiles
             _hitEffectPlayer.PlayHitEffects(hitPosition, hitNormal);
 
             // 데미지 처리
-            _enemy.TakeDamage(_damager.damage, _enemy.Position, _damager.AlignmentProvider, _damager.damageType);
-            ApplyStatusEffects(_enemy, _attackContext);
+            Enemy enemy = _enemy.GetComponent<Enemy>();
+            ApplyDamage(enemy, _attackContext);
+            ApplyStatusEffects(enemy, _attackContext);
             _pauseTimer = true;
 
             ReturnToPool();

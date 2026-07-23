@@ -62,7 +62,7 @@ namespace Core.Health
         /// <param name="damagePoint">피격 지점</param>
         /// <param name="alignment">Alignment 정보</param>
         /// <param name="damageType">데미지의 속성</param>
-        public virtual void TakeDamage(float damageValue, Vector3 damagePoint, IAlignmentProvider alignment, DamageType damageType = DamageType.Normal)
+        public virtual void TakeDamage(float damageValue, DamageType damageType, Vector3 damagePoint, IAlignmentProvider alignment)
         {
             HealthChangeInfo info;
             configuration.TakeDamage(damageValue, alignment, damageType, out info);

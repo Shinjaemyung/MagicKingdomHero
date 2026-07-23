@@ -128,7 +128,7 @@ public class HeroAttack : MonoBehaviour
     {
         // 적의 최대 체력 attackDamage%만큼 데미지를 준다.
         float damage = enemy.configuration.MaxHealth * (attackDamage * 0.01f);
-        enemy.TakeDamage(damage, enemy.Position, null);
+        enemy.TakeDamage(damage, DamageType.Normal, enemy.Position, null);
     }
 
 #if UNITY_EDITOR
